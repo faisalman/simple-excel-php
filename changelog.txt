@@ -1,0 +1,6 @@
+Changelog
+===
+
+Version 0.1.1 (19 Mar 2011)
+---
+	- First public release
