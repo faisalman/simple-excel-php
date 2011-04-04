@@ -94,6 +94,9 @@ class SimpleExcel_Writer_XML implements SimpleExcel_Writer_Interface
   </Table>
  </Worksheet>
 </Workbook>';
+		
+		// since there must be no data below XML
+		exit();
 	}
 
 	/**

@@ -26,7 +26,7 @@
  * THE SOFTWARE.
  * 
  * @author		Faisalman
- * @copyright 	2011 (c) Faisalman
+ * @copyright	2011 (c) Faisalman
  * @example		index.php
  * @license		http://www.opensource.org/licenses/mit-license
  * @link		http://github.com/faisalman/simple-excel-php
@@ -38,11 +38,11 @@
 function __autoload($class_name) 
 {
 	$relative_path = str_replace('_', DIRECTORY_SEPARATOR, $class_name).'.php';
-    $file_path = dirname(dirname(__FILE__)).DIRECTORY_SEPARATOR.$relative_path;
-    if (!file_exists($file_path)){
-        return FALSE;
-    }
-    require_once $file_path;
+	$file_path = dirname(dirname(__FILE__)).DIRECTORY_SEPARATOR.$relative_path;
+	if(!file_exists($file_path)){
+		return FALSE;
+	}
+	require_once $file_path;
 }
 
 /**

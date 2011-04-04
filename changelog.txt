@@ -1,6 +1,10 @@
 Changelog
 ===
 
+Version 0.1.2 (4 Apr 2011)
+---
+	+ Add exit() after writing Excel
+	
 Version 0.1.1 (19 Mar 2011)
 ---
-	- First public release
+	* First public release
