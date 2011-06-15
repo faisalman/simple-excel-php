@@ -93,10 +93,12 @@ class SimpleExcel_Parser_XML implements SimpleExcel_Parser_Interface
 
 		// get the specified column within every row
 		foreach($this->table_arr['table_contents'] as $row){
-			if(!$val_only){
-				array_push($col_arr,$row['row_contents'][$col_num-1]);
-			} else {
-				array_push($col_arr,$row['row_contents'][$col_num-1]['value']);
+		    if($row['row_contents']){
+			    if(!$val_only){
+				    array_push($col_arr,$row['row_contents'][$col_num-1]);
+			    } else {
+				    array_push($col_arr,$row['row_contents'][$col_num-1]['value']);
+			    }
 			}
 		}
 		
@@ -190,6 +192,22 @@ class SimpleExcel_Parser_XML implements SimpleExcel_Parser_Interface
 					
 		// loop through all rows		
 		foreach($rows as $row){	
+
+			// check whether ss:Index attribute exist in this row
+			$row_index = $row->xpath('@ss:Index');
+			
+			// if exist, push empty value until the specified index
+			if(count($row_index) > 0){
+				$gap = $row_index[0]-count($this->table_arr['table_contents']);
+				for($i = 1; $i < $gap; $i++){
+					array_push($this->table_arr['table_contents'], array(
+									'row_num' => $row_num,
+									'row_contents' => '',
+									//'row_attrs' => $row_attrs_arr
+								));
+					$row_num += 1;
+				}
+			}
 
 			$cells = $row->Cell;
 			$row_attrs = $row->xpath('@ss:*');
