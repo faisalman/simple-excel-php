@@ -31,7 +31,7 @@
  * @license		http://www.opensource.org/licenses/mit-license
  * @link		http://github.com/faisalman/simple-excel-php
  * @package		SimpleExcel
- * @version		0.1.1
+ * @version		0.1.3
  */
 
 /** autoload all interfaces & classes */

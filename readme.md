@@ -2,15 +2,15 @@
 
 PHP library with simplistic approach for parsing/writing data from/to Microsoft Excel format
 
-*	Author	: Faisalman <movedpixel@gmail.com>
+*	Author	: Faisalman <<movedpixel@gmail.com>>
 *	Homepage: http://faisalman.github.com/simple-excel-php
 *	Source	: http://github.com/faisalman/simple-excel-php
 *	License	: MIT License (http://opensource.org/licenses/mit-license)
 
 ## Features
 
-*	Parsing Microsoft Excel 2003 XML Spreadsheet cells to array of data
-*	Writing array of data to Microsoft Excel 2003 XML Spreadsheet cells
+*	Parser: Microsoft Excel 2003 XML
+*	Writer: Microsoft Excel 2003 XML
 
 ## License
 
