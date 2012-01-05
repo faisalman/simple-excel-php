@@ -73,7 +73,7 @@ class SimpleExcel
 	 */
 	public function constructParser($filetype){
 		$filetype = strtoupper($filetype);
-		if(preg_match('/(XML)/',$filetype)){			
+		if(preg_match('/(XML|CSV)/',$filetype)){			
 			$parser_class = 'SimpleExcel_Parser_'.$filetype;			
 			$this->parser = new $parser_class();
 		} else {

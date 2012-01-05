@@ -1,6 +1,6 @@
 # Simple Excel
 
-PHP library with simplistic approach for parsing/writing data from/to Microsoft Excel format
+PHP library with simplistic approach for parsing/writing data from/to Microsoft Excel XML/CSV format
 
 *	Author	: Faisalman <<movedpixel@gmail.com>>
 *	Homepage: http://faisalman.github.com/simple-excel-php
@@ -9,7 +9,7 @@ PHP library with simplistic approach for parsing/writing data from/to Microsoft 
 
 ## Features
 
-*	Parser: Microsoft Excel 2003 XML
+*	Parser: Microsoft Excel 2003 XML, CSV
 *	Writer: Microsoft Excel 2003 XML
 
 ## License
