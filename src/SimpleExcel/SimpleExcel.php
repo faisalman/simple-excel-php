@@ -3,9 +3,9 @@
  * Simple Excel
  * 
  * A PHP library with simplistic approach for parsing/writing data from/to 
- * Microsoft Excel XML format
+ * Microsoft Excel XML/CSV format
  *  
- * Copyright (c) 2011 Faisalman <movedpixel@gmail.com>
+ * Copyright (c) 2011-2012 Faisalman <fyzlman@gmail.com>
  *
  * Permission is hereby granted, free of charge, to any person obtaining a copy
  * of this software and associated documentation files (the "Software"), to deal
@@ -25,13 +25,12 @@
  * OUT OF OR IN CONNECTION WITH THE SOFTWARE OR THE USE OR OTHER DEALINGS IN
  * THE SOFTWARE.
  * 
- * @author		Faisalman
- * @copyright	2011 (c) Faisalman
- * @example		index.php
+ * @author      Faisalman
+ * @copyright   2011-2012 (c) Faisalman
  * @license		http://www.opensource.org/licenses/mit-license
  * @link		http://github.com/faisalman/simple-excel-php
  * @package		SimpleExcel
- * @version		0.1.3
+ * @version		0.2.1
  */
 
 /** autoload all interfaces & classes */

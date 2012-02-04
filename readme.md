@@ -11,9 +11,7 @@ PHP library for parsing/writing data from/to Microsoft Excel XML/CSV format with
 
 ## License
 
-Copyright (c) 2011 Faisalman <<fyzlman@gmail.com>>
-
-Licensed under MIT License http://opensource.org/licenses/mit-license
+Copyright (c) 2011-2012 Faisalman <<fyzlman@gmail.com>>
 
 Permission is hereby granted, free of charge, to any person obtaining a copy
 of this software and associated documentation files (the "Software"), to deal
