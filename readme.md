@@ -1,20 +1,19 @@
 # Simple Excel
 
-PHP library with simplistic approach for parsing/writing data from/to Microsoft Excel XML/CSV format
+http://faisalman.github.com/simple-excel-php
 
-*	Author	: Faisalman <<movedpixel@gmail.com>>
-*	Homepage: http://faisalman.github.com/simple-excel-php
-*	Source	: http://github.com/faisalman/simple-excel-php
-*	License	: MIT License (http://opensource.org/licenses/mit-license)
+PHP library for parsing/writing data from/to Microsoft Excel XML/CSV format with simplistic approach 
 
 ## Features
 
-*	Parser: Microsoft Excel 2003 XML, CSV
-*	Writer: Microsoft Excel 2003 XML
+* Parser: Microsoft Excel 2003 XML, CSV
+* Writer: Microsoft Excel 2003 XML, CSV
 
 ## License
 
-Copyright (c) 2011 Faisalman <movedpixel@gmail.com>
+Copyright (c) 2011 Faisalman <<fyzlman@gmail.com>>
+
+Licensed under MIT License http://opensource.org/licenses/mit-license
 
 Permission is hereby granted, free of charge, to any person obtaining a copy
 of this software and associated documentation files (the "Software"), to deal
