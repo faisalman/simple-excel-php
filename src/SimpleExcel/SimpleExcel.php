@@ -90,7 +90,7 @@ class SimpleExcel
 	 */
 	public function constructWriter($filetype){
 		$filetype = strtoupper($filetype);
-		if(preg_match('/(XML)/',$filetype)){			
+		if(preg_match('/(XML|CSV)/',$filetype)){			
 			$writer_class = 'SimpleExcel_Writer_'.$filetype;			
 			$this->writer = new $writer_class();
 		} else {
