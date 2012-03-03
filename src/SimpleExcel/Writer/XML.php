@@ -98,6 +98,19 @@ class SimpleExcel_Writer_XML implements SimpleExcel_Writer_Interface
 		// since there must be no data below XML
 		exit();
 	}
+	
+    /**
+	 * Set XML data
+	 * 
+	 * @param	array	$values An array contains ordered value of arrays for all fields
+	 * @return	void
+	 */
+	public function setData($values){
+	    if(!is_array($values)){
+	        $values = array($values);
+	    }
+        $this->xml_data = $values;
+	}
 
 	/**
 	 * Set a document property of the XML

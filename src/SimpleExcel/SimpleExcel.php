@@ -27,10 +27,10 @@
  * 
  * @author      Faisalman
  * @copyright   2011-2012 (c) Faisalman
- * @license		http://www.opensource.org/licenses/mit-license
- * @link		http://github.com/faisalman/simple-excel-php
- * @package		SimpleExcel
- * @version		0.2.2
+ * @license     http://www.opensource.org/licenses/mit-license
+ * @link        http://github.com/faisalman/simple-excel-php
+ * @package     SimpleExcel
+ * @version     0.2.2
  */
 
 /** autoload all interfaces & classes */

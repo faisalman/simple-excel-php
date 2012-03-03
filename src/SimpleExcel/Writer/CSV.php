@@ -68,12 +68,25 @@ class SimpleExcel_Writer_CSV implements SimpleExcel_Writer_Interface
 	}
 	
 	/**
+	 * Set CSV data
+	 * 
+	 * @param	array	$values An array contains ordered value of arrays for all fields
+	 * @return	void
+	 */
+	public function setData($values){
+	    if(!is_array($values)){
+	        $values = array($values);
+	    }
+        $this->csv_data = $values;
+	}
+	
+	/**
 	 * Set character for delimiter
 	 * 
 	 * @param	string	$delimiter  Commonly used character can be a comma, semicolon, tab, or space
 	 * @return	void
 	 */
-	public function setDelimiter($delimiter){
+	public function setDelimiter($delimiter = ','){
 	    $this->delimiter = $delimiter;
 	}
 }
