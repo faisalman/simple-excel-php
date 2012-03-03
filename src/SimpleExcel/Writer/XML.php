@@ -70,6 +70,10 @@ class SimpleExcel_Writer_XML implements SimpleExcel_Writer_Interface
 	 * @return	void
 	 */
 	public function saveFile($filename){
+	
+	    if(!isset($filename)){
+	        $filename = date('YmdHis');
+	    }
 		
 		// set HTTP response header
 		header('Content-Type: application/xml');

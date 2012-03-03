@@ -51,7 +51,11 @@ class SimpleExcel_Writer_CSV implements SimpleExcel_Writer_Interface
 	 * @return	void
 	 */
 	public function saveFile($filename){
-		
+
+	    if(!isset($filename)){
+	        $filename = date('YmdHis');
+	    }
+	    		
 		// set HTTP response header
 		header('Content-Type: text/csv');
 		header('Content-Disposition: attachment; filename='.$filename.'.csv');
