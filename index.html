@@ -1,34 +1,49 @@
 <!DOCTYPE html>
 <html>
 <head>
-  <meta charset='utf-8'>
+    <meta charset="utf-8">
+    <meta name="author" content="Faisalman" />
+    <meta name="description" content="Simple Excel is a lightweight PHP library with simplistic approach for parsing/writing data from/to Microsoft Excel XML/CSV format" />
+    <meta name="keywords" content="php, library, microsoft, excel, xml, csv, parser, writer" />
 
-  <title>faisalman/simple-excel-php @ GitHub</title>
+    <title>SimpleExcel PHP library</title>
 
-  <style type="text/css">
-    body {
-      margin-top: 1.0em;
-      background: #444;
-      font-family: Helvetica, Arial, FreeSans, san-serif;
-      color: #eee;
-      text-shadow: 1px 1px 5px #000;
-    }
-    #container {
-      margin: 0 auto;
-      width: 700px;
-    }
-    h1 { font-size: 3.8em; color: #ff55aa; margin-bottom: 3px; text-shadow: 1px 1px 2px #222; }
-    h1 .small { font-size: 0.4em; }
-    h1 a { text-decoration: none }
-    h2 { font-size: 1.5em; color: #ff55aa; text-shadow: 1px 1px 2px #222; }
-    h3 { /*text-align: center;*/ color: #ff55aa; text-shadow: 1px 1px 2px #222; }
-    a { color: #ff55aa; text-shadow: 1px 1px 2px #222; }
-    .description { font-size: 1.2em; margin-bottom: 30px; margin-top: 30px; font-style: italic;}
-    .download { float: right; }
-    pre { background: #333; color: #fff; padding: 15px;	text-shadow: 1px 1px 2px #000; }
-    hr { border: 0; width: 80%; border-bottom: 1px solid #aaa}
-    .footer { text-align:center; padding-top:30px; font-style: italic; }
-  </style>
+    <link rel="stylesheet" href="highlightjs/github.css">
+    <link href='http://fonts.googleapis.com/css?family=Ubuntu|Ubuntu+Mono' rel='stylesheet' type='text/css'>
+    <style type="text/css">
+        body {
+          margin: 70px auto;
+          background: #f9f9f9;
+          font-family: Ubuntu, Helvetica, Arial, sans-serif;
+          font-size: 14px;
+          color: #444;
+          text-shadow: 0 0 1px #fff;
+        }
+        #container {
+          margin: 0 auto;
+          width: 960px;
+        }
+        h1, h2, h3 { font-family: Ubuntu, Helvetica, Arial, sans-serif; }
+        h1 { font-size: 3.8em; color: #333; margin-bottom: 3px; text-shadow: 1px 1px 2px #fff; }
+        h1 .small { font-size: 0.5em; }
+        h1 a { text-decoration: none }
+        h2 { font-size: 2em; color: #333; margin: 40px 0 10px; text-shadow: 1px 1px 2px #fff; }
+        h3 { font-size: 1.6em; color: #333; text-shadow: 1px 1px 2px #fff; }
+        a { color: #333; text-shadow: 1px 1px 2px #fff; }
+        .description { font-size: 1em; margin-bottom: 30px; margin-top: 30px; font-style: italic;}
+        .download { position: relative; }
+        pre, code { font-family: 'Ubuntu Mono', monospace; }
+        pre { background: #eee; color: #333; padding: 5px; text-shadow: none; overflow: auto}
+        hr { border: 0; width: 80%; border-bottom: 1px solid #aaa}
+        .footer { text-align:center; padding-top:30px; font-style: italic; }
+        li h3 { font-size: 1.2em; margin-top: 20px; }
+        li p { margin: 5px 0 5px 0; }
+    </style>
+    <script type="text/javascript" src="highlightjs/highlight.pack.js"></script>
+    <script type="text/javascript">
+        hljs.tabReplace = '    ';
+        hljs.initHighlightingOnLoad();
+    </script>
 </head>
 
 <body>
@@ -36,11 +51,11 @@
 
   <div id="container">
 
-    <h1><a href="http://faisalman.github.com/simple-excel-php">SimpleExcel PHP</a>
-      <span class="small">by <a href="http://github.com/faisalman">faisalman</a></span></h1>
+    <h1><a href="http://faisalman.github.com/simple-excel-php">SimpleExcel
+      <span class="small">PHP</a></span></h1>
 
     <div class="description">
-      SimpleExcel is a PHP library with simplistic approach for parsing/writing data from/to Microsoft Excel XML format
+      PHP library with simplistic approach for parsing/writing data from/to Microsoft Excel XML/CSV format
     </div>
 
     <h2>Download</h2>
@@ -57,131 +72,128 @@
     </p>
     <p>You can also clone the project with <a href="http://git-scm.com">Git</a>
       by running:
-      <pre>$ git clone git://github.com/faisalman/simple-excel-php</pre>
+      <pre><code>$ git clone git://github.com/faisalman/simple-excel-php</code></pre>
     </p>
 <h2>Authors</h2>
-<ul><li>Faisalman (movedpixel@gmail.com)</li></ul>
+<ul><li>Faisalman &lt;fyzlman@gmail.com&gt;</li></ul>
 <h2>Version</h2>
-<p>0.1.2</p>
+<p>v0.2.2</p>
 <h2>Features</h2>
 <ul>
-<li>Parsing Microsoft Excel 2003 XML Spreadsheet cells to array of data</li>
-<li>Writing array of data to Microsoft Excel 2003 XML Spreadsheet cells</li>
+<li>Parsing Microsoft Excel XML/CSV cells to PHP arrays</li>
+<li>Writing Microsoft Excel XML/CSV cells from PHP arrays</li>
 </ul>
 <h2>Dependencies</h2>
-<ul><li>PHP5</li></ul>
+<ul><li> PHP5++</li></ul>
 <h2>Install</h2>
-<p>Just include this library on your PHP project with either include or require function</p>
+<p>Just include this library on your PHP project with either <code>include()</code> or <code>require()</code></p>
 <h2>Usage Example</h2>
 Parsing an XML file, simplified:
-<pre>
+<pre><code>
 &lt;?php
 
-require_once '../src/SimpleExcel/SimpleExcel.php';	// load the class file
+require_once('../src/SimpleExcel/SimpleExcel.php'); // load the main class file
 
-$excel = new SimpleExcel(); 			// instantiate new object
-$excel->constructParser('XML'); 		// construct the parser
+$excel = new SimpleExcel('xml');                    // instantiate new object (will automatically construct the parser)
 
-$excel->parser->loadFile('example.xml'); 	// load an XML file
+$excel->parser->loadFile('example.xml');            // load an XML file from server to be parsed
 
-$foo = $excel->parser->getField(); 	// get complete array of the table
-$bar = $excel->parser->getRow(3);	// get specific array from the specified row (number 3)
-$baz = $excel->parser->getColumn(4);	// get specific array from the specified column (number 4)
-$qux = $excel->parser->getCell(2,1);	// get specific data from the specified cell (row 2, column 1)
+$foo = $excel->parser->getField();                  // get complete array of the table
+$bar = $excel->parser->getRow(3);                   // get specific array from the specified row (3rd row)
+$baz = $excel->parser->getColumn(4);                // get specific array from the specified column (4th row)
+$qux = $excel->parser->getCell(2,1);                // get specific data from the specified cell (2nd row in 1st column)
 
 ?&gt;
-</pre>
+</code></pre>
 Writing an XML file, simplified:
-<pre>
+<pre><code>
 &lt;?php
 
 /**
- * Warning: there must be no data sent to browser
- * (could be an echo, HTML element, even a whitespace)
+ * Warning: note that there must be no data sent to browser
+ * (be it an echo, HTML element, or even a whitespace)
  * <u>before</u> the writer->saveFile() method get called
  */
-require_once '../src/SimpleExcel/SimpleExcel.php';	// load the class file
+require_once('../src/SimpleExcel/SimpleExcel.php'); // load the main class file
 
-$excel = new SimpleExcel(); 			// instantiate new object
-$excel->constructWriter('XML'); 		// construct the writer
+$excel = new SimpleExcel('xml');                    // instantiate new object (will automatically construct the writer)
 
-$excel->writer->addRow(array('ID','Nama Kota','ID Wilayah'));	// adding a row to the writer
-$excel->writer->addRow(array('1','Kab Bogor','1'));	// adding a row to the writer
-$excel->writer->addRow(array('2','Kab Sukabumi','1'));	// adding a row to the writer
-$excel->writer->setDocProp('Author','Faisalman');	// set author
-$excel->writer->saveFile('example');	// force browser to save the file with specified name (example.xml)
+$excel->writer->setData(
+    array
+    (
+        array('ID',  'Nama Kota',    'ID Wilayah'),
+        array('1',   'Kab Bogor',    '1'         ),
+        array('2',   'Kab Sukabumi', '1'         )
+    )
+);                                                  // add some data to the writer
+$excel->writer->saveFile('example');                // force browser to save the file with specified name (example.xml)
 
 ?&gt;
-</pre>
+</code></pre>
 
 <h2>API</h2>
+<h3>Constructor</h3>
 <ul>
 <li>
-<h3>constructParser(p)</h3>
-<p>Construct a SimpleExcel Parser<br/>
-p = Filetype of the file which will be parsed (string). Currently only support 'xml'</p>
+<h3><pre><code>constructParser($filetype)</code></pre></code></pre></h3>
+<p><em>Construct a SimpleExcel Parser</em></p>
 </li>
 <li>
-<h3>constructWriter(p)</h3>
-<p>Construct a SimpleExcel Writer<br/>
-p = Filetype of the file which will be written (string). Currently only support 'xml'</p>
+<h3><pre><code>constructWriter($filetype)</code></pre></h3>
+<p><em>Construct a SimpleExcel Writer</em></p>
+</li>
+</ul>
+<h3>Parser</h3>
+<ul>
+<li>
+<h3><pre><code>parser->getCell($row_num, $col_num)</code></pre></h3>
+<p><em>Get value of the specified cell. Returns an array or FALSE if cell doesn't exist</em></p>
 </li>
 <li>
-<h3>parser->getCell(p, q)</h3>
-<p>Get value of the specified cell. Returns an array or FALSE if cell doesn't exist<br/>
-p = Row number (int)<br/>
-q = Column number (int)</p>
+<h3><pre><code>parser->getCellDatatype($row_num, $col_num)</code></pre></h3>
+<p><em>Get datatype of the specified cell. Returns an array or FALSE if cell doesn't exist</em></p>
 </li>
 <li>
-<h3>parser->getCellDatatype(p, q)</h3>
-<p>Get datatype of the specified cell. Returns an array or FALSE if cell doesn't exist<br/>
-p = Row number (int)<br/>
-q = Column number (int)</p>
+<h3><pre><code>parser->getColumn($col_num, $val_only)</code></pre></h3>
+<p><em>Get data of the specified column as an array. Returns an array or FALSE if table doesn't exist</em></p>
 </li>
 <li>
-<h3>parser->getColumn(p, q)</h3>
-<p>Get data of the specified column as an array. Returns an array or FALSE if table doesn't exist<br/>
-p = Column number (int)<br/>
-q = Specify returns as value only or complete data (bool). Default to TRUE</p>
+<h3><pre><code>parser->getField()</code></pre></h3>
+<p><em>Get data of all cells as an array. Returns an array or FALSE if table doesn't exist</em></p>
 </li>
 <li>
-<h3>parser->getField()</h3>
-<p>Get data of all cells as an array. Returns an array or FALSE if table doesn't exist</p>
+<h3><pre><code>parser->getRow($row_num, $val_only)</code></pre></h3>
+<p><em>Get data of the specified row as an array. Returns an array or FALSE if cell doesn't exist</em></p>
 </li>
 <li>
-<h3>parser->getRow(p, q)</h3>
-<p>Get data of the specified row as an array. Returns an array or FALSE if cell doesn't exist<br/>
-p = Row number (int)<br/>
-q = Specify returns as value only or complete data (bool). Default to TRUE</p>
+<h3><pre><code>parser->loadFile($file_path)</code></pre></h3>
+<p><em>Load the file to be parsed. Returns TRUE if file exist and valid, FALSE if does'nt</em></p>
+</li>
+</ul>
+<h3>Writer</h3>
+<ul>
+<li>
+<h3><pre><code>writer->addRow($values)</code></pre></h3>
+<p><em>Adding one row of data</em></p>
 </li>
 <li>
-<h3>parser->loadFile(p)</h3>
-<p>Load the XML file to be parsed. Returns TRUE if file exist and valid, FALSE if does'nt<br/>
-p = Path to XML file (string)</p>
+<h3><pre><code>writer->saveFile($filename)</code></pre></h3>
+<p><em>Export the document</em></p>
 </li>
 <li>
-<h3>writer->addRow(p)</h3>
-<p>Adding row data to XML<br/>
-p = Ordered value for every cell within a row(array)</p>
+<h3><pre><code>writer->setData($values)</code></pre></h3>
+<p><em>Set the table data</em></p>
 </li>
 <li>
-<h3>writer->saveFile(p)</h3>
-<p>Export the XML document<br/>
-p = Name for the downloaded file (string). Extension will be set automatically</p>
-</li>
-<li>
-<h3>writer->setDocProp(p, q)</h3>
-<p>Set a document property of the XML<br/>
-p = Document property to be set (string)<br/>
-q = Value of the document property (string)</p>
+<h3><pre><code>writer->setDocProp($prop, $val)</code></pre></h3>
+<p><em>[XML only] Set the document property</em></p>
 </li>
 </ul>
 
 <h2>License</h2>
-<p>MIT License
-<br/><a href="http://opensource.org/licenses/mit-license">http://opensource.org/licenses/mit-license</a></p>
-<pre>
-Copyright (c) 2011 Faisalman &lt;movedpixel@gmail.com&gt;
+<p>MIT License &nbsp; <a href="http://opensource.org/licenses/mit-license">http://opensource.org/licenses/mit-license</a></p>
+<pre><code>
+Copyright (c) 2011-2012 Faisalman &lt;fyzlman@gmail.com&gt;
 
 Permission is hereby granted, free of charge, to any person obtaining a copy
 of this software and associated documentation files (the "Software"), to deal
@@ -200,7 +212,7 @@ AUTHORS OR COPYRIGHT HOLDERS BE LIABLE FOR ANY CLAIM, DAMAGES OR OTHER
 LIABILITY, WHETHER IN AN ACTION OF CONTRACT, TORT OR OTHERWISE, ARISING FROM,
 OUT OF OR IN CONNECTION WITH THE SOFTWARE OR THE USE OR OTHER DEALINGS IN
 THE SOFTWARE.
-</pre>
+</code></pre>
     <div class="footer">
       get the source code on GitHub : <a href="http://github.com/faisalman/simple-excel-php">faisalman/simple-excel-php</a>
     </div>
