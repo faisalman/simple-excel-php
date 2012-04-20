@@ -113,7 +113,12 @@ class SimpleExcel_Writer_XML implements SimpleExcel_Writer_Interface
 	    if(!is_array($values)){
 	        $values = array($values);
 	    }
-        $this->xml_data = $values;
+        $this->xml_data = ""; // reset the xml data.
+
+        // append values as rows
+        foreach ($values as $value) {
+            $this->addRow($value);  
+        }
 	}
 
 	/**
