@@ -67,19 +67,25 @@ class SimpleExcel_Writer_XML implements SimpleExcel_Writer_Interface
 	 * Export the XML document
 	 * 
 	 * @param	string	$filename	Name for the downloaded file (extension will be set automatically)
+     * @param	string	$target	    Save location
 	 * @return	void
 	 */
-	public function saveFile($filename){
+	public function saveFile($filename, $target){
 	
 	    if(!isset($filename)){
 	        $filename = date('YmdHis');
+	    }
+        if(!isset($target)){
+            // write XML output to browser
+	        $target = 'php://output';
 	    }
 		
 		// set HTTP response header
 		header('Content-Type: application/xml');
 		header('Content-Disposition: attachment; filename='.$filename.'.xml');
 
-		echo '<?xml version="1.0"?>
+        $fp = fopen($target, 'w');
+		fwrite($fp, '<?xml version="1.0"?>
 <?mso-application progid="Excel.Sheet"?>
 <Workbook xmlns="urn:schemas-microsoft-com:office:spreadsheet"
  xmlns:o="urn:schemas-microsoft-com:office:office"
@@ -97,7 +103,8 @@ class SimpleExcel_Writer_XML implements SimpleExcel_Writer_Interface
   <Table>'.$this->xml_data.'
   </Table>
  </Worksheet>
-</Workbook>';
+</Workbook>');
+        fclose($fp);
 		
 		// since there must be no data below XML
 		exit();

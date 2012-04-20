@@ -10,7 +10,7 @@
 interface SimpleExcel_Writer_Interface
 {
 	public function addRow($values);
-	public function saveFile($filename);
+	public function saveFile($filename, $target);
 	public function setData($values);
 }
 

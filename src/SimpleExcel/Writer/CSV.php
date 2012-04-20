@@ -48,20 +48,24 @@ class SimpleExcel_Writer_CSV implements SimpleExcel_Writer_Interface
 	 * Export the CSV document
 	 * 
 	 * @param	string	$filename	Name for the downloaded file (extension will be set automatically)
+     * @param	string	$target	    Save location
 	 * @return	void
 	 */
-	public function saveFile($filename){
+	public function saveFile($filename, $target){
 
 	    if(!isset($filename)){
 	        $filename = date('YmdHis');
 	    }
-	    		
+        if(!isset($target)){
+            // write CSV output to browser
+	        $target = 'php://output';
+	    }
+
 		// set HTTP response header
 		header('Content-Type: text/csv');
 		header('Content-Disposition: attachment; filename='.$filename.'.csv');
 
-        // write CSV output to browser
-		$fp = fopen('php://output', 'w');
+        $fp = fopen($target, 'w');
 		foreach($this->csv_data as $row){
             fputcsv($fp, $row, $this->delimiter);
         }
