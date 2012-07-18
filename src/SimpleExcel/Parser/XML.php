@@ -17,10 +17,10 @@ class SimpleExcel_Parser_XML implements SimpleExcel_Parser_Interface
 	
 	/**
 	 * @param	string	$file_url	Path to XML file (optional)
-	 * @return	void
+	 * @return	SimpleExcel_Parser_XML
 	 */
-	public function __construct($file_url = NULL){
-		if(isset($file_url)) $this->loadFile($file_url);
+	public function __construct($file_url = NULL) {
+		$this->loadFile($file_url);
 	}
 
 	/**
@@ -30,11 +30,11 @@ class SimpleExcel_Parser_XML implements SimpleExcel_Parser_Interface
 	 * @param	object	$attrs_obj
 	 * @return 	array
 	 */
-	private function getAttributes($attrs_obj){
+	private function getAttributes($attrs_obj) {
 		$attrs_arr = array();
-		foreach($attrs_obj as $attrs){
-			$attrs = (array)$attrs;
-			foreach($attrs as $attr){
+		foreach ($attrs_obj as $attrs) {
+			$attrs = (array) $attrs;
+			foreach ($attrs as $attr) {
 				$attr_keys = array_keys($attr);
 				$attrs_arr[$attr_keys[0]] = $attr[$attr_keys[0]];
 			}
@@ -47,14 +47,13 @@ class SimpleExcel_Parser_XML implements SimpleExcel_Parser_Interface
 	 * 
 	 * @param	int	$row_num	Row number
 	 * @param	int	$col_num	Column number
-	 * @return	mixed			Returns an array or FALSE if cell doesn't exist
+	 * @return	array			Returns an array.
+	 * @throws	Exception		If the cell identified doesn't exist.
 	 */
-	public function getCell($row_num, $col_num){
-		
+	public function getCell($row_num, $col_num) {
 		// check whether the cell exists
-		if(!isset($this->table_arr['table_contents'][$row_num-1]['row_contents'][$col_num-1])){
+		if (!isset($this->table_arr['table_contents'][$row_num-1]['row_contents'][$col_num-1])) {
 			throw new Exception('Cell '.$row_num.','.$col_num.' doesn\'t exist');
-			return FALSE;
 		}
 		return $this->table_arr['table_contents'][$row_num-1]['row_contents'][$col_num-1]['value'];
 	}
@@ -64,14 +63,13 @@ class SimpleExcel_Parser_XML implements SimpleExcel_Parser_Interface
 	 * 
 	 * @param	int	$row_num	Row number
 	 * @param	int	$col_num	Column number
-	 * @return	mixed			Returns an array or FALSE if cell doesn't exist
+	 * @return	array			Returns an array.
+	 * @throws	Exception		If the cell requested doesn't exist.
 	 */
-	public function getCellDatatype($row_num, $col_num){
-		
+	public function getCellDatatype($row_num, $col_num) {
 		// check whether the cell exists
-		if(!isset($this->table_arr['table_contents'][$row_num-1]['row_contents'][$col_num-1])){
+		if(!isset($this->table_arr['table_contents'][$row_num-1]['row_contents'][$col_num-1])) {
 			throw new Exception('Cell '.$row_num.','.$col_num.' doesn\'t exist');
-			return FALSE;
 		}
 		return $this->table_arr['table_contents'][$row_num-1]['row_contents'][$col_num-1]['datatype'];
 	}
@@ -80,21 +78,21 @@ class SimpleExcel_Parser_XML implements SimpleExcel_Parser_Interface
 	 * Get data of the specified column as an array
 	 * 
 	 * @param	int		$col_num	Column number
-	 * @param	bool	$val_only	Returns (value only | complete data) for every cell, default to TRUE
-	 * @return	mixed				Returns an array or FALSE if table doesn't exist
+	 * @param	bool		$val_only	Returns (value only | complete data) for every cell, default to TRUE
+	 * @return	array				Returns an array.
+	 * @throws	Exception			If the column requested doesn't exist.
 	 */
-	public function getColumn($col_num, $val_only = TRUE){
+	public function getColumn($col_num, $val_only = TRUE) {
 		$col_arr = array();
 		
-		if(!isset($this->table_arr['table_contents'])){
+		if (!isset($this->table_arr['table_contents'])) {
 			throw new Exception('Column '.$col_num.' doesn\'t exist');
-			return FALSE;
 		}
 
 		// get the specified column within every row
-		foreach($this->table_arr['table_contents'] as $row){
-		    if($row['row_contents']){
-			    if(!$val_only){
+		foreach ($this->table_arr['table_contents'] as $row) {
+		    if ($row['row_contents']) {
+			    if(!$val_only) {
 				    array_push($col_arr,$row['row_contents'][$col_num-1]);
 			    } else {
 				    array_push($col_arr,$row['row_contents'][$col_num-1]['value']);
@@ -109,38 +107,37 @@ class SimpleExcel_Parser_XML implements SimpleExcel_Parser_Interface
 	/**
 	 * Get data of all cells as an array
 	 * 
-	 * @return	mixed	Returns an array or FALSE if table doesn't exist
+	 * @return	mixed			Returns an array.
+	 * @throws	Exception		If the field is empty.
 	 */
-	public function getField(){
-		if(isset($this->table_arr)){
+	public function getField() {
+		if (isset($this->table_arr)) {
 			return $this->table_arr;
-		} else {
-			throw new Exception('Field is empty');
-			return FALSE;
 		}
+		throw new Exception('Field is empty');
 	}
 	
 	/**
 	 * Get data of the specified row as an array
 	 * 
 	 * @param	int		$row_num	Row number
-	 * @param	bool	$val_only	Returns (value only | complete data) for every cell, default to TRUE
-	 * @return	mixed				Returns an array FALSE if row doesn't exist
+	 * @param	bool		$val_only	Returns (value only | complete data) for every cell, default to TRUE
+	 * @return	array				Returns an array.
+	 * @throws	Exception			When a row is requested that doesn't exist.
 	 */
-	public function getRow($row_num, $val_only = TRUE){
-		if(!isset($this->table_arr['table_contents'][$row_num-1]['row_contents'])){
-			throw new Exception('Row '.$row_num.' doesn\'t exist');			
-			return FALSE;				
+	public function getRow($row_num, $val_only = TRUE) {
+		if (!isset($this->table_arr['table_contents'][$row_num-1]['row_contents'])) {
+			throw new Exception('Row '.$row_num.' doesn\'t exist');						
 		}
 		$row = $this->table_arr['table_contents'][$row_num-1]['row_contents'];
 		$row_arr = array();
                         
 		// get the specified column within every row 
-		foreach($row as $cell){
-			if(!$val_only){
-				array_push($row_arr,$cell);
+		foreach ($row as $cell) {
+			if (!$val_only) {
+				array_push($row_arr, $cell);
 			} else {
-				array_push($row_arr,$cell['value']);
+				array_push($row_arr, $cell['value']);
 			}
 		}
 
@@ -155,16 +152,14 @@ class SimpleExcel_Parser_XML implements SimpleExcel_Parser_Interface
 	 * @param	bool	$escape		Set whether input had to be escaped from HTML tags, default to TRUE
 	 * @return	bool				Returns TRUE if file exist and valid, FALSE if does'nt
 	 */
-	public function loadFile($file_path){
+	public function loadFile($file_path) {
 
 		$file_extension = strtoupper(pathinfo($file_path, PATHINFO_EXTENSION));
 
-		if(!file_exists($file_path)){
+		if (!file_exists($file_path)) {
 			throw new Exception('File doesn\'t exist');
-			return FALSE;
-		} else if($file_extension != 'XML'){
+		} else if ($file_extension != 'XML') {
 			throw new Exception('File isn\'t an Excel XML 2003 Spreadsheet');
-			return FALSE;
 		}
 							
 		// assign simpleXML object
@@ -174,9 +169,8 @@ class SimpleExcel_Parser_XML implements SimpleExcel_Parser_Interface
 		$xmlns = $simplexml_table->getDocNamespaces();
 
 		// check file extension and XML namespace		
-		if($xmlns['ss'] != 'urn:schemas-microsoft-com:office:spreadsheet'){
+		if ($xmlns['ss'] != 'urn:schemas-microsoft-com:office:spreadsheet') {
 			throw new Exception('File isn\'t a valid Excel XML 2003 Spreadsheet');
-			return FALSE;
 		}
 
 		// extract document properties
@@ -186,25 +180,25 @@ class SimpleExcel_Parser_XML implements SimpleExcel_Parser_Interface
 		$rows = $simplexml_table->Worksheet->Table->Row;
 		$row_num = 1;
 		$this->table_arr = array(
-					'doc_props' => array(),
-					'table_contents' => array()
-					);
+			'doc_props' => array(),
+			'table_contents' => array()
+		);
 					
 		// loop through all rows		
-		foreach($rows as $row){	
+		foreach ($rows as $row) {	
 
 			// check whether ss:Index attribute exist in this row
 			$row_index = $row->xpath('@ss:Index');
 			
 			// if exist, push empty value until the specified index
-			if(count($row_index) > 0){
+			if (count($row_index) > 0) {
 				$gap = $row_index[0]-count($this->table_arr['table_contents']);
 				for($i = 1; $i < $gap; $i++){
 					array_push($this->table_arr['table_contents'], array(
-									'row_num' => $row_num,
-									'row_contents' => '',
-									//'row_attrs' => $row_attrs_arr
-								));
+						'row_num' => $row_num,
+						'row_contents' => '',
+						//'row_attrs' => $row_attrs_arr
+					));
 					$row_num += 1;
 				}
 			}
@@ -216,23 +210,23 @@ class SimpleExcel_Parser_XML implements SimpleExcel_Parser_Interface
 			$col_num = 1;
 			
 			// loop through all row's cells
-			foreach($cells as $cell){	
+			foreach ($cells as $cell) {	
 			
 				// check whether ss:Index attribute exist
 				$cell_index = $cell->xpath('@ss:Index');
 				
 				// if exist, push empty value until the specified index
-				if(count($cell_index) > 0){
+				if (count($cell_index) > 0) {
 					$gap = $cell_index[0]-count($row_arr);
-					for($i = 1; $i < $gap; $i++){
-						array_push($row_arr,array(
-									'row_num' => $row_num,
-									'col_num' => $col_num,
-									'datatype' => '',
-									'value' => '',							
-									//'cell_attrs' => '',
-									//'data_attrs' => ''
-									));
+					for ($i = 1; $i < $gap; $i++) {
+						array_push ($row_arr, array(
+							'row_num' => $row_num,
+							'col_num' => $col_num,
+							'datatype' => '',
+							'value' => '',							
+							//'cell_attrs' => '',
+							//'data_attrs' => ''
+						));
 						$col_num += 1;
 					}
 				}
@@ -245,29 +239,29 @@ class SimpleExcel_Parser_XML implements SimpleExcel_Parser_Interface
 				$cell_datatype = $data_attrs_arr['Type']; 
 				
 				// extract data from cell
-				$cell_value = (string)$cell->Data;
+				$cell_value = (string) $cell->Data;
 				
 				// escape input from HTML tags
 				$cell_value = filter_var($cell_value, FILTER_SANITIZE_SPECIAL_CHARS);
 				
 				// push column array
-				array_push($row_arr,array(
-							'row_num' => $row_num,					
-							'col_num' => $col_num,
-							'datatype' => $cell_datatype,		
-							'value' => $cell_value,					
-							//'cell_attrs' => $cell_attrs_arr,
-							//'data_attrs' => $data_attrs_arr
-							));
+				array_push($row_arr, array(
+					'row_num' => $row_num,					
+					'col_num' => $col_num,
+					'datatype' => $cell_datatype,		
+					'value' => $cell_value,					
+					//'cell_attrs' => $cell_attrs_arr,
+					//'data_attrs' => $data_attrs_arr
+				));
 				$col_num += 1;
 			}
 
 			// push row array
-			array_push($this->table_arr['table_contents'],array(
-									'row_num' => $row_num,
-									'row_contents' => $row_arr,
-									//'row_attrs' => $row_attrs_arr
-									));
+			array_push($this->table_arr['table_contents'], array(
+				'row_num' => $row_num,
+				'row_contents' => $row_arr,
+				//'row_attrs' => $row_attrs_arr
+			));
 			$row_num += 1;
 		}
 					
@@ -275,4 +269,3 @@ class SimpleExcel_Parser_XML implements SimpleExcel_Parser_Interface
 		return TRUE;
 	}
 }
-?>
