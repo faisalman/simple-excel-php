@@ -17,7 +17,6 @@ class SimpleExcel_Parser_XML implements SimpleExcel_Parser_Interface
 
     /**
     * @param    string  $file_url   Path to XML file (optional)
-    * @return   SimpleExcel_Parser_XML
     */
     public function __construct($file_url = NULL) {
         $this->loadFile($file_url);
@@ -47,13 +46,13 @@ class SimpleExcel_Parser_XML implements SimpleExcel_Parser_Interface
     * 
     * @param    int $row_num    Row number
     * @param    int $col_num    Column number
-    * @return   array           Returns an array.
+    * @return   array
     * @throws   Exception       If the cell identified doesn't exist.
     */
     public function getCell($row_num, $col_num) {
         // check whether the cell exists
         if (!isset($this->table_arr['table_contents'][$row_num-1]['row_contents'][$col_num-1])) {
-            throw new Exception('Cell '.$row_num.','.$col_num.' doesn\'t exist');
+            throw new Exception('Cell '.$row_num.','.$col_num.' doesn\'t exist', SimpleExcel_Exception_Enum::CellNotFound);
         }
         return $this->table_arr['table_contents'][$row_num-1]['row_contents'][$col_num-1]['value'];
     }
@@ -63,13 +62,13 @@ class SimpleExcel_Parser_XML implements SimpleExcel_Parser_Interface
     * 
     * @param    int     $row_num    Row number
     * @param    int     $col_num    Column number
-    * @return   array               Returns an array.
+    * @return   array
     * @throws   Exception           If the cell requested doesn't exist.
     */
     public function getCellDatatype($row_num, $col_num) {
         // check whether the cell exists
         if(!isset($this->table_arr['table_contents'][$row_num-1]['row_contents'][$col_num-1])) {
-            throw new Exception('Cell '.$row_num.','.$col_num.' doesn\'t exist');
+            throw new Exception('Cell '.$row_num.','.$col_num.' doesn\'t exist', SimpleExcel_Exception_Enum::CellNotFound);
         }
         return $this->table_arr['table_contents'][$row_num-1]['row_contents'][$col_num-1]['datatype'];
     }
@@ -79,14 +78,14 @@ class SimpleExcel_Parser_XML implements SimpleExcel_Parser_Interface
     * 
     * @param    int     $col_num    Column number
     * @param    bool    $val_only   Returns (value only | complete data) for every cell, default to TRUE
-    * @return   array               Returns an array.
+    * @return   array
     * @throws   Exception           If the column requested doesn't exist.
     */
     public function getColumn($col_num, $val_only = TRUE) {
         $col_arr = array();
 
         if (!isset($this->table_arr['table_contents'])) {
-            throw new Exception('Column '.$col_num.' doesn\'t exist');
+            throw new Exception('Column '.$col_num.' doesn\'t exist', SimpleExcel_Exception_Enum::ColumnNotFound);
         }
 
         // get the specified column within every row
@@ -107,14 +106,14 @@ class SimpleExcel_Parser_XML implements SimpleExcel_Parser_Interface
     /**
     * Get data of all cells as an array
     * 
-    * @return   mixed       Returns an array.
-    * @throws   Exception   If the field is empty.
+    * @return   array
+    * @throws   Exception   If the field is not set.
     */
     public function getField() {
         if (isset($this->table_arr)) {
             return $this->table_arr;
         }
-        throw new Exception('Field is empty');
+        throw new Exception('Field is not set', SimpleExcel_Exception_Enum::FieldNotFound);
     }
 
     /**
@@ -122,12 +121,12 @@ class SimpleExcel_Parser_XML implements SimpleExcel_Parser_Interface
     * 
     * @param    int     $row_num    Row number
     * @param    bool    $val_only   Returns (value only | complete data) for every cell, default to TRUE
-    * @return   array               Returns an array.
+    * @return   array
     * @throws   Exception           When a row is requested that doesn't exist.
     */
     public function getRow($row_num, $val_only = TRUE) {
         if (!isset($this->table_arr['table_contents'][$row_num-1]['row_contents'])) {
-            throw new Exception('Row '.$row_num.' doesn\'t exist');
+            throw new Exception('Row '.$row_num.' doesn\'t exist', SimpleExcel_Exception_Enum::RowNotFound);
         }
         $row = $this->table_arr['table_contents'][$row_num-1]['row_contents'];
         $row_arr = array();
@@ -150,15 +149,18 @@ class SimpleExcel_Parser_XML implements SimpleExcel_Parser_Interface
     * 
     * @param    string  $file_path  Path to XML file
     * @return   void
+    * @throws   Exception           If file being loaded doesn't exist
+    * @throws   Exception           If file extension doesn't match with XML
+    * @throws   Exception           If XML document namespace isn't valid
     */
     public function loadFile($file_path) {
 
         $file_extension = strtoupper(pathinfo($file_path, PATHINFO_EXTENSION));
 
         if (!file_exists($file_path)) {
-            throw new Exception('File doesn\'t exist');
+            throw new Exception('File '.$file_path.' doesn\'t exist', SimpleExcel_Exception_Enum::FileNotFound);
         } else if ($file_extension != 'XML') {
-            throw new Exception('File extension doesn\'t match');
+            throw new Exception('File extension '.$file_extension.' doesn\'t match with XML', SimpleExcel_Exception_Enum::FileExtensionNotMatch);
         }
 
         // assign simpleXML object
@@ -169,7 +171,7 @@ class SimpleExcel_Parser_XML implements SimpleExcel_Parser_Interface
 
         // check file extension and XML namespace
         if ($xmlns['ss'] != 'urn:schemas-microsoft-com:office:spreadsheet') {
-            throw new Exception('Document namespace isn\'t a valid Excel XML 2003 Spreadsheet');
+            throw new Exception('Document namespace isn\'t a valid Excel XML 2003 Spreadsheet', SimpleExcel_Exception_Enum::InvalidDocumentNamespace);
         }
 
         // extract document properties

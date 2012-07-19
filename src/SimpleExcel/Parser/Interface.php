@@ -2,8 +2,8 @@
 /**
  * Defines SimpleExcel parser interface
  * 
- * @author	Faisalman
- * @package	SimpleExcel
+ * @author  Faisalman
+ * @package SimpleExcel
  */
 
 /** define parser interface */
