@@ -2,16 +2,16 @@
 /**
  * Defines SimpleExcel writer interface
  * 
- * @author	Faisalman
- * @package	SimpleExcel
+ * @author  Faisalman
+ * @package SimpleExcel
  */
 
 /** define parser interface */
 interface SimpleExcel_Writer_Interface
 {
-	public function addRow($values);
-	public function saveFile($filename, $target);
-	public function setData($values);
+    public function addRow($values);
+    public function saveFile($filename, $target);
+    public function setData($values);
 }
 
 ?>

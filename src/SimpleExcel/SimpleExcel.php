@@ -36,12 +36,12 @@
 /** autoload all interfaces & classes */
 function __autoload($class_name) 
 {
-	$relative_path = str_replace('_', DIRECTORY_SEPARATOR, $class_name).'.php';
-	$file_path = dirname(dirname(__FILE__)).DIRECTORY_SEPARATOR.$relative_path;
-	if(!file_exists($file_path)){
-		return FALSE;
-	}
-	require_once $file_path;
+    $relative_path = str_replace('_', DIRECTORY_SEPARATOR, $class_name).'.php';
+    $file_path = dirname(dirname(__FILE__)).DIRECTORY_SEPARATOR.$relative_path;
+    if(!file_exists($file_path)){
+        return FALSE;
+    }
+    require_once $file_path;
 }
 
 /**
@@ -52,62 +52,62 @@ function __autoload($class_name)
  */
 class SimpleExcel
 {
-	/**
-	 * 
-	 * @var SimpleExcel_Parser_{filetype}
-	 */
-	public $parser;
-	
-	/**
-	 * 
-	 * @var	SimpleExcel_Writer_{filetype}
-	 */
-	public $writer;
-	
-	/**
-	 * SimpleExcel constructor method
-	 * 
-	 * @param	string	$filetype	Set the filetype of the file which will be parsed (XML/CSV)
-	 * @return	void
-	 */
-	public function __construct($filetype = 'XML'){
-		$this->constructParser($filetype);
-		$this->constructWriter($filetype);
-	}
-	
-	/**
-	 * Construct a SimpleExcel Parser
-	 * 
-	 * @param	string	$filetype	Set the filetype of the file which will be parsed (XML/CSV)
-	 * @return	bool
-	 */
-	public function constructParser($filetype){
-		$filetype = strtoupper($filetype);
-		if(preg_match('/(XML|CSV)/',$filetype)){			
-			$parser_class = 'SimpleExcel_Parser_'.$filetype;			
-			$this->parser = new $parser_class();
-			return TRUE;
-		} else {
-			throw new Exception('Filetype '.$filetype.' is not supported');
-			return FALSE;
-		}
-	}
+    /**
+    * 
+    * @var SimpleExcel_Parser_{filetype}
+    */
+    public $parser;
 
-	/**
-	 * Construct a SimpleExcel Writer
-	 * 
-	 * @param	string	$filetype	Set the filetype of the file which will be written (XML/CSV)
-	 * @return	bool
-	 */
-	public function constructWriter($filetype){
-		$filetype = strtoupper($filetype);
-		if(preg_match('/(XML|CSV)/',$filetype)){			
-			$writer_class = 'SimpleExcel_Writer_'.$filetype;			
-			$this->writer = new $writer_class();
-			return TRUE;
-		} else {
-			throw new Exception('Filetype '.$filetype.' is not supported');
-			return FALSE;
-		}
-	}
+    /**
+    * 
+    * @var  SimpleExcel_Writer_{filetype}
+    */
+    public $writer;
+
+    /**
+    * SimpleExcel constructor method
+    * 
+    * @param    string  $filetype   Set the filetype of the file which will be parsed (XML/CSV)
+    * @return   void
+    */
+    public function __construct($filetype = 'XML'){
+        $this->constructParser($filetype);
+        $this->constructWriter($filetype);
+    }
+
+    /**
+    * Construct a SimpleExcel Parser
+    * 
+    * @param    string  $filetype   Set the filetype of the file which will be parsed (XML/CSV)
+    * @return   bool
+    */
+    public function constructParser($filetype){
+        $filetype = strtoupper($filetype);
+        if(preg_match('/(XML|CSV)/',$filetype)){
+            $parser_class = 'SimpleExcel_Parser_'.$filetype;
+            $this->parser = new $parser_class();
+            return TRUE;
+        } else {
+            throw new Exception('Filetype '.$filetype.' is not supported');
+            return FALSE;
+        }
+    }
+
+    /**
+    * Construct a SimpleExcel Writer
+    * 
+    * @param    string  $filetype   Set the filetype of the file which will be written (XML/CSV)
+    * @return   bool
+    */
+    public function constructWriter($filetype){
+        $filetype = strtoupper($filetype);
+        if(preg_match('/(XML|CSV)/',$filetype)){
+            $writer_class = 'SimpleExcel_Writer_'.$filetype;
+            $this->writer = new $writer_class();
+            return TRUE;
+        } else {
+            throw new Exception('Filetype '.$filetype.' is not supported');
+            return FALSE;
+        }
+    }
 }

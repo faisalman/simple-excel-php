@@ -2,90 +2,90 @@
 /**
  * SimpleExcel class for writing Microsoft Excel 2003 XML Spreadsheet
  *  
- * @author	Faisalman
- * @package	SimpleExcel
+ * @author  Faisalman
+ * @package SimpleExcel
  */
 class SimpleExcel_Writer_XML implements SimpleExcel_Writer_Interface
 {
-	/**
-	 * Holds data part of XML
-	 * 
-	 * @access	private
-	 * @var		string
-	 */
-	private $xml_data;
+    /**
+     * Holds data part of XML
+     * 
+     * @access  private
+     * @var     string
+     */
+    private $xml_data;
 
-	/**
-	 * Array containing document properties
-	 * 
-	 * @access	private
-	 * @var		array
-	 */
-	private $doc_prop;
-	
-	/**
-	 * @return	void
-	 */
-	public function __construct(){
-		$this->doc_prop = array(
-				'Author' => 'SimpleExcel',
-				'Keywords' => 'SimpleExcel',
-				'LastAuthor' => 'SimpleExcel'
-				);
-	}
+    /**
+     * Array containing document properties
+     * 
+     * @access  private
+     * @var     array
+     */
+    private $doc_prop;
 
-	/**
-	 * Adding row data to XML
-	 * 
-	 * @param	array	$values	An array contains ordered value for every cell
-	 * @return	void
-	 */
-	public function addRow($values){
-		$row = &$this->xml_data;
-		$row .= '
-   <Row ss:AutoFitHeight="0">';
+    /**
+     * @return  void
+     */
+    public function __construct(){
+        $this->doc_prop = array(
+                'Author' => 'SimpleExcel',
+                'Keywords' => 'SimpleExcel',
+                'LastAuthor' => 'SimpleExcel'
+                );
+    }
 
-		foreach($values as $val){
-			
-			// check if given variable contains array
-			if(is_array($val)){
-				$value = $val[0];
-				$datatype = $val[1];
-			} else {
-				$value = $val;
-				$datatype = is_numeric($val) ? 'Number' : 'String';
-			}
-			$row .= '
-    <Cell><Data ss:Type="'.$datatype.'">'.$value.'</Data></Cell>';			
-		}
+    /**
+     * Adding row data to XML
+     * 
+     * @param   array   $values An array contains ordered value for every cell
+     * @return  void
+     */
+    public function addRow($values){
+        $row = &$this->xml_data;
+        $row .= '
+    <Row ss:AutoFitHeight="0">';
 
-		$row .= '
-   </Row>';
-	}
+        foreach($values as $val){
+            
+            // check if given variable contains array
+            if(is_array($val)){
+                $value = $val[0];
+                $datatype = $val[1];
+            } else {
+                $value = $val;
+                $datatype = is_numeric($val) ? 'Number' : 'String';
+            }
+            $row .= '
+    <Cell><Data ss:Type="'.$datatype.'">'.$value.'</Data></Cell>';
+        }
 
-	/**
-	 * Export the XML document
-	 * 
-	 * @param	string	$filename	Name for the downloaded file (extension will be set automatically)
-     * @param	string	$target	    Save location
-	 * @return	void
-	 */
-	public function saveFile($filename, $target){
-	
-	    if(!isset($filename)){
-	        $filename = date('YmdHis');
-	    }
+        $row .= '
+    </Row>';
+    }
+
+    /**
+     * Export the XML document
+     * 
+     * @param   string  $filename   Name for the downloaded file (extension will be set automatically)
+     * @param   string  $target     Save location
+     * @return  void
+     */
+    public function saveFile($filename, $target){
+
+        if(!isset($filename)){
+            $filename = date('YmdHis');
+        }
         if(!isset($target)){
             // write XML output to browser
-	        $target = 'php://output';
-	    }
-		
-		// set HTTP response header
-		header('Content-Type: application/xml');
-		header('Content-Disposition: attachment; filename='.$filename.'.xml');
+            $target = 'php://output';
+        }
+        
+        // set HTTP response header
+        header('Content-Type: application/xml');
+        header('Content-Disposition: attachment; filename='.$filename.'.xml');
 
         $fp = fopen($target, 'w');
-		fwrite($fp, '<?xml version="1.0"?>
+        fwrite($fp, '<?xml version="1.0"?>
 <?mso-application progid="Excel.Sheet"?>
 <Workbook xmlns="urn:schemas-microsoft-com:office:spreadsheet"
  xmlns:o="urn:schemas-microsoft-com:office:office"
@@ -105,38 +105,38 @@ class SimpleExcel_Writer_XML implements SimpleExcel_Writer_Interface
  </Worksheet>
 </Workbook>');
         fclose($fp);
-		
-		// since there must be no data below XML
-		exit();
-	}
-	
+
+    // since there must be no data below XML
+    exit();
+    }
+
     /**
-	 * Set XML data
-	 * 
-	 * @param	array	$values An array contains ordered value of arrays for all fields
-	 * @return	void
-	 */
-	public function setData($values){
-	    if(!is_array($values)){
-	        $values = array($values);
-	    }
+    * Set XML data
+    * 
+    * @param    array   $values An array contains ordered value of arrays for all fields
+    * @return   void
+    */
+    public function setData($values){
+        if(!is_array($values)){
+            $values = array($values);
+        }
         $this->xml_data = ""; // reset the xml data.
 
         // append values as rows
         foreach ($values as $value) {
             $this->addRow($value);  
         }
-	}
+    }
 
-	/**
-	 * Set a document property of the XML
-	 * 
-	 * @param	string	$prop	Document property to be set
-	 * @param	string	$val	Value of the document property
-	 * @return	void
-	 */
-	public function setDocProp($prop,$val){
-		$this->doc_prop[$prop] = $val;
-	}
+    /**
+    * Set a document property of the XML
+    * 
+    * @param    string  $prop   Document property to be set
+    * @param    string  $val    Value of the document property
+    * @return   void
+    */
+    public function setDocProp($prop,$val){
+        $this->doc_prop[$prop] = $val;
+    }
 }
 ?>
