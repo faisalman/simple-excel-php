@@ -1,4 +1,7 @@
 <?php
+
+namespace SimpleExcel\Writer;
+
 /**
  * SimpleExcel class for writing CSV Spreadsheet
  *  

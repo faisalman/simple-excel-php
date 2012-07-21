@@ -1,4 +1,7 @@
 <?php
+
+namespace SimpleExcel\Writer;
+
 /**
  * Defines SimpleExcel writer interface
  * 

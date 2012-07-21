@@ -1,4 +1,7 @@
 <?php
+
+namespace SimpleExcel\Writer;
+
 /**
  * SimpleExcel class for writing Microsoft Excel 2003 XML Spreadsheet
  *  

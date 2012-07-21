@@ -1,4 +1,7 @@
 <?php
+
+namespace SimpleExcel\Exception;
+
 /**
  * Defines SimpleExcel exception enum
  * 

@@ -1,4 +1,7 @@
 <?php
+ 
+namespace SimpleExcel\Parser;
+
 /**
  * Defines SimpleExcel parser interface
  * 

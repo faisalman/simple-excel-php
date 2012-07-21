@@ -1,4 +1,9 @@
 <?php
+ 
+namespace SimpleExcel\Parser;
+
+use SimpleExcel\Exception;
+
 /**
  * SimpleExcel class for parsing Microsoft Excel CSV Spreadsheet
  *  
@@ -34,7 +39,7 @@ class SimpleExcel_Parser_CSV implements SimpleExcel_Parser_Interface
 
         // check whether the cell exists
         if(!isset($this->table_arr[$row_num-1][$col_num-1])){
-            throw new Exception('Cell '.$row_num.','.$col_num.' doesn\'t exist', SimpleExcel_Exception_Enum::CELL_NOT_FOUND);
+            throw new \Exception('Cell '.$row_num.','.$col_num.' doesn\'t exist', SimpleExcel_Exception_Enum::CELL_NOT_FOUND);
         }
         return $this->table_arr[$row_num-1][$col_num-1];
     }
@@ -51,7 +56,7 @@ class SimpleExcel_Parser_CSV implements SimpleExcel_Parser_Interface
 
         // check whether the cell exists
         if(!isset($this->table_arr[$row_num-1][$col_num-1])){
-            throw new Exception('Cell '.$row_num.','.$col_num.' doesn\'t exist', SimpleExcel_Exception_Enum::CELL_NOT_FOUND);
+            throw new \Exception('Cell '.$row_num.','.$col_num.' doesn\'t exist', SimpleExcel_Exception_Enum::CELL_NOT_FOUND);
         }
         return 'String';
     }
@@ -68,7 +73,7 @@ class SimpleExcel_Parser_CSV implements SimpleExcel_Parser_Interface
         $col_arr = array();
 
         if(!isset($this->table_arr[0][$col_num-1])){
-            throw new Exception('Column '.$col_num.' doesn\'t exist', SimpleExcel_Exception_Enum::COLUMN_NOT_FOUND);
+            throw new \Exception('Column '.$col_num.' doesn\'t exist', SimpleExcel_Exception_Enum::COLUMN_NOT_FOUND);
         }
 
         // get the specified column within every row
@@ -90,7 +95,7 @@ class SimpleExcel_Parser_CSV implements SimpleExcel_Parser_Interface
         if(isset($this->table_arr)){
             return $this->table_arr;
         } else {
-            throw new Exception('Field is not set', SimpleExcel_Exception_Enum::FIELD_NOT_FOUND);
+            throw new \Exception('Field is not set', SimpleExcel_Exception_Enum::FIELD_NOT_FOUND);
         }
     }
 
@@ -104,7 +109,7 @@ class SimpleExcel_Parser_CSV implements SimpleExcel_Parser_Interface
     */
     public function getRow($row_num, $val_only = TRUE){
         if(!isset($this->table_arr[$row_num-1])){
-            throw new Exception('Row '.$row_num.' doesn\'t exist', SimpleExcel_Exception_Enum::ROW_NOT_FOUND);
+            throw new \Exception('Row '.$row_num.' doesn\'t exist', SimpleExcel_Exception_Enum::ROW_NOT_FOUND);
         }
 
         // return the array
@@ -125,9 +130,9 @@ class SimpleExcel_Parser_CSV implements SimpleExcel_Parser_Interface
         $file_extension = strtoupper(pathinfo($file_path, PATHINFO_EXTENSION));
 
         if (!file_exists($file_path)) {
-            throw new Exception('File '.$file_path.' doesn\'t exist', SimpleExcel_Exception_Enum::FILE_NOT_FOUND);
+            throw new \Exception('File '.$file_path.' doesn\'t exist', SimpleExcel_Exception_Enum::FILE_NOT_FOUND);
         } else if ($file_extension != 'CSV'){
-            throw new Exception('File extension '.$file_extension.' doesn\'t match with CSV', SimpleExcel_Exception_Enum::FILE_EXTENSION_MISMATCH);
+            throw new \Exception('File extension '.$file_extension.' doesn\'t match with CSV', SimpleExcel_Exception_Enum::FILE_EXTENSION_MISMATCH);
         }
 
         if (($handle = fopen($file_path, 'r')) !== FALSE) {
@@ -161,7 +166,7 @@ class SimpleExcel_Parser_CSV implements SimpleExcel_Parser_Interface
             fclose($handle);
 
         } else {
-            throw new Exception('Error reading the file', SimpleExcel_Exception_Enum::ERROR_READING_FILE);
+            throw new \Exception('Error reading the file', SimpleExcel_Exception_Enum::ERROR_READING_FILE);
         }
     }
 }

@@ -1,10 +1,15 @@
 <?php
+
+namespace SimpleExcel\Parser;
+
+use SimpleExcel\Exception;
+
 /**
  * SimpleExcel class for parsing Microsoft Excel 2003 XML Spreadsheet
  *  
  * @author  Faisalman
  * @package SimpleExcel
- */
+ */ 
 class SimpleExcel_Parser_XML implements SimpleExcel_Parser_Interface
 {
     /**
@@ -52,7 +57,7 @@ class SimpleExcel_Parser_XML implements SimpleExcel_Parser_Interface
     public function getCell($row_num, $col_num) {
         // check whether the cell exists
         if (!isset($this->table_arr['table_contents'][$row_num-1]['row_contents'][$col_num-1])) {
-            throw new Exception('Cell '.$row_num.','.$col_num.' doesn\'t exist', SimpleExcel_Exception_Enum::CELL_NOT_FOUND);
+            throw new \Exception('Cell '.$row_num.','.$col_num.' doesn\'t exist', SimpleExcel_Exception_Enum::CELL_NOT_FOUND);
         }
         return $this->table_arr['table_contents'][$row_num-1]['row_contents'][$col_num-1]['value'];
     }
@@ -68,7 +73,7 @@ class SimpleExcel_Parser_XML implements SimpleExcel_Parser_Interface
     public function getCellDatatype($row_num, $col_num) {
         // check whether the cell exists
         if(!isset($this->table_arr['table_contents'][$row_num-1]['row_contents'][$col_num-1])) {
-            throw new Exception('Cell '.$row_num.','.$col_num.' doesn\'t exist', SimpleExcel_Exception_Enum::CELL_NOT_FOUND);
+            throw new \Exception('Cell '.$row_num.','.$col_num.' doesn\'t exist', SimpleExcel_Exception_Enum::CELL_NOT_FOUND);
         }
         return $this->table_arr['table_contents'][$row_num-1]['row_contents'][$col_num-1]['datatype'];
     }
@@ -85,7 +90,7 @@ class SimpleExcel_Parser_XML implements SimpleExcel_Parser_Interface
         $col_arr = array();
 
         if (!isset($this->table_arr['table_contents'])) {
-            throw new Exception('Column '.$col_num.' doesn\'t exist', SimpleExcel_Exception_Enum::COLUMN_NOT_FOUND);
+            throw new \Exception('Column '.$col_num.' doesn\'t exist', SimpleExcel_Exception_Enum::COLUMN_NOT_FOUND);
         }
 
         // get the specified column within every row
@@ -113,7 +118,7 @@ class SimpleExcel_Parser_XML implements SimpleExcel_Parser_Interface
         if (isset($this->table_arr)) {
             return $this->table_arr;
         }
-        throw new Exception('Field is not set', SimpleExcel_Exception_Enum::FIELD_NOT_FOUND);
+        throw new \Exception('Field is not set', SimpleExcel_Exception_Enum::FIELD_NOT_FOUND);
     }
 
     /**
@@ -126,7 +131,7 @@ class SimpleExcel_Parser_XML implements SimpleExcel_Parser_Interface
     */
     public function getRow($row_num, $val_only = TRUE) {
         if (!isset($this->table_arr['table_contents'][$row_num-1]['row_contents'])) {
-            throw new Exception('Row '.$row_num.' doesn\'t exist', SimpleExcel_Exception_Enum::ROW_NOT_FOUND);
+            throw new \Exception('Row '.$row_num.' doesn\'t exist', SimpleExcel_Exception_Enum::ROW_NOT_FOUND);
         }
         $row = $this->table_arr['table_contents'][$row_num-1]['row_contents'];
         $row_arr = array();
@@ -158,9 +163,9 @@ class SimpleExcel_Parser_XML implements SimpleExcel_Parser_Interface
         $file_extension = strtoupper(pathinfo($file_path, PATHINFO_EXTENSION));
 
         if (!file_exists($file_path)) {
-            throw new Exception('File '.$file_path.' doesn\'t exist', SimpleExcel_Exception_Enum::FILE_NOT_FOUND);
+            throw new \Exception('File '.$file_path.' doesn\'t exist', SimpleExcel_Exception_Enum::FILE_NOT_FOUND);
         } else if ($file_extension != 'XML') {
-            throw new Exception('File extension '.$file_extension.' doesn\'t match with XML', SimpleExcel_Exception_Enum::FILE_EXTENSION_MISMATCH);
+            throw new \Exception('File extension '.$file_extension.' doesn\'t match with XML', SimpleExcel_Exception_Enum::FILE_EXTENSION_MISMATCH);
         }
 
         // assign simpleXML object
@@ -171,7 +176,7 @@ class SimpleExcel_Parser_XML implements SimpleExcel_Parser_Interface
 
         // check file extension and XML namespace
         if ($xmlns['ss'] != 'urn:schemas-microsoft-com:office:spreadsheet') {
-            throw new Exception('Document namespace isn\'t a valid Excel XML 2003 Spreadsheet', SimpleExcel_Exception_Enum::INVALID_DOCUMENT_NAMESPACE);
+            throw new \Exception('Document namespace isn\'t a valid Excel XML 2003 Spreadsheet', SimpleExcel_Exception_Enum::INVALID_DOCUMENT_NAMESPACE);
         }
 
         // extract document properties
