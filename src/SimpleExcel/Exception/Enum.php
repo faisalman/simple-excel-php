@@ -18,5 +18,6 @@ abstract class SimpleExcel_Exception_Enum
     const RowNotFound               = 6;
     const ColumnNotFound            = 7;
     const CellNotFound              = 8;
+    const FileTypeNotSupported      = 9;
 }
 ?>

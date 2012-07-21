@@ -80,6 +80,7 @@ class SimpleExcel
     * 
     * @param    string  $filetype   Set the filetype of the file which will be parsed (XML/CSV)
     * @return   bool
+    * @throws   Exception           If filetype is neither XML/CSV
     */
     public function constructParser($filetype){
         $filetype = strtoupper($filetype);
@@ -88,7 +89,7 @@ class SimpleExcel
             $this->parser = new $parser_class();
             return TRUE;
         } else {
-            throw new Exception('Filetype '.$filetype.' is not supported');
+            throw new Exception('Filetype '.$filetype.' is not supported', SimpleExcel_Exception_Enum::FileTypeNotSupported);
             return FALSE;
         }
     }
@@ -98,6 +99,7 @@ class SimpleExcel
     * 
     * @param    string  $filetype   Set the filetype of the file which will be written (XML/CSV)
     * @return   bool
+    * @throws   Exception           If filetype is neither XML/CSV
     */
     public function constructWriter($filetype){
         $filetype = strtoupper($filetype);
@@ -106,7 +108,7 @@ class SimpleExcel
             $this->writer = new $writer_class();
             return TRUE;
         } else {
-            throw new Exception('Filetype '.$filetype.' is not supported');
+            throw new Exception('Filetype '.$filetype.' is not supported', SimpleExcel_Exception_Enum::FileTypeNotSupported);
             return FALSE;
         }
     }
