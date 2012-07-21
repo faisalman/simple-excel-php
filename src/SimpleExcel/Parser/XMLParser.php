@@ -2,7 +2,7 @@
 
 namespace SimpleExcel\Parser;
 
-use SimpleExcel\Exception;
+use SimpleExcel\Exception\SimpleExcelException;
 
 /**
  * SimpleExcel class for parsing Microsoft Excel 2003 XML Spreadsheet
@@ -24,7 +24,9 @@ class XMLParser implements IParser
     * @param    string  $file_url   Path to XML file (optional)
     */
     public function __construct($file_url = NULL) {
-        $this->loadFile($file_url);
+        if(isset($file_url)) {
+            $this->loadFile($file_url);
+        }
     }
 
     /**

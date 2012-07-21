@@ -35,19 +35,13 @@
 
 namespace SimpleExcel;
 
-use  SimpleExcel\Exception;
-use  SimpleExcel\Parser;
-use  SimpleExcel\Writer;
+use  SimpleExcel\Exception\SimpleExcelException;
 
 /** autoload all interfaces & classes */
-function __autoload($class_name) 
-{
-    $relative_path = str_replace('_', DIRECTORY_SEPARATOR, $class_name).'.php';
-    $file_path = dirname(dirname(__FILE__)).DIRECTORY_SEPARATOR.$relative_path;
-    if(!file_exists($file_path)){
-        return FALSE;
-    }
-    require_once $file_path;
+if (!class_exists('Composer\\Autoload\\ClassLoader', false)){
+    spl_autoload_register(function($class_name){
+        require_once(dirname(__FILE__).DIRECTORY_SEPARATOR.str_replace('\\', DIRECTORY_SEPARATOR, substr($class_name, strlen('SimpleExcel'))).'.php');
+    });
 }
 
 /**
@@ -91,7 +85,7 @@ class SimpleExcel
     public function constructParser($filetype){
         $filetype = strtoupper($filetype);
         if(preg_match('/(XML|CSV)/',$filetype)){
-            $parser_class = $filetype.'Parser';
+            $parser_class = 'SimpleExcel\\Parser\\'.$filetype.'Parser';
             $this->parser = new $parser_class();
             return TRUE;
         } else {
@@ -110,7 +104,7 @@ class SimpleExcel
     public function constructWriter($filetype){
         $filetype = strtoupper($filetype);
         if(preg_match('/(XML|CSV)/',$filetype)){
-            $writer_class = $filetype.'Writer';
+            $writer_class = 'SimpleExcel\\Writer\\'.$filetype.'Writer';
             $this->writer = new $writer_class();
             return TRUE;
         } else {

@@ -2,7 +2,7 @@
  
 namespace SimpleExcel\Parser;
 
-use SimpleExcel\Exception;
+use SimpleExcel\Exception\SimpleExcelException;
 
 /**
  * SimpleExcel class for parsing Microsoft Excel CSV Spreadsheet
@@ -24,7 +24,9 @@ class CSVParser implements IParser
     * @param    string  $file_url   Path to CSV file (optional)
     */
     public function __construct($file_url = NULL){
-        if(isset($file_url)) $this->loadFile($file_url);
+        if(isset($file_url)){
+            $this->loadFile($file_url);
+        }
     }
 
     /**
