@@ -9,15 +9,15 @@
 /** define exception enum */
 abstract class SimpleExcel_Exception_Enum
 {
-    const Unknown                   = 0;
-    const FileNotFound              = 1;
-    const FileExtensionNotMatch     = 2;
-    const ErrorReadingFile          = 3;
-    const InvalidDocumentNamespace  = 4;
-    const FieldNotFound             = 5;
-    const RowNotFound               = 6;
-    const ColumnNotFound            = 7;
-    const CellNotFound              = 8;
-    const FileTypeNotSupported      = 9;
+    const UNKNOWN                       = 0;
+    const FILE_NOT_FOUND                = 1;
+    const FILE_EXTENSION_MISMATCH       = 2;
+    const ERROR_READING_FILE            = 3;
+    const INVALID_DOCUMENT_NAMESPACE    = 4;
+    const FIELD_NOT_FOUND               = 5;
+    const ROW_NOT_FOUND                 = 6;
+    const COLUMN_NOT_FOUND              = 7;
+    const CELL_NOT_FOUND                = 8;
+    const FILETYPE_NOT_SUPPORTED        = 9;
 }
 ?>

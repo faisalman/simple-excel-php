@@ -89,7 +89,7 @@ class SimpleExcel
             $this->parser = new $parser_class();
             return TRUE;
         } else {
-            throw new Exception('Filetype '.$filetype.' is not supported', SimpleExcel_Exception_Enum::FileTypeNotSupported);
+            throw new Exception('Filetype '.$filetype.' is not supported', SimpleExcel_Exception_Enum::FILETYPE_NOT_SUPPORTED);
             return FALSE;
         }
     }
@@ -108,7 +108,7 @@ class SimpleExcel
             $this->writer = new $writer_class();
             return TRUE;
         } else {
-            throw new Exception('Filetype '.$filetype.' is not supported', SimpleExcel_Exception_Enum::FileTypeNotSupported);
+            throw new Exception('Filetype '.$filetype.' is not supported', SimpleExcel_Exception_Enum::FILETYPE_NOT_SUPPORTED);
             return FALSE;
         }
     }
