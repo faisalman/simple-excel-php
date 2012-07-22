@@ -3,18 +3,18 @@
 <head>
     <meta charset="utf-8">
     <meta name="author" content="Faisalman" />
-    <meta name="description" content="Simple Excel is a lightweight PHP library with simplistic approach for parsing/writing data from/to Microsoft Excel XML/CSV format" />
-    <meta name="keywords" content="php, library, microsoft, excel, xml, csv, parser, writer" />
+    <meta name="description" content="Simple Excel is a lightweight PHP library with simplistic approach for parsing/writing data from/to Microsoft Excel XML/CSV/TSV format" />
+    <meta name="keywords" content="php, library, microsoft, excel, xml, csv, tsv, parser, writer" />
 
     <title>SimpleExcel PHP library</title>
 
     <link rel="stylesheet" href="highlightjs/github.css">
-    <link href='http://fonts.googleapis.com/css?family=Ubuntu|Ubuntu+Mono' rel='stylesheet' type='text/css'>
+    <link href='http://fonts.googleapis.com/css?family=Ubuntu+Mono|Varela|Varela+Round' rel='stylesheet' type='text/css'>
     <style type="text/css">
         body {
           margin: 70px auto;
           background: #f9f9f9;
-          font-family: Ubuntu, Helvetica, Arial, sans-serif;
+          font-family: Varela, Helvetica, Arial, sans-serif;
           font-size: 14px;
           color: #444;
           text-shadow: 0 0 1px #fff;
@@ -23,7 +23,7 @@
           margin: 0 auto;
           width: 960px;
         }
-        h1, h2, h3 { font-family: Ubuntu, Helvetica, Arial, sans-serif; }
+        h1, h2, h3 { font-family: 'Varela Round',Helvetica, Arial, sans-serif; }
         h1 { font-size: 3.8em; color: #333; margin-bottom: 3px; text-shadow: 1px 1px 2px #fff; }
         h1 .small { font-size: 0.5em; }
         h1 a { text-decoration: none }
@@ -55,7 +55,7 @@
       <span class="small">PHP</a></span></h1>
 
     <div class="description">
-      PHP library with simplistic approach for parsing/writing data from/to Microsoft Excel XML/CSV format
+      PHP library with simplistic approach for parsing/writing data from/to Microsoft Excel XML/CSV/TSV format
     </div>
 
     <h2>Download</h2>
@@ -77,22 +77,24 @@
 <h2>Authors</h2>
 <ul><li>Faisalman &lt;fyzlman@gmail.com&gt;</li></ul>
 <h2>Version</h2>
-<p>v0.2.2</p>
+<p>v0.3.0</p>
 <h2>Features</h2>
 <ul>
-<li>Parsing Microsoft Excel XML/CSV cells to PHP arrays</li>
-<li>Writing Microsoft Excel XML/CSV cells from PHP arrays</li>
+<li>Parsing Microsoft Excel XML/CSV/TSV cells to PHP arrays</li>
+<li>Writing Microsoft Excel XML/CSV/TSV cells from PHP arrays</li>
 </ul>
 <h2>Dependencies</h2>
-<ul><li> PHP5++</li></ul>
+<ul><li> >= PHP 5.3.0</li></ul>
 <h2>Install</h2>
-<p>Just include this library on your PHP project with either <code>include()</code> or <code>require()</code></p>
+<p>You can use dependency manager like Composer or directly include this library on your PHP project with either <code>include()</code> or <code>require()</code></p>
 <h2>Usage Example</h2>
 Parsing an XML file, simplified:
 <pre><code>
 &lt;?php
 
-require_once('../src/SimpleExcel/SimpleExcel.php'); // load the main class file
+use SimpleExcel\SimpleExcel;
+
+require_once('../your/project/lib/SimpleExcel/SimpleExcel.php'); // load the main class file
 
 $excel = new SimpleExcel('xml');                    // instantiate new object (will automatically construct the parser)
 
@@ -102,6 +104,8 @@ $foo = $excel->parser->getField();                  // get complete array of the
 $bar = $excel->parser->getRow(3);                   // get specific array from the specified row (3rd row)
 $baz = $excel->parser->getColumn(4);                // get specific array from the specified column (4th row)
 $qux = $excel->parser->getCell(2,1);                // get specific data from the specified cell (2nd row in 1st column)
+
+print_r($foo);                                      // echo the array
 
 ?&gt;
 </code></pre>
@@ -114,7 +118,10 @@ Writing an XML file, simplified:
  * (be it an echo, HTML element, or even a whitespace)
  * <u>before</u> the writer->saveFile() method get called
  */
-require_once('../src/SimpleExcel/SimpleExcel.php'); // load the main class file
+ 
+use SimpleExcel\SimpleExcel;
+
+require_once('../your/project/lib/SimpleExcel/SimpleExcel.php'); // load the main class file
 
 $excel = new SimpleExcel('xml');                    // instantiate new object (will automatically construct the writer)
 
@@ -177,12 +184,16 @@ $excel->writer->saveFile('example');                // force browser to save the
 <p><em>Adding one row of data</em></p>
 </li>
 <li>
-<h3><pre><code>writer->saveFile($filename)</code></pre></h3>
-<p><em>Export the document</em></p>
+<h3><pre><code>writer->saveFile($filename, $target)</code></pre></h3>
+<p><em>Export the document, default target to php://output</em></p>
 </li>
 <li>
 <h3><pre><code>writer->setData($values)</code></pre></h3>
 <p><em>Set the table data</em></p>
+</li>
+<li>
+<h3><pre><code>writer->setDelimiter($delimiter)</code></pre></h3>
+<p><em>[CSV only] Set the delimiter character, default is comma</em></p>
 </li>
 <li>
 <h3><pre><code>writer->setDocProp($prop, $val)</code></pre></h3>
