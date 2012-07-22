@@ -198,7 +198,7 @@ class CSVParser implements IParser
     * 
     * @param    string  $delimiter   Delimiter character
     */
-    private function setDelimiter($delimiter){
+    public function setDelimiter($delimiter){
         $this->delimiter = $delimiter;
     }
 }

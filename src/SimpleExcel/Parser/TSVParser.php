@@ -25,4 +25,11 @@ class TSVParser extends CSVParser
     * @var      string
     */
     protected $file_extension = 'TSV';
+    
+    /**
+    * Override parent class, this method is ignored in TSV
+    */
+    public function setDelimiter($delimiter){
+        // do nothing
+    }
 }
