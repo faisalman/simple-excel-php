@@ -15,10 +15,26 @@ class CSVParser implements IParser
     /**
     * Holds the parsed result
     * 
-    * @access   private
+    * @access   protected
     * @var      array
     */
-    private $table_arr;
+    protected $table_arr;
+    
+    /**
+    * Defines delimiter character
+    * 
+    * @access   protected
+    * @var      string
+    */
+    protected $delimiter;
+    
+    /**
+    * Defines valid file extension
+    * 
+    * @access   protected
+    * @var      string
+    */
+    protected $file_extension = 'CSV';
 
     /**
     * @param    string  $file_url   Path to CSV file (optional)
@@ -121,8 +137,7 @@ class CSVParser implements IParser
     /**
     * Load the CSV file to be parsed
     * 
-    * @param    string  $file_path   Path to CSV file
-    * @return   void
+    * @param    string  $file_path  Path to CSV file
     * @throws   Exception           If file being loaded doesn't exist
     * @throws   Exception           If file extension doesn't match with CSV
     * @throws   Exception           If error reading the file
@@ -133,42 +148,57 @@ class CSVParser implements IParser
 
         if (!file_exists($file_path)) {
             throw new \Exception('File '.$file_path.' doesn\'t exist', SimpleExcelException::FILE_NOT_FOUND);
-        } else if ($file_extension != 'CSV'){
-            throw new \Exception('File extension '.$file_extension.' doesn\'t match with CSV', SimpleExcelException::FILE_EXTENSION_MISMATCH);
+        } else if ($file_extension != $this->file_extension){
+            throw new \Exception('File extension '.$file_extension.' doesn\'t match with '.$this->file_extension, SimpleExcelException::FILE_EXTENSION_MISMATCH);
         }
 
         if (($handle = fopen($file_path, 'r')) !== FALSE) {
 
             $this->table_arr = array();
-            $numofcols = NULL;
-
-            // assume the delimiter is semicolon
-            while(($line = fgetcsv($handle, 0, ';')) !== FALSE){
-                if($numofcols === NULL){
-                    $numofcols = count($line);
-                }
-                // check the number of values in each line
-                if(count($line) === $numofcols){
-                    array_push($this->table_arr, $line);
-                } else {
-                    // maybe wrong delimiter
-                    // empty the array back
-                    $this->table_arr = array();
-                    break;
-                }
-            }
-
-            // check whether values are separated by commas
-            if(count($this->table_arr) < 1){
-                while(($line = fgetcsv($handle, 0, ',')) !== FALSE){
-                    array_push($this->table_arr, $line);
-                }
-            }
             
+            if(!isset($this->delimiter)){
+                $numofcols = NULL;
+                // assume the delimiter is semicolon
+                while(($line = fgetcsv($handle, 0, ';')) !== FALSE){
+                    if($numofcols === NULL){
+                        $numofcols = count($line);
+                    }
+                    // check the number of values in each line
+                    if(count($line) === $numofcols){
+                        array_push($this->table_arr, $line);
+                    } else {
+                        // maybe wrong delimiter
+                        // empty the array back
+                        $this->table_arr = array();
+                        $numofcols = NULL;
+                        break;
+                    }
+                }
+                // if null, check whether values are separated by commas
+                if($numofcols === NULL){
+                    while(($line = fgetcsv($handle, 0, ',')) !== FALSE){
+                        array_push($this->table_arr, $line);
+                    }
+                }
+            } else {
+                while(($line = fgetcsv($handle, 0, $this->delimiter)) !== FALSE){
+                    array_push($this->table_arr, $line);
+                }
+            }
+
             fclose($handle);
 
         } else {
             throw new \Exception('Error reading the file', SimpleExcelException::ERROR_READING_FILE);
         }
+    }
+    
+    /**
+    * Set delimiter that should be used to parse CSV document
+    * 
+    * @param    string  $delimiter   Delimiter character
+    */
+    private function setDelimiter($delimiter){
+        $this->delimiter = $delimiter;
     }
 }

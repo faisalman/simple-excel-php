@@ -1,8 +1,8 @@
 {
     "name": "Faisalman/SimpleExcel",
     "type": "library",
-    "description": "A dead simple PHP library to parse/write Microsoft Excel XML/CSV",
-    "keywords": ["excel", "spreadsheet", "xml", "csv", "parser", "writer"],
+    "description": "A dead simple PHP library to parse/write Microsoft Excel XML/CSV/TSV",
+    "keywords": ["excel", "spreadsheet", "xml", "csv", "tsv", "parser", "writer"],
     "homepage": "http://faisalman.github.com/simple-excel-php",
     "license": "MIT",
     "authors": [

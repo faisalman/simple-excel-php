@@ -13,25 +13,40 @@ class CSVWriter implements IWriter
     /**
      * Holds data part of CSV
      * 
-     * @access  private
+     * @access  protected
      * @var     string
      */
-    private $csv_data;
+    protected $csv_data;
 
     /**
-     * Holds delimiter char
+     * Defines content-type for HTTP header
      * 
-     * @access  private
+     * @access  protected
      * @var     string
      */
-    private $delimiter;
+    protected $content_type = 'text/csv';
+
+    /**
+     * Defines delimiter char
+     * 
+     * @access  protected
+     * @var     string
+     */
+    protected $delimiter = ',';
+
+    /**
+     * Defines file extension to be used when saving file
+     * 
+     * @access  protected
+     * @var     string
+     */
+    protected $file_extension = 'csv';
 
     /**
      * @return  void
      */
     public function __construct(){
         $this->csv_data = array();
-        $this->delimiter = ',';
     }
 
     /**
@@ -50,7 +65,7 @@ class CSVWriter implements IWriter
     /**
      * Export the CSV document
      * 
-     * @param   string  $filename   Name for the downloaded file (extension will be set automatically)
+     * @param   string  $filename   Name for the saved file (extension will be set automatically)
      * @param   string  $target     Save location
      * @return  void
      */
@@ -65,8 +80,8 @@ class CSVWriter implements IWriter
         }
 
         // set HTTP response header
-        header('Content-Type: text/csv');
-        header('Content-Disposition: attachment; filename='.$filename.'.csv');
+        header('Content-Type: '.$this->content_type);
+        header('Content-Disposition: attachment; filename='.$filename.'.'.$this->file_extension);
 
         $fp = fopen($target, 'w');
         foreach($this->csv_data as $row){
@@ -97,7 +112,7 @@ class CSVWriter implements IWriter
      * @param   string  $delimiter  Commonly used character can be a comma, semicolon, tab, or space
      * @return  void
      */
-    public function setDelimiter($delimiter = ','){
+    public function setDelimiter($delimiter){
         $this->delimiter = $delimiter;
     }
 }

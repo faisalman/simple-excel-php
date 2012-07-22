@@ -3,7 +3,7 @@
  * Simple Excel
  * 
  * A PHP library with simplistic approach for parsing/writing data from/to 
- * Microsoft Excel XML/CSV format
+ * Microsoft Excel XML/CSV/TSV format
  *  
  * Copyright (c) 2011-2012 Faisalman <fyzlman@gmail.com>
  *
@@ -30,7 +30,7 @@
  * @license     http://www.opensource.org/licenses/mit-license
  * @link        http://github.com/faisalman/simple-excel-php
  * @package     SimpleExcel
- * @version     0.3.0
+ * @version     0.3.1
  */
 
 namespace SimpleExcel;
@@ -84,7 +84,7 @@ class SimpleExcel
     */
     public function constructParser($filetype){
         $filetype = strtoupper($filetype);
-        if(preg_match('/(XML|CSV)/',$filetype)){
+        if(preg_match('/(XML|CSV|TSV)/',$filetype)){
             $parser_class = 'SimpleExcel\\Parser\\'.$filetype.'Parser';
             $this->parser = new $parser_class();
             return TRUE;
@@ -103,7 +103,7 @@ class SimpleExcel
     */
     public function constructWriter($filetype){
         $filetype = strtoupper($filetype);
-        if(preg_match('/(XML|CSV)/',$filetype)){
+        if(preg_match('/(XML|CSV|TSV)/',$filetype)){
             $writer_class = 'SimpleExcel\\Writer\\'.$filetype.'Writer';
             $this->writer = new $writer_class();
             return TRUE;
