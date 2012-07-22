@@ -53,6 +53,9 @@ class XMLWriter implements IWriter
 
         foreach($values as $val){
             
+            $value = '';
+            $datatype = 'String';
+            
             // check if given variable contains array
             if(is_array($val)){
                 $value = $val[0];
@@ -61,6 +64,10 @@ class XMLWriter implements IWriter
                 $value = $val;
                 $datatype = is_numeric($val) ? 'Number' : 'String';
             }
+            
+            // escape value from HTML tags
+            $value = filter_var($value, FILTER_SANITIZE_SPECIAL_CHARS);
+            
             $row .= '
     <Cell><Data ss:Type="'.$datatype.'">'.$value.'</Data></Cell>';
         }
@@ -116,8 +123,10 @@ class XMLWriter implements IWriter
         fwrite($fp, $content);
         fclose($fp);
 
-        // since there must be no data below XML
-        exit();
+        if($target == 'php://output'){
+            // since there must be no data below downloaded XML
+            exit();
+        }
     }
 
     /**
