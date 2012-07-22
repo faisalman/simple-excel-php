@@ -76,7 +76,7 @@ class XMLWriter implements IWriter
      * @param   string  $target     Save location
      * @return  void
      */
-    public function saveFile($filename, $target){
+    public function saveFile($filename, $target = NULL){
 
         if(!isset($filename)){
             $filename = date('YmdHis');
