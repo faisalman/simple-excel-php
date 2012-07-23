@@ -7,7 +7,7 @@
     "repositories": [
         {
             "type": "vcs",
-            "https://github.com/faisalman/simple-excel-php.git"
+            "url": "https://github.com/faisalman/simple-excel-php.git"
         }
     ],
     "license": "MIT",
