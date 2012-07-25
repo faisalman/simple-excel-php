@@ -30,7 +30,7 @@
  * @license     http://www.opensource.org/licenses/mit-license
  * @link        http://github.com/faisalman/simple-excel-php
  * @package     SimpleExcel
- * @version     0.3.1
+ * @version     0.3.2
  */
 
 namespace SimpleExcel;
@@ -54,13 +54,13 @@ class SimpleExcel
 {
     /**
     * 
-    * @var CSVParser | XMLParser
+    * @var CSVParser | TSVParser | XMLParser
     */
     public $parser;
 
     /**
     * 
-    * @var CSVParser | XMLParser
+    * @var CSVParser | TSVParser | XMLParser
     */
     public $writer;
 

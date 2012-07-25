@@ -56,7 +56,7 @@ class CSVParser implements IParser
     public function getCell($row_num, $col_num){
 
         // check whether the cell exists
-        if(!isset($this->table_arr[$row_num-1][$col_num-1])){
+        if(!$this->isCellExists($row_num, $col_num)){
             throw new \Exception('Cell '.$row_num.','.$col_num.' doesn\'t exist', SimpleExcelException::CELL_NOT_FOUND);
         }
         return $this->table_arr[$row_num-1][$col_num-1];
@@ -73,7 +73,7 @@ class CSVParser implements IParser
     public function getCellDatatype($row_num, $col_num){
 
         // check whether the cell exists
-        if(!isset($this->table_arr[$row_num-1][$col_num-1])){
+        if(!$this->isCellExists($row_num, $col_num)){
             throw new \Exception('Cell '.$row_num.','.$col_num.' doesn\'t exist', SimpleExcelException::CELL_NOT_FOUND);
         }
         return 'String';
@@ -90,7 +90,7 @@ class CSVParser implements IParser
     public function getColumn($col_num, $val_only = TRUE){
         $col_arr = array();
 
-        if(!isset($this->table_arr[0][$col_num-1])){
+        if(!$this->isColumnExists($col_num)){
             throw new \Exception('Column '.$col_num.' doesn\'t exist', SimpleExcelException::COLUMN_NOT_FOUND);
         }
 
@@ -99,7 +99,7 @@ class CSVParser implements IParser
             array_push($col_arr, $row[$col_num-1]);
         }
 
-        // return the array, if empty then return FALSE
+        // return the array
         return $col_arr;
     }
 
@@ -110,11 +110,12 @@ class CSVParser implements IParser
     * @throws   Exception   If the field is not set.
     */
     public function getField(){
-        if(isset($this->table_arr)){
-            return $this->table_arr;
-        } else {
+        if(!$this->isFieldExists()){
             throw new \Exception('Field is not set', SimpleExcelException::FIELD_NOT_FOUND);
         }
+        
+        // return the array
+        return $this->table_arr;
     }
 
     /**
@@ -126,12 +127,52 @@ class CSVParser implements IParser
     * @throws   Exception           When a row is requested that doesn't exist.
     */
     public function getRow($row_num, $val_only = TRUE){
-        if(!isset($this->table_arr[$row_num-1])){
+        if(!$this->isRowExists($row_num)){
             throw new \Exception('Row '.$row_num.' doesn\'t exist', SimpleExcelException::ROW_NOT_FOUND);
         }
 
         // return the array
         return $this->table_arr[$row_num-1];
+    }
+
+    /**
+    * Check whether cell with specified row & column exists
+    * 
+    * @param    int     $row_num    Row number
+    * @param    int     $col_num    Column number
+    * @return   bool
+    */
+    public function isCellExists($row_num, $col_num){
+        return isset($this->table_arr[$row_num-1][$col_num-1]);
+    }
+    
+    /**
+    * Check whether a specified column exists
+    * 
+    * @param    int     $col_num    Column number
+    * @return   bool
+    */
+    public function isColumnExists($col_num){
+        return isset($this->table_arr[0][$col_num-1]);
+    }
+    
+    /**
+    * Check whether a specified row exists
+    * 
+    * @param    int     $row_num    Row number
+    * @return   bool
+    */
+    public function isRowExists($row_num){
+        return isset($this->table_arr[$row_num-1]);
+    }
+    
+    /**
+    * Check whether table exists
+    * 
+    * @return   bool
+    */
+    public function isFieldExists(){
+        return isset($this->table_arr);
     }
 
     /**

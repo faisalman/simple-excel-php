@@ -17,6 +17,10 @@ interface IParser
     public function getColumn($col_num, $val_only);
     public function getRow($row_num, $val_only);
     public function getField();
+    public function isCellExists($row_num, $col_num);
+    public function isColumnExists($col_num);
+    public function isRowExists($row_num);
+    public function isFieldExists();
     public function loadFile($file_path);
 }
 
