@@ -106,10 +106,11 @@ class CSVParser implements IParser
     /**
     * Get data of all cells as an array
     * 
+    * @param    bool    $val_only   Ignored in CSV
     * @return   array
-    * @throws   Exception   If the field is not set.
+    * @throws   Exception           If the field is not set.
     */
-    public function getField(){
+    public function getField($val_only = TRUE){
         if(!$this->isFieldExists()){
             throw new \Exception('Field is not set', SimpleExcelException::FIELD_NOT_FOUND);
         }
@@ -143,7 +144,7 @@ class CSVParser implements IParser
     * @return   bool
     */
     public function isCellExists($row_num, $col_num){
-        return isset($this->table_arr[$row_num-1][$col_num-1]);
+        return $this->isRowExists($row_num) && $this->isColumnExists($col_num);
     }
     
     /**
@@ -153,7 +154,13 @@ class CSVParser implements IParser
     * @return   bool
     */
     public function isColumnExists($col_num){
-        return isset($this->table_arr[0][$col_num-1]);
+        $exist = false;
+        foreach($this->table_arr as $row){
+            if(array_key_exists($col_num-1, $row)){
+                $exist = true;
+            }
+        }
+        return $exist;
     }
     
     /**
@@ -163,7 +170,7 @@ class CSVParser implements IParser
     * @return   bool
     */
     public function isRowExists($row_num){
-        return isset($this->table_arr[$row_num-1]);
+        return array_key_exists($row_num-1, $this->table_arr);
     }
     
     /**
@@ -193,7 +200,11 @@ class CSVParser implements IParser
             throw new \Exception('File extension '.$file_extension.' doesn\'t match with '.$this->file_extension, SimpleExcelException::FILE_EXTENSION_MISMATCH);
         }
 
-        if (($handle = fopen($file_path, 'r')) !== FALSE) {
+        if (($handle = fopen($file_path, 'r')) === FALSE) {            
+        
+            throw new \Exception('Error reading the file', SimpleExcelException::ERROR_READING_FILE);
+        
+        } else {
 
             $this->table_arr = array();
             
@@ -228,9 +239,6 @@ class CSVParser implements IParser
             }
 
             fclose($handle);
-
-        } else {
-            throw new \Exception('Error reading the file', SimpleExcelException::ERROR_READING_FILE);
         }
     }
     

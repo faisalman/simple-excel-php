@@ -1,8 +1,8 @@
 {
     "name": "faisalman/simple-excel-php",
     "type": "library",
-    "description": "A dead simple PHP library to parse/write tabular data from/to Microsoft Excel XML/CSV/TSV",
-    "keywords": ["excel", "spreadsheet", "document", "xml", "csv", "tsv", "parser", "writer"],
+    "description": "Easily parse/convert/write Microsoft Excel XML/CSV/TSV spreadsheet format",
+    "keywords": ["excel", "spreadsheet", "document", "xml", "csv", "tsv", "parser", "converter", "writer"],
     "homepage": "http://faisalman.github.com/simple-excel-php",
     "repositories": [
         {

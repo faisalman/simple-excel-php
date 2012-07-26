@@ -2,7 +2,7 @@
 
 http://faisalman.github.com/simple-excel-php
 
-PHP library for parsing/writing data from/to Microsoft Excel XML/CSV/TSV format with simplistic approach 
+Easily parse/convert/write Microsoft Excel XML/CSV/TSV spreadsheet format 
 
 ## Features
 

@@ -2,8 +2,8 @@
 /**
  * Simple Excel
  * 
- * A PHP library with simplistic approach for parsing/writing data from/to 
- * Microsoft Excel XML/CSV/TSV format
+ * A PHP library with simplistic approach
+ * Easily parse/convert/write Microsoft Excel XML/CSV/TSV spreadsheet format
  *  
  * Copyright (c) 2011-2012 Faisalman <fyzlman@gmail.com>
  *
@@ -30,7 +30,7 @@
  * @license     http://www.opensource.org/licenses/mit-license
  * @link        http://github.com/faisalman/simple-excel-php
  * @package     SimpleExcel
- * @version     0.3.2
+ * @version     0.3.3
  */
 
 namespace SimpleExcel;
@@ -67,7 +67,7 @@ class SimpleExcel
     /**
     * SimpleExcel constructor method
     * 
-    * @param    string  $filetype   Set the filetype of the file which will be parsed (XML/CSV)
+    * @param    string  $filetype   Set the filetype of the file which will be parsed (XML/CSV/TSV)
     * @return   void
     */
     public function __construct($filetype = 'XML'){
@@ -78,38 +78,41 @@ class SimpleExcel
     /**
     * Construct a SimpleExcel Parser
     * 
-    * @param    string  $filetype   Set the filetype of the file which will be parsed (XML/CSV)
-    * @return   bool
-    * @throws   Exception           If filetype is neither XML/CSV
+    * @param    string  $filetype   Set the filetype of the file which will be parsed (XML/CSV/TSV)
+    * @throws   Exception           If filetype is neither XML/CSV/TSV
     */
     public function constructParser($filetype){
         $filetype = strtoupper($filetype);
-        if(preg_match('/(XML|CSV|TSV)/',$filetype)){
-            $parser_class = 'SimpleExcel\\Parser\\'.$filetype.'Parser';
-            $this->parser = new $parser_class();
-            return TRUE;
-        } else {
+        if(!preg_match('/(XML|CSV|TSV)/',$filetype)){
             throw new \Exception('Filetype '.$filetype.' is not supported', SimpleExcelException::FILETYPE_NOT_SUPPORTED);
-            return FALSE;
         }
+        $parser_class = 'SimpleExcel\\Parser\\'.$filetype.'Parser';
+        $this->parser = new $parser_class();
     }
 
     /**
     * Construct a SimpleExcel Writer
     * 
-    * @param    string  $filetype   Set the filetype of the file which will be written (XML/CSV)
+    * @param    string  $filetype   Set the filetype of the file which will be written (XML/CSV/TSV)
     * @return   bool
-    * @throws   Exception           If filetype is neither XML/CSV
+    * @throws   Exception           If filetype is neither XML/CSV/TSV
     */
     public function constructWriter($filetype){
         $filetype = strtoupper($filetype);
-        if(preg_match('/(XML|CSV|TSV)/',$filetype)){
-            $writer_class = 'SimpleExcel\\Writer\\'.$filetype.'Writer';
-            $this->writer = new $writer_class();
-            return TRUE;
-        } else {
+        if(!preg_match('/(XML|CSV|TSV)/',$filetype)){
             throw new \Exception('Filetype '.$filetype.' is not supported', SimpleExcelException::FILETYPE_NOT_SUPPORTED);
-            return FALSE;
         }
+        $writer_class = 'SimpleExcel\\Writer\\'.$filetype.'Writer';
+        $this->writer = new $writer_class();
+    }
+    
+    /**
+    * Change writer type to convert to another format
+    * 
+    * @param    string  $filetype   Set the filetype of the file which will be written (XML/CSV/TSV)
+    */
+    public function convertTo($filetype){
+        $this->constructWriter($filetype);
+        $this->writer->setData($this->parser->getField());
     }
 }

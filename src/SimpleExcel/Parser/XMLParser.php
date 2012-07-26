@@ -61,7 +61,12 @@ class XMLParser implements IParser
         if (!$this->isCellExists($row_num, $col_num)) {
             throw new \Exception('Cell '.$row_num.','.$col_num.' doesn\'t exist', SimpleExcelException::CELL_NOT_FOUND);
         }
-        return $this->table_arr['table_contents'][$row_num-1]['row_contents'][$col_num-1]['value'];
+        if(is_array($this->table_arr['table_contents'][$row_num-1]['row_contents'])){
+            if(array_key_exists($col_num-1, $this->table_arr['table_contents'][$row_num-1]['row_contents'])){
+                return $this->table_arr['table_contents'][$row_num-1]['row_contents'][$col_num-1]['value'];
+            }
+        }
+        return "";
     }
 
     /**
@@ -99,10 +104,12 @@ class XMLParser implements IParser
         foreach ($this->table_arr['table_contents'] as $row) {
             if ($row['row_contents']) {
                 if(!$val_only) {
-                    array_push($col_arr,$row['row_contents'][$col_num-1]);
+                    array_push($col_arr, $row['row_contents'][$col_num-1]);
                 } else {
-                    array_push($col_arr,$row['row_contents'][$col_num-1]['value']);
+                    array_push($col_arr, $row['row_contents'][$col_num-1]['value']);
                 }
+            } else {
+                array_push($col_arr, "");
             }
         }
 
@@ -113,14 +120,29 @@ class XMLParser implements IParser
     /**
     * Get data of all cells as an array
     * 
+    * @param    bool    $val_only   Returns (value only | complete data) for every cell, default to TRUE
     * @return   array
     * @throws   Exception   If the field is not set.
     */
-    public function getField() {
+    public function getField($val_only = TRUE) {
         if (!$this->isFieldExists()) {
             throw new \Exception('Field is not set', SimpleExcelException::FIELD_NOT_FOUND);           
         }
-        return $this->table_arr;
+        if($val_only){
+            $field = array();
+            foreach($this->table_arr['table_contents'] as $row){
+                $cells = array();
+                if($row['row_contents']){
+                    foreach($row['row_contents'] as $cell){
+                        array_push($cells, $cell['value']);
+                    }
+                }
+                array_push($field, $cells);
+            }
+            return $field;
+        } else {
+            return $this->table_arr;
+        }
     }
 
     /**
@@ -159,7 +181,7 @@ class XMLParser implements IParser
     * @return   bool
     */
     public function isCellExists($row_num, $col_num){
-        return isset($this->table_arr['table_contents'][$row_num-1]['row_contents'][$col_num-1]);
+        return $this->isRowExists($row_num) && $this->isColumnExists($col_num);
     }
     
     /**
@@ -169,7 +191,15 @@ class XMLParser implements IParser
     * @return   bool
     */
     public function isColumnExists($col_num){
-        return isset($this->table_arr['table_contents']);
+        $exist = false;
+        foreach($this->table_arr['table_contents'] as $row){
+            if(is_array($row['row_contents'])){
+                if(array_key_exists($col_num-1, $row['row_contents'])){
+                    $exist = true;
+                }
+            }
+        }
+        return $exist;
     }
     
     /**
@@ -179,7 +209,7 @@ class XMLParser implements IParser
     * @return   bool
     */
     public function isRowExists($row_num){
-        return isset($this->table_arr['table_contents'][$row_num-1]['row_contents']);
+        return array_key_exists($row_num-1, $this->table_arr['table_contents']);
     }
     
     /**
