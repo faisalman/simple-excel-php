@@ -55,7 +55,7 @@
       <span class="small">PHP</a></span></h1>
 
     <div class="description">
-      PHP library with simplistic approach for parsing/writing data from/to Microsoft Excel XML/CSV/TSV format
+      Easily parse/convert/write Microsoft Excel XML/CSV/TSV spreadsheet format
     </div>
 
     <h2>Download</h2>
@@ -77,7 +77,7 @@
 <h2>Authors</h2>
 <ul><li>Faisalman &lt;fyzlman@gmail.com&gt;</li></ul>
 <h2>Version</h2>
-<p>v0.3.0</p>
+<p>v0.3.3</p>
 <h2>Features</h2>
 <ul>
 <li>Parsing Microsoft Excel XML/CSV/TSV cells to PHP arrays</li>
@@ -86,15 +86,15 @@
 <h2>Dependencies</h2>
 <ul><li> >= PHP 5.3.0</li></ul>
 <h2>Install</h2>
-<p>You can use dependency manager like Composer or directly include this library on your PHP project with either <code>include()</code> or <code>require()</code></p>
+<p>You can use dependency manager like <a href="http://getcomposer.org/" target="_blank">Composer</a> or directly include this library on your PHP project with either <code>include()</code> or <code>require()</code></p>
 <h2>Usage Example</h2>
-Parsing an XML file, simplified:
+Parsing an Excel 2003 XML file, simplified:
 <pre><code>
 &lt;?php
 
 use SimpleExcel\SimpleExcel;
 
-require_once('../your/project/lib/SimpleExcel/SimpleExcel.php'); // load the main class file
+require_once('../your/project/lib/SimpleExcel/SimpleExcel.php'); // load the main class file (if you're not using autoloader)
 
 $excel = new SimpleExcel('xml');                    // instantiate new object (will automatically construct the parser)
 
@@ -105,11 +105,13 @@ $bar = $excel->parser->getRow(3);                   // get specific array from t
 $baz = $excel->parser->getColumn(4);                // get specific array from the specified column (4th row)
 $qux = $excel->parser->getCell(2,1);                // get specific data from the specified cell (2nd row in 1st column)
 
+echo '&lt;pre&gt;';
 print_r($foo);                                      // echo the array
+echo '&lt;/pre&gt;';
 
 ?&gt;
 </code></pre>
-Writing an XML file, simplified:
+Writing an Excel 2003 XML file, simplified:
 <pre><code>
 &lt;?php
 
@@ -121,7 +123,7 @@ Writing an XML file, simplified:
  
 use SimpleExcel\SimpleExcel;
 
-require_once('../your/project/lib/SimpleExcel/SimpleExcel.php'); // load the main class file
+require_once('../your/project/lib/SimpleExcel/SimpleExcel.php'); // load the main class file (if you're not using autoloader)
 
 $excel = new SimpleExcel('xml');                    // instantiate new object (will automatically construct the writer)
 
@@ -133,7 +135,32 @@ $excel->writer->setData(
         array('2',   'Kab Sukabumi', '1'         )
     )
 );                                                  // add some data to the writer
-$excel->writer->saveFile('example');                // force browser to save the file with specified name (example.xml)
+$excel->writer->saveFile('example');                // save the file with specified name (example.xml) 
+                                                    // and specified target (default to browser)
+
+?&gt;
+</code></pre>
+
+Convert CSV file to Excel 2003 XML file, simplified:
+<pre><code>
+&lt;?php
+
+/**
+ * Warning: note that there must be no data sent to browser
+ * (be it an echo, HTML element, or even a whitespace)
+ * <u>before</u> the writer->saveFile() method get called
+ */
+ 
+use SimpleExcel\SimpleExcel;
+
+require_once('../your/project/lib/SimpleExcel/SimpleExcel.php'); // load the main class file (if you're not using autoloader)
+
+$excel = new SimpleExcel('csv');                    // instantiate new object (will automatically construct the parser & writer)
+
+$excel->parser->loadFile('example.csv');            // load a CSV file from server to be parsed
+$excel->convertTo('xml');                           // transfer data from parser to writer and change the writer type to XML
+$excel->writer->saveFile('example');                // save the file with specified name (example.xml) 
+                                                    // and specified target (default to browser)
 
 ?&gt;
 </code></pre>
@@ -143,38 +170,58 @@ $excel->writer->saveFile('example');                // force browser to save the
 <ul>
 <li>
 <h3><pre><code>constructParser($filetype)</code></pre></code></pre></h3>
-<p><em>Construct a SimpleExcel Parser</em></p>
+<p><em>Construct a SimpleExcel Parser. Valid filetype: XML/CSV/TSV</em></p>
 </li>
 <li>
 <h3><pre><code>constructWriter($filetype)</code></pre></h3>
-<p><em>Construct a SimpleExcel Writer</em></p>
+<p><em>Construct a SimpleExcel Writer. Valid filetype: XML/CSV/TSV</em></p>
 </li>
 </ul>
 <h3>Parser</h3>
 <ul>
 <li>
 <h3><pre><code>parser->getCell($row_num, $col_num)</code></pre></h3>
-<p><em>Get value of the specified cell. Returns an array or FALSE if cell doesn't exist</em></p>
+<p><em>Get value of the specified cell. Returns array</em></p>
 </li>
 <li>
 <h3><pre><code>parser->getCellDatatype($row_num, $col_num)</code></pre></h3>
-<p><em>Get datatype of the specified cell. Returns an array or FALSE if cell doesn't exist</em></p>
+<p><em>Get datatype of the specified cell. Returns array</em></p>
 </li>
 <li>
 <h3><pre><code>parser->getColumn($col_num, $val_only)</code></pre></h3>
-<p><em>Get data of the specified column as an array. Returns an array or FALSE if table doesn't exist</em></p>
+<p><em>Get data of the specified column as an array. Returns array</em></p>
 </li>
 <li>
 <h3><pre><code>parser->getField()</code></pre></h3>
-<p><em>Get data of all cells as an array. Returns an array or FALSE if table doesn't exist</em></p>
+<p><em>Get data of all cells as an array. Returns array</em></p>
 </li>
 <li>
 <h3><pre><code>parser->getRow($row_num, $val_only)</code></pre></h3>
-<p><em>Get data of the specified row as an array. Returns an array or FALSE if cell doesn't exist</em></p>
+<p><em>Get data of the specified row as an array. Returns array</em></p>
+</li>
+<li>
+<h3><pre><code>parser->isCellExists($row_num, $col_num)</code></pre></h3>
+<p><em>Check whether the specified cell exists. Returns bool</em></p>
+</li>
+<li>
+<h3><pre><code>parser->isColumnExists($col_num)</code></pre></h3>
+<p><em>Check whether the specified column exists. Returns bool</em></p>
+</li>
+<li>
+<h3><pre><code>parser->isRowExists($row_num)</code></pre></h3>
+<p><em>Check whether the specified row exists. Returns bool</em></p>
+</li>
+<li>
+<h3><pre><code>parser->isFieldExists()</code></pre></h3>
+<p><em>Check whether table exists. Returns bool</em></p>
 </li>
 <li>
 <h3><pre><code>parser->loadFile($file_path)</code></pre></h3>
-<p><em>Load the file to be parsed. Returns TRUE if file exist and valid, FALSE if does'nt</em></p>
+<p><em>Load the file to be parsed, if file exist and valid</em></p>
+</li>
+<li>
+<h3><pre><code>writer->setDelimiter($delimiter)</code></pre></h3>
+<p><em>[CSV only] Set the delimiter character, if not set it will automatically determined</em></p>
 </li>
 </ul>
 <h3>Writer</h3>
@@ -198,6 +245,13 @@ $excel->writer->saveFile('example');                // force browser to save the
 <li>
 <h3><pre><code>writer->setDocProp($prop, $val)</code></pre></h3>
 <p><em>[XML only] Set the document property</em></p>
+</li>
+</ul>
+<h3>Converter</h3>
+<ul>
+<li>
+<h3><pre><code>convertTo($filetype)</code></pre></h3>
+<p><em>Transferring data from parser to writer and then change the type of writer. Valid filetype: XML/CSV/TSV</em></p>
 </li>
 </ul>
 
