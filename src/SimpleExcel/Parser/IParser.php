@@ -12,8 +12,7 @@ namespace SimpleExcel\Parser;
 /** define parser interface */
 interface IParser
 {
-    public function getCell($row_num, $col_num);
-    public function getCellDatatype($row_num, $col_num);
+    public function getCell($row_num, $col_num, $val_only);
     public function getColumn($col_num, $val_only);
     public function getRow($row_num, $val_only);
     public function getField($val_only);

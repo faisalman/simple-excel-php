@@ -53,36 +53,26 @@ class XMLParser implements IParser
     * 
     * @param    int $row_num    Row number
     * @param    int $col_num    Column number
+    * @param    int $val_only   Whether returns only it's value or complete data
     * @return   array
     * @throws   Exception       If the cell identified doesn't exist.
     */
-    public function getCell($row_num, $col_num) {
+    public function getCell($row_num, $col_num, $val_only = true) {
         // check whether the cell exists
         if (!$this->isCellExists($row_num, $col_num)) {
             throw new \Exception('Cell '.$row_num.','.$col_num.' doesn\'t exist', SimpleExcelException::CELL_NOT_FOUND);
         }
         if(is_array($this->table_arr['table_contents'][$row_num-1]['row_contents'])){
             if(array_key_exists($col_num-1, $this->table_arr['table_contents'][$row_num-1]['row_contents'])){
-                return $this->table_arr['table_contents'][$row_num-1]['row_contents'][$col_num-1]['value'];
+                $cell = $this->table_arr['table_contents'][$row_num-1]['row_contents'][$col_num-1];
+                if(!$val_only){
+                    return $cell;
+                } else {
+                    return $cell['value'];
+                }
             }
         }
         return "";
-    }
-
-    /**
-    * Get datatype of the specified cell
-    * 
-    * @param    int     $row_num    Row number
-    * @param    int     $col_num    Column number
-    * @return   array
-    * @throws   Exception           If the cell requested doesn't exist.
-    */
-    public function getCellDatatype($row_num, $col_num) {
-        // check whether the cell exists
-        if(!$this->isCellExists($row_num, $col_num)) {
-            throw new \Exception('Cell '.$row_num.','.$col_num.' doesn\'t exist', SimpleExcelException::CELL_NOT_FOUND);
-        }
-        return $this->table_arr['table_contents'][$row_num-1]['row_contents'][$col_num-1]['datatype'];
     }
 
     /**
