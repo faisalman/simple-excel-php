@@ -10,24 +10,15 @@ use SimpleExcel\Exception\SimpleExcelException;
  * @author  Faisalman
  * @package SimpleExcel
  */ 
-class XMLParser implements IParser
-{
+class XMLParser extends BaseParser implements IParser
+{    
     /**
-    * Holds the parsed result
+    * Defines valid file extension
     * 
-    * @access   private
-    * @var      array
+    * @access   protected
+    * @var      string
     */
-    private $table_arr;
-
-    /**
-    * @param    string  $file_url   Path to XML file (optional)
-    */
-    public function __construct($file_url = NULL) {
-        if(isset($file_url)) {
-            $this->loadFile($file_url);
-        }
-    }
+    protected $file_extension = 'XML';
 
     /**
     * Extract attributes from SimpleXMLElement object
@@ -162,17 +153,6 @@ class XMLParser implements IParser
         // return the array, if empty then return FALSE
         return $row_arr;
     }
-
-    /**
-    * Check whether cell with specified row & column exists
-    * 
-    * @param    int     $row_num    Row number
-    * @param    int     $col_num    Column number
-    * @return   bool
-    */
-    public function isCellExists($row_num, $col_num){
-        return $this->isRowExists($row_num) && $this->isColumnExists($col_num);
-    }
     
     /**
     * Check whether a specified column exists
@@ -201,15 +181,6 @@ class XMLParser implements IParser
     public function isRowExists($row_num){
         return array_key_exists($row_num-1, $this->table_arr['table_contents']);
     }
-    
-    /**
-    * Check whether table exists
-    * 
-    * @return   bool
-    */
-    public function isFieldExists(){
-        return isset($this->table_arr);
-    }
 
     /**
     * Load the XML file to be parsed
@@ -226,8 +197,8 @@ class XMLParser implements IParser
 
         if (!file_exists($file_path)) {
             throw new \Exception('File '.$file_path.' doesn\'t exist', SimpleExcelException::FILE_NOT_FOUND);
-        } else if ($file_extension != 'XML') {
-            throw new \Exception('File extension '.$file_extension.' doesn\'t match with XML', SimpleExcelException::FILE_EXTENSION_MISMATCH);
+        } else if ($file_extension != $this->file_extension) {
+            throw new \Exception('File extension '.$file_extension.' doesn\'t match with '$this->file_extension, SimpleExcelException::FILE_EXTENSION_MISMATCH);
         }
 
         // assign simpleXML object

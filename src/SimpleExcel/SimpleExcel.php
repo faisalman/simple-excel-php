@@ -3,7 +3,7 @@
  * Simple Excel
  * 
  * A PHP library with simplistic approach
- * Easily parse/convert/write Microsoft Excel XML/CSV/TSV spreadsheet format
+ * Easily parse/convert/write between Microsoft Excel XML/CSV/TSV/HTML/JSON/etc formats
  *  
  * Copyright (c) 2011-2012 Faisalman <fyzlman@gmail.com>
  *
@@ -30,7 +30,7 @@
  * @license     http://www.opensource.org/licenses/mit-license
  * @link        http://github.com/faisalman/simple-excel-php
  * @package     SimpleExcel
- * @version     0.3.4
+ * @version     0.3.5
  */
 
 namespace SimpleExcel;
@@ -54,7 +54,7 @@ class SimpleExcel
 {
     /**
     * 
-    * @var CSVParser | TSVParser | XMLParser
+    * @var CSVParser | TSVParser | XMLParser | HTMLParser | JSONParser
     */
     public $parser;
 
@@ -67,7 +67,7 @@ class SimpleExcel
     /**
     * SimpleExcel constructor method
     * 
-    * @param    string  $filetype   Set the filetype of the file which will be parsed (XML/CSV/TSV)
+    * @param    string  $filetype   Set the filetype of the file which will be parsed (XML/CSV/TSV/HTML/JSON)
     * @return   void
     */
     public function __construct($filetype = 'XML'){
@@ -78,12 +78,12 @@ class SimpleExcel
     /**
     * Construct a SimpleExcel Parser
     * 
-    * @param    string  $filetype   Set the filetype of the file which will be parsed (XML/CSV/TSV)
-    * @throws   Exception           If filetype is neither XML/CSV/TSV
+    * @param    string  $filetype   Set the filetype of the file which will be parsed (XML/CSV/TSV/HTML/JSON)
+    * @throws   Exception           If filetype is neither XML/CSV/TSV/HTML/JSON
     */
     public function constructParser($filetype){
         $filetype = strtoupper($filetype);
-        if(!preg_match('/(XML|CSV|TSV)/',$filetype)){
+        if(!preg_match('/(XML|CSV|TSV|HTML|JSON)/',$filetype)){
             throw new \Exception('Filetype '.$filetype.' is not supported', SimpleExcelException::FILETYPE_NOT_SUPPORTED);
         }
         $parser_class = 'SimpleExcel\\Parser\\'.$filetype.'Parser';

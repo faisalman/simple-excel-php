@@ -2,12 +2,12 @@
 
 http://faisalman.github.com/simple-excel-php
 
-Easily parse/convert/write Microsoft Excel XML/CSV/TSV spreadsheet format 
+Easily parse / convert / write between Microsoft Excel XML / CSV / TSV / HTML / JSON / etc formats
 
 ## Features
 
-* Parser: Microsoft Excel 2003 XML, CSV, TSV
-* Writer: Microsoft Excel 2003 XML, CSV, TSV
+* Available parsers: Microsoft Excel 2003 XML, CSV, TSV, HTML, JSON
+* Available writers: Microsoft Excel 2003 XML, CSV, TSV
 
 ## License
 

@@ -19,9 +19,17 @@ class BaseParser implements IParser
     * @var      array
     */
     private $table_arr;
+    
+    /**
+    * Defines valid file extension
+    * 
+    * @access   protected
+    * @var      string
+    */
+    protected $file_extension;
 
     /**
-    * @param    string  $file_url   Path to HTML file (optional)
+    * @param    string  $file_url   Path to file (optional)
     */
     public function __construct($file_url = NULL) {
         if(isset($file_url)) {
