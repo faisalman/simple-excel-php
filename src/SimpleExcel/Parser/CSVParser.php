@@ -11,7 +11,23 @@ use SimpleExcel\Exception\SimpleExcelException;
  * @package SimpleExcel
  */
 class CSVParser extends BaseParser implements IParser
-{
+{    
+    /**
+    * Defines delimiter character
+    * 
+    * @access   protected
+    * @var      string
+    */
+    protected $delimiter;
+    
+    /**
+    * Defines valid file extension
+    * 
+    * @access   protected
+    * @var      string
+    */
+    protected $file_extension = 'CSV';
+
     /**
     * Load the CSV file to be parsed
     * 
