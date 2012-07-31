@@ -186,19 +186,11 @@ class XMLParser extends BaseParser implements IParser
     * Load the XML file to be parsed
     * 
     * @param    string  $file_path  Path to XML file
-    * @return   void
-    * @throws   Exception           If file being loaded doesn't exist
-    * @throws   Exception           If file extension doesn't match with XML
-    * @throws   Exception           If XML document namespace isn't valid
     */
     public function loadFile($file_path) {
-
-        $file_extension = strtoupper(pathinfo($file_path, PATHINFO_EXTENSION));
-
-        if (!file_exists($file_path)) {
-            throw new \Exception('File '.$file_path.' doesn\'t exist', SimpleExcelException::FILE_NOT_FOUND);
-        } else if ($file_extension != $this->file_extension) {
-            throw new \Exception('File extension '.$file_extension.' doesn\'t match with '$this->file_extension, SimpleExcelException::FILE_EXTENSION_MISMATCH);
+    
+        if (!$this->isFileOk) {
+            return;
         }
 
         // assign simpleXML object

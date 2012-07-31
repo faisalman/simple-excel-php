@@ -20,6 +20,7 @@ interface IParser
     public function isColumnExists($col_num);
     public function isRowExists($row_num);
     public function isFieldExists();
+    public function isFileOk($file_path);
     public function loadFile($file_path);
 }
 

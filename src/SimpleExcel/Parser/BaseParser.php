@@ -26,7 +26,7 @@ class BaseParser implements IParser
     * @access   protected
     * @var      string
     */
-    protected $file_extension;
+    protected $file_extension = '';
 
     /**
     * @param    string  $file_url   Path to file (optional)
@@ -42,7 +42,7 @@ class BaseParser implements IParser
     * 
     * @param    int $row_num    Row number
     * @param    int $col_num    Column number
-    * @param    int $val_only   Ignored in HTML
+    * @param    int $val_only
     * @return   array
     * @throws   Exception       If the cell identified doesn't exist.
     */
@@ -58,7 +58,7 @@ class BaseParser implements IParser
     * Get data of the specified column as an array
     * 
     * @param    int     $col_num    Column number
-    * @param    bool    $val_only   Ignored in HTML
+    * @param    bool    $val_only
     * @return   array
     * @throws   Exception           If the column requested doesn't exist.
     */
@@ -81,7 +81,7 @@ class BaseParser implements IParser
     /**
     * Get data of all cells as an array
     * 
-    * @param    bool        Ignored in HTML
+    * @param    bool    $val_only
     * @return   array
     * @throws   Exception   If the field is not set.
     */
@@ -98,7 +98,7 @@ class BaseParser implements IParser
     * Get data of the specified row as an array
     * 
     * @param    int     $row_num    Row number
-    * @param    bool    $val_only   Ignored in HTML
+    * @param    bool    $val_only
     * @return   array
     * @throws   Exception           When a row is requested that doesn't exist.
     */
@@ -156,11 +156,45 @@ class BaseParser implements IParser
     public function isFieldExists(){
         return isset($this->table_arr);
     }
+    
+    /**
+    * Check whether file exists, valid, and readable
+    * 
+    * @param    string  $file_path  Path to file
+    * @return   bool
+    * @throws   Exception           If file being loaded doesn't exist
+    * @throws   Exception           If file extension doesn't match
+    * @throws   Exception           If error reading the file
+    */
+    public function isFileOk($file_path) {
+    
+        // file exists?
+        if (!file_exists($file_path)) {
+        
+            throw new \Exception('File '.$file_path.' doesn\'t exist', SimpleExcelException::FILE_NOT_FOUND);
+        
+        // extension valid?
+        } else if (strtoupper(pathinfo($file_path, PATHINFO_EXTENSION)!= $this->file_extension){
+
+            throw new \Exception('File extension '.$file_extension.' doesn\'t match with '.$this->file_extension, SimpleExcelException::FILE_EXTENSION_MISMATCH);
+        
+        // file readable?
+        } else if (($handle = fopen($file_path, 'r')) === FALSE) {            
+        
+            throw new \Exception('Error reading the file in'.$file_path, SimpleExcelException::ERROR_READING_FILE);
+            fclose($handle);
+
+        // ok then
+        } else {
+            
+            return TRUE;
+        }
+    }
 
     /**
     * Implemented in each class
     * 
-    * @param    string  $file_path  Path to HTML file
+    * @param    string  $file_path  Path to file
     */
     public function loadFile($file_path) {
     }
