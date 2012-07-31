@@ -22,6 +22,7 @@ interface IParser
     public function isFieldExists();
     public function isFileOk($file_path);
     public function loadFile($file_path);
+    public function loadString($str);
 }
 
 ?>

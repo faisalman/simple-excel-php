@@ -13,24 +13,13 @@ use SimpleExcel\Exception\SimpleExcelException;
 class HTMLParser extends BaseParser implements IParser
 {
     /**
-    * Load the HTML file to be parsed
+    * Process the loaded file/string
     * 
-    * @param    string  $file_path  Path to HTML file
-    * @return   void
+    * @param    DOMDocument $html   DOMDocument object of HTML
     */
-    public function loadFile($file_path) {
-    
-        if (!$this->isFileOk) {
-            return;
-        }
-
-        // instantiate new DOMDocument object
-        $html = new \DOMDocument();
-        
-        $html->loadHTMLFile($file_path);
+    private function parseDOM($html){
         $table = $html->getElementsByTagName('table');
-        $field = array();
-        
+        $field = array();        
         foreach ($tables as $table) {
             $table_child = $table->childNodes;
             foreach ($table_child as $twrap) {
@@ -61,8 +50,34 @@ class HTMLParser extends BaseParser implements IParser
                     }
                 }
             }
+        }        
+        $this->table_arr = $field;
+    }
+    
+    /**
+    * Load the HTML file to be parsed
+    * 
+    * @param    string  $file_path  Path to HTML file
+    */
+    public function loadFile($file_path) {
+    
+        if (!$this->isFileOk) {
+            return;
         }
         
-        $this->table_arr = $field;
+        $html = new \DOMDocument();        
+        $html->loadHTMLFile($file_path);
+        $this->parseDOM($html);
+    }
+    
+    /**
+    * Load the string to be parsed
+    * 
+    * @param    string  $str    String with HTML format
+    */
+    public function loadString($str){
+        $html = new \DOMDocument();        
+        $html->loadHTML($str);
+        $this->parseDOM($html);
     }
 }

@@ -183,21 +183,15 @@ class XMLParser extends BaseParser implements IParser
     }
 
     /**
-    * Load the XML file to be parsed
+    * Process the loaded file/string
     * 
-    * @param    string  $file_path  Path to XML file
+    * @param    SimpleXMLElement $xml   SimpleXMLElement object of XML
+    * @throws   Exception               If document namespace invalid
     */
-    public function loadFile($file_path) {
+    private function parseDOM($xml){
     
-        if (!$this->isFileOk) {
-            return;
-        }
-
-        // assign simpleXML object
-        $simplexml_table = simplexml_load_file($file_path);
-
         // get XML namespace
-        $xmlns = $simplexml_table->getDocNamespaces();
+        $xmlns = $xml->getDocNamespaces();
 
         // check file extension and XML namespace
         if ($xmlns['ss'] != 'urn:schemas-microsoft-com:office:spreadsheet') {
@@ -205,10 +199,10 @@ class XMLParser extends BaseParser implements IParser
         }
 
         // extract document properties
-        $doc_props = (array)$simplexml_table->DocumentProperties;
+        $doc_props = (array)$xml->DocumentProperties;
         $this->table_arr['doc_props'] = $doc_props;
 
-        $rows = $simplexml_table->Worksheet->Table->Row;
+        $rows = $xml->Worksheet->Table->Row;
         $row_num = 1;
         $this->table_arr = array(
             'doc_props' => array(),
@@ -295,5 +289,28 @@ class XMLParser extends BaseParser implements IParser
             ));
             $row_num += 1;
         }
+    }
+    
+    /**
+    * Load the XML file to be parsed
+    * 
+    * @param    string  $file_path  Path to XML file
+    */
+    public function loadFile($file_path) {
+    
+        if (!$this->isFileOk) {
+            return;
+        }
+
+        $this->parseDOM(simplexml_load_file($file_path));
+    }
+    
+    /**
+    * Load the string to be parsed
+    * 
+    * @param    string  $str    String with XML format
+    */
+    public function loadString($str){
+        $this->parseDOM(simplexml_load_string($str));
     }
 }

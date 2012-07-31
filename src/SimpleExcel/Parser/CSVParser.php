@@ -40,12 +40,22 @@ class CSVParser extends BaseParser implements IParser
         }
 
         $handle = fopen($file_path, 'r');
+        $this->loadString($handle);
+        fclose($handle);
+    }
+    
+    /**
+    * Load the string to be parsed
+    * 
+    * @param    string  $str    String with CSV format
+    */
+    public function loadString($str){
         $this->table_arr = array();
         
         if(!isset($this->delimiter)){
             $numofcols = NULL;
             // assume the delimiter is semicolon
-            while(($line = fgetcsv($handle, 0, ';')) !== FALSE){
+            while(($line = fgetcsv($str, 0, ';')) !== FALSE){
                 if($numofcols === NULL){
                     $numofcols = count($line);
                 }
@@ -62,17 +72,15 @@ class CSVParser extends BaseParser implements IParser
             }
             // if null, check whether values are separated by commas
             if($numofcols === NULL){
-                while(($line = fgetcsv($handle, 0, ',')) !== FALSE){
+                while(($line = fgetcsv($str, 0, ',')) !== FALSE){
                     array_push($this->table_arr, $line);
                 }
             }
         } else {
-            while(($line = fgetcsv($handle, 0, $this->delimiter)) !== FALSE){
+            while(($line = fgetcsv($str, 0, $this->delimiter)) !== FALSE){
                 array_push($this->table_arr, $line);
             }
         }
-
-        fclose($handle);
     }
     
     /**

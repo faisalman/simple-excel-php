@@ -184,7 +184,7 @@ class BaseParser implements IParser
             throw new \Exception('Error reading the file in'.$file_path, SimpleExcelException::ERROR_READING_FILE);
             fclose($handle);
 
-        // ok then
+        // okay then
         } else {
             
             return TRUE;
@@ -197,5 +197,13 @@ class BaseParser implements IParser
     * @param    string  $file_path  Path to file
     */
     public function loadFile($file_path) {
+    }    
+
+    /**
+    * Implemented in each class
+    * 
+    * @param    string  $string     String to be loaded
+    */
+    public function loadString($str) {
     }
 }
