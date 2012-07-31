@@ -3,8 +3,8 @@
 <head>
     <meta charset="utf-8">
     <meta name="author" content="Faisalman" />
-    <meta name="description" content="Simple Excel is a lightweight PHP library with simplistic approach for parsing/writing data from/to Microsoft Excel XML/CSV/TSV format" />
-    <meta name="keywords" content="php, library, microsoft, excel, xml, csv, tsv, parser, writer" />
+    <meta name="description" content="Simple Excel is a lightweight PHP library with simplistic approach for parsing/writing data from/to Microsoft Excel XML/CSV/TSV/HTML/JSON format" />
+    <meta name="keywords" content="php, library, microsoft, excel, xml, csv, tsv, html, json, parser, writer" />
 
     <title>SimpleExcel PHP library</title>
 
@@ -55,7 +55,7 @@
       <span class="small">PHP</a></span></h1>
 
     <div class="description">
-      Easily parse/convert/write Microsoft Excel XML/CSV/TSV spreadsheet format
+      Easily parse / convert / write between Microsoft Excel XML / CSV / TSV / HTML / JSON / etc formats
     </div>
 
     <h2>Download</h2>
@@ -77,12 +77,13 @@
 <h2>Authors</h2>
 <ul><li>Faisalman &lt;fyzlman@gmail.com&gt;</li></ul>
 <h2>Version</h2>
-<p>v0.3.3</p>
+<p>v0.3.4</p>
 <h2>Features</h2>
 <ul>
-<li>Parsing Microsoft Excel XML/CSV/TSV cells to PHP arrays</li>
-<li>Writing Microsoft Excel XML/CSV/TSV cells from PHP arrays</li>
+<li>Parsing Microsoft Excel XML/CSV/TSV/HTML*/JSON*</li>
+<li>Writing Microsoft Excel XML/CSV/TSV/HTML*/JSON*</li>
 </ul>
+*) Under development
 <h2>Dependencies</h2>
 <ul><li> >= PHP 5.3.0</li></ul>
 <h2>Install</h2>
@@ -170,11 +171,18 @@ $excel->writer->saveFile('example');                // save the file with specif
 <ul>
 <li>
 <h3><pre><code>constructParser($filetype)</code></pre></code></pre></h3>
-<p><em>Construct a SimpleExcel Parser. Valid filetype: XML/CSV/TSV</em></p>
+<p><em>Construct a SimpleExcel Parser. Valid filetype: XML/CSV/TSV/HTML/JSON</em></p>
 </li>
 <li>
 <h3><pre><code>constructWriter($filetype)</code></pre></h3>
-<p><em>Construct a SimpleExcel Writer. Valid filetype: XML/CSV/TSV</em></p>
+<p><em>Construct a SimpleExcel Writer. Valid filetype: XML/CSV/TSV/HTML/JSON</em></p>
+</li>
+</ul>
+<h3>Converter</h3>
+<ul>
+<li>
+<h3><pre><code>convertTo($filetype)</code></pre></h3>
+<p><em>Transferring data from parser to writer and then change the type of writer. Valid filetype: XML/CSV/TSV/HTML/JSON</em></p>
 </li>
 </ul>
 <h3>Parser</h3>
@@ -184,11 +192,7 @@ $excel->writer->saveFile('example');                // save the file with specif
 <p><em>Get value of the specified cell. Returns array</em></p>
 </li>
 <li>
-<h3><pre><code>parser->getCellDatatype($row_num, $col_num)</code></pre></h3>
-<p><em>Get datatype of the specified cell. Returns array</em></p>
-</li>
-<li>
-<h3><pre><code>parser->getColumn($col_num, $val_only)</code></pre></h3>
+<h3><pre><code>parser->getColumn($col_num)</code></pre></h3>
 <p><em>Get data of the specified column as an array. Returns array</em></p>
 </li>
 <li>
@@ -196,7 +200,7 @@ $excel->writer->saveFile('example');                // save the file with specif
 <p><em>Get data of all cells as an array. Returns array</em></p>
 </li>
 <li>
-<h3><pre><code>parser->getRow($row_num, $val_only)</code></pre></h3>
+<h3><pre><code>parser->getRow($row_num)</code></pre></h3>
 <p><em>Get data of the specified row as an array. Returns array</em></p>
 </li>
 <li>
@@ -216,8 +220,17 @@ $excel->writer->saveFile('example');                // save the file with specif
 <p><em>Check whether table exists. Returns bool</em></p>
 </li>
 <li>
+<h3><pre><code>parser->isFileOk($file_path)</code></pre></h3>
+<p><em>Check whether file exists, valid, and readable. Returns bool</em></p>
+</li>
+<li>
 <h3><pre><code>parser->loadFile($file_path)</code></pre></h3>
 <p><em>Load the file to be parsed, if file exist and valid</em></p>
+</li>
+</li>
+<li>
+<h3><pre><code>parser->loadString($str)</code></pre></h3>
+<p><em>Load the string which will be parsed</em></p>
 </li>
 <li>
 <h3><pre><code>writer->setDelimiter($delimiter)</code></pre></h3>
@@ -245,13 +258,6 @@ $excel->writer->saveFile('example');                // save the file with specif
 <li>
 <h3><pre><code>writer->setDocProp($prop, $val)</code></pre></h3>
 <p><em>[XML only] Set the document property</em></p>
-</li>
-</ul>
-<h3>Converter</h3>
-<ul>
-<li>
-<h3><pre><code>convertTo($filetype)</code></pre></h3>
-<p><em>Transferring data from parser to writer and then change the type of writer. Valid filetype: XML/CSV/TSV</em></p>
 </li>
 </ul>
 
