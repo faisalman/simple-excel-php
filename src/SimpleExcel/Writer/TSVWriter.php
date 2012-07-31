@@ -24,7 +24,7 @@ class TSVWriter extends CSVWriter
      * @access  protected
      * @var     string
      */
-    protected $delimiter = '\t';
+    protected $delimiter = "\t";
 
     /**
      * Defines file extension to be used when saving file

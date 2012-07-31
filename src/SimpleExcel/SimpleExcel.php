@@ -40,7 +40,7 @@ use  SimpleExcel\Exception\SimpleExcelException;
 /** autoload all interfaces & classes */
 if (!class_exists('Composer\\Autoload\\ClassLoader', false)){
     spl_autoload_register(function($class_name){
-        require_once(dirname(__FILE__).DIRECTORY_SEPARATOR.str_replace('\\', DIRECTORY_SEPARATOR, substr($class_name, strlen('SimpleExcel'))).'.php');
+        if($class_name != 'SimpleExcel') require_once(dirname(__FILE__).DIRECTORY_SEPARATOR.str_replace('\\', DIRECTORY_SEPARATOR, substr($class_name, strlen('SimpleExcel\\'))).'.php');
     });
 }
 
@@ -83,7 +83,7 @@ class SimpleExcel
     */
     public function constructParser($filetype){
         $filetype = strtoupper($filetype);
-        if(!preg_match('/(XML|CSV|TSV|HTML|JSON)/',$filetype)){
+        if(!preg_match('/XML|CSV|TSV|HTML|JSON/',$filetype)){
             throw new \Exception('Filetype '.$filetype.' is not supported', SimpleExcelException::FILETYPE_NOT_SUPPORTED);
         }
         $parser_class = 'SimpleExcel\\Parser\\'.$filetype.'Parser';
@@ -99,7 +99,12 @@ class SimpleExcel
     */
     public function constructWriter($filetype){
         $filetype = strtoupper($filetype);
-        if(!preg_match('/(XML|CSV|TSV)/',$filetype)){
+        
+        // not yet implemented
+        if(preg_match('/(HTML|JSON)/',$filetype)){
+            $filetype = 'XML';
+        }
+        if(!preg_match('/XML|CSV|TSV/',$filetype)){
             throw new \Exception('Filetype '.$filetype.' is not supported', SimpleExcelException::FILETYPE_NOT_SUPPORTED);
         }
         $writer_class = 'SimpleExcel\\Writer\\'.$filetype.'Writer';

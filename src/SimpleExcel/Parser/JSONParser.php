@@ -43,8 +43,18 @@ class JSONParser extends BaseParser implements IParser
     * @throws   Exception           If JSON format is invalid (or too deep)
     */
     public function loadString($str){
-        if (($this->table_arr = json_decode(utf8_encode($str), false, 4)) === NULL) {
-            throw new \Exception('Invalid JSON format: '.$str, SimpleExcelException::INVALID_JSON_FORMAT);
+        $field = array();
+        if (($table = json_decode(utf8_encode($str), false, 4)) === NULL) {
+            throw new \Exception('Invalid JSON format: '.$str, SimpleExcelException::MALFORMED_JSON);
+        } else {
+            foreach ($table as $rows) {
+                $row = array();
+                foreach ($rows as $cell) {
+                    array_push($row, $cell);
+                }
+                array_push($field, $row);
+            }
         }
+        $this->table_arr = $field;
     }
 }

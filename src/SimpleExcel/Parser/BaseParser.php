@@ -18,7 +18,7 @@ class BaseParser implements IParser
     * @access   private
     * @var      array
     */
-    private $table_arr;
+    protected $table_arr;
     
     /**
     * Defines valid file extension
@@ -174,7 +174,7 @@ class BaseParser implements IParser
             throw new \Exception('File '.$file_path.' doesn\'t exist', SimpleExcelException::FILE_NOT_FOUND);
         
         // extension valid?
-        } else if (strtoupper(pathinfo($file_path, PATHINFO_EXTENSION)!= $this->file_extension){
+        } else if (strtoupper(pathinfo($file_path, PATHINFO_EXTENSION)!= $this->file_extension)){
 
             throw new \Exception('File extension '.$file_extension.' doesn\'t match with '.$this->file_extension, SimpleExcelException::FILE_EXTENSION_MISMATCH);
         

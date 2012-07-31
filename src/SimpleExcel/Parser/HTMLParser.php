@@ -18,13 +18,13 @@ class HTMLParser extends BaseParser implements IParser
     * @param    DOMDocument $html   DOMDocument object of HTML
     */
     private function parseDOM($html){
-        $table = $html->getElementsByTagName('table');
-        $field = array();        
+        $tables = $html->getElementsByTagName('table');
+        $field = array();    
         foreach ($tables as $table) {
             $table_child = $table->childNodes;
             foreach ($table_child as $twrap) {
                 if($twrap->nodeType === XML_ELEMENT_NODE) {
-                    if ($twrap->nodeName === "thead" || $twrap->nodeName === "tbody")) {
+                    if ($twrap->nodeName === "thead" || $twrap->nodeName === "tbody") {
                         $twrap_child = $twrap->childNodes;
                         foreach ($twrap_child as $tr) {
                             if($tr->nodeType === XML_ELEMENT_NODE && $tr->nodeName === "tr") {
@@ -40,8 +40,8 @@ class HTMLParser extends BaseParser implements IParser
                         }                        
                     } else if ($twrap->nodeName === "tr") {
                         $row = array();
-                        $tr_child = $tr->childNodes;
-                        foreach ($tr_child as $td) {
+                        $twrap_child = $twrap->childNodes;
+                        foreach ($twrap_child as $td) {
                             if ($td->nodeType === XML_ELEMENT_NODE && ($td->nodeName === "th" || $td->nodeName === "td")) {
                                 array_push($row, $td->nodeValue);
                             }
