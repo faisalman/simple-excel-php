@@ -16,7 +16,7 @@ class TSVParser extends CSVParser
     * @access   protected
     * @var      string
     */
-    protected $delimiter = '\t';
+    protected $delimiter = "\t";
     
     /**
     * Defines valid file extension
