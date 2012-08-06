@@ -60,7 +60,7 @@ class SimpleExcel
 
     /**
     * 
-    * @var CSVParser | TSVParser | XMLParser
+    * @var CSVWriter | TSVWriter | XMLWriter | HTMLWriter | JSONWriter
     */
     public $writer;
 
@@ -93,18 +93,14 @@ class SimpleExcel
     /**
     * Construct a SimpleExcel Writer
     * 
-    * @param    string  $filetype   Set the filetype of the file which will be written (XML/CSV/TSV)
+    * @param    string  $filetype   Set the filetype of the file which will be written (XML/CSV/TSV/HTML/JSON)
     * @return   bool
-    * @throws   Exception           If filetype is neither XML/CSV/TSV
+    * @throws   Exception           If filetype is neither XML/CSV/TSV/HTML/JSON
     */
     public function constructWriter($filetype){
         $filetype = strtoupper($filetype);
-        
-        // not yet implemented
-        if(preg_match('/(HTML|JSON)/',$filetype)){
-            $filetype = 'XML';
-        }
-        if(!preg_match('/XML|CSV|TSV/',$filetype)){
+
+        if(!preg_match('/XML|CSV|TSV|HTML|JSON/',$filetype)){
             throw new \Exception('Filetype '.$filetype.' is not supported', SimpleExcelException::FILETYPE_NOT_SUPPORTED);
         }
         $writer_class = 'SimpleExcel\\Writer\\'.$filetype.'Writer';
@@ -114,7 +110,7 @@ class SimpleExcel
     /**
     * Change writer type to convert to another format
     * 
-    * @param    string  $filetype   Set the filetype of the file which will be written (XML/CSV/TSV)
+    * @param    string  $filetype   Set the filetype of the file which will be written (XML/CSV/TSV/HTML/JSON)
     */
     public function convertTo($filetype){
         $this->constructWriter($filetype);
