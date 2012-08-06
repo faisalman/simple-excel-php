@@ -26,7 +26,7 @@ class CSVParser extends BaseParser implements IParser
     * @access   protected
     * @var      string
     */
-    protected $file_extension = 'CSV';
+    protected $file_extension = 'csv';
 
     /**
     * Load the CSV file to be parsed

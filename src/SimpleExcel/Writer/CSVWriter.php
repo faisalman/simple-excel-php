@@ -8,16 +8,8 @@ namespace SimpleExcel\Writer;
  * @author  Faisalman
  * @package SimpleExcel
  */
-class CSVWriter implements IWriter
+class CSVWriter extends BaseWriter implements IWriter
 {
-    /**
-     * Holds data part of CSV
-     * 
-     * @access  protected
-     * @var     string
-     */
-    protected $csv_data;
-
     /**
      * Defines content-type for HTTP header
      * 
@@ -41,69 +33,18 @@ class CSVWriter implements IWriter
      * @var     string
      */
     protected $file_extension = 'csv';
-
+    
     /**
-     * @return  void
-     */
-    public function __construct(){
-        $this->csv_data = array();
-    }
-
-    /**
-     * Adding row data to CSV
+     * Get document content as string
      * 
-     * @param   array   $values An array contains ordered value for every cell
-     * @return  void
+     * @return  string  Content of document
      */
-    public function addRow($values){
-        if(!is_array($values)){
-            $values = array($values);
+    public function getAsString(){
+        $content = '';
+        foreach ($this->tabl_data as $row) {
+            fputcsv($content, $row, $this->delimiter);
         }
-        array_push($this->csv_data, $values);
-    }
-
-    /**
-     * Export the CSV document
-     * 
-     * @param   string  $filename   Name for the saved file (extension will be set automatically)
-     * @param   string  $target     Save location
-     * @return  void
-     */
-    public function saveFile($filename, $target = NULL){
-
-        if(!isset($filename)){
-            $filename = date('YmdHis');
-        }
-        if(!isset($target)){
-            // write CSV output to browser
-            $target = 'php://output';
-        }
-
-        // set HTTP response header
-        header('Content-Type: '.$this->content_type);
-        header('Content-Disposition: attachment; filename='.$filename.'.'.$this->file_extension);
-
-        $fp = fopen($target, 'w');
-        foreach($this->csv_data as $row){
-            fputcsv($fp, $row, $this->delimiter);
-        }
-        fclose($fp);
-        
-        // since there must be no data below
-        exit();
-    }
-
-    /**
-     * Set CSV data
-     * 
-     * @param   array   $values An array contains ordered value of arrays for all fields
-     * @return  void
-     */
-    public function setData($values){
-        if(!is_array($values)){
-            $values = array($values);
-        }
-        $this->csv_data = $values;
+        return $content;
     }
 
     /**

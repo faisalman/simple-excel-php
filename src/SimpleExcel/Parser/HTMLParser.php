@@ -13,6 +13,14 @@ use SimpleExcel\Exception\SimpleExcelException;
 class HTMLParser extends BaseParser implements IParser
 {
     /**
+    * Defines valid file extension
+    * 
+    * @access   protected
+    * @var      string
+    */
+    protected $file_extension = 'html';
+    
+    /**
     * Process the loaded file/string
     * 
     * @param    DOMDocument $html   DOMDocument object of HTML

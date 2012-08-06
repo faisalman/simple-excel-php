@@ -7,7 +7,7 @@ Easily parse / convert / write between Microsoft Excel XML / CSV / TSV / HTML / 
 ## Features
 
 * Available parsers: Microsoft Excel 2003 XML, CSV, TSV, HTML, JSON
-* Available writers: Microsoft Excel 2003 XML, CSV, TSV
+* Available writers: Microsoft Excel 2003 XML, CSV, TSV, HTML, JSON
 
 ## License
 

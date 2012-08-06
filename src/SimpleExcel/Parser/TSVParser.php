@@ -24,7 +24,7 @@ class TSVParser extends CSVParser
     * @access   protected
     * @var      string
     */
-    protected $file_extension = 'TSV';
+    protected $file_extension = 'tsv';
     
     /**
     * Override parent class, this method is ignored in TSV

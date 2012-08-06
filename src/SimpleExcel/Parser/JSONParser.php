@@ -18,7 +18,7 @@ class JSONParser extends BaseParser implements IParser
     * @access   protected
     * @var      string
     */
-    protected $file_extension = 'JSON';
+    protected $file_extension = 'json';
     
     /**
     * Load the JSON file to be parsed

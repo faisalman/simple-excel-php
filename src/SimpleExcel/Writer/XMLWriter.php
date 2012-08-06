@@ -19,6 +19,22 @@ class XMLWriter implements IWriter
     private $xml_data;
 
     /**
+     * Defines content-type for HTTP header
+     * 
+     * @access  protected
+     * @var     string
+     */
+    protected $content_type = 'application/xml';
+
+    /**
+     * Defines file extension to be used when saving file
+     * 
+     * @access  protected
+     * @var     string
+     */
+    protected $file_extension = 'xml';
+
+    /**
      * Array containing document properties
      * 
      * @access  private
@@ -75,28 +91,13 @@ class XMLWriter implements IWriter
         $row .= '
     </Row>';
     }
-
+    
     /**
-     * Export the XML document
+     * Get document content as string
      * 
-     * @param   string  $filename   Name for the downloaded file (extension will be set automatically)
-     * @param   string  $target     Save location
-     * @return  void
+     * @return  string  Content of document
      */
-    public function saveFile($filename, $target = NULL){
-
-        if(!isset($filename)){
-            $filename = date('YmdHis');
-        }
-        if(!isset($target)){
-            // write XML output to browser
-            $target = 'php://output';
-        }
-        
-        // set HTTP response header
-        header('Content-Type: application/xml');
-        header('Content-Disposition: attachment; filename='.$filename.'.xml');
-        
+    public function getAsString(){
         $content = '<?xml version="1.0"?>
 <?mso-application progid="Excel.Sheet"?>
 <Workbook xmlns="urn:schemas-microsoft-com:office:spreadsheet"
@@ -118,15 +119,7 @@ class XMLWriter implements IWriter
   </Table>
  </Worksheet>
 </Workbook>';
-
-        $fp = fopen($target, 'w');
-        fwrite($fp, $content);
-        fclose($fp);
-
-        if($target == 'php://output'){
-            // since there must be no data below downloaded XML
-            exit();
-        }
+        return $content;
     }
 
     /**
@@ -154,7 +147,7 @@ class XMLWriter implements IWriter
     * @param    string  $val    Value of the document property
     * @return   void
     */
-    public function setDocProp($prop,$val){
+    public function setDocProp($prop, $val){
         $this->doc_prop[$prop] = $val;
     }
 }

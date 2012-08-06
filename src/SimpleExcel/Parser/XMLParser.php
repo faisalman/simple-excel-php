@@ -18,7 +18,7 @@ class XMLParser extends BaseParser implements IParser
     * @access   protected
     * @var      string
     */
-    protected $file_extension = 'XML';
+    protected $file_extension = 'xml';
 
     /**
     * Extract attributes from SimpleXMLElement object

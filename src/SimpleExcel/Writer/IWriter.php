@@ -9,10 +9,11 @@ namespace SimpleExcel\Writer;
  * @package SimpleExcel
  */
 
-/** define parser interface */
+/** define writer interface */
 interface IWriter
 {
     public function addRow($values);
+    public function getAsString();
     public function saveFile($filename, $target);
     public function setData($values);
 }
