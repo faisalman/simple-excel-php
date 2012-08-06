@@ -77,13 +77,12 @@
 <h2>Authors</h2>
 <ul><li>Faisalman &lt;fyzlman@gmail.com&gt;</li></ul>
 <h2>Version</h2>
-<p>v0.3.4</p>
+<p>v0.3.6</p>
 <h2>Features</h2>
 <ul>
-<li>Parsing Microsoft Excel XML/CSV/TSV/HTML*/JSON*</li>
-<li>Writing Microsoft Excel XML/CSV/TSV/HTML*/JSON*</li>
+<li>Parsing Microsoft Excel XML/CSV/TSV/HTML/JSON</li>
+<li>Writing Microsoft Excel XML/CSV/TSV/HTML/JSON</li>
 </ul>
-*) Under development
 <h2>Dependencies</h2>
 <ul><li> >= PHP 5.3.0</li></ul>
 <h2>Install</h2>
@@ -234,7 +233,7 @@ $excel->writer->saveFile('example');                // save the file with specif
 </li>
 <li>
 <h3><pre><code>writer->setDelimiter($delimiter)</code></pre></h3>
-<p><em>[CSV only] Set the delimiter character, if not set it will automatically determined</em></p>
+<p><strong>[CSV only]</strong> <em>Set the delimiter character, if not set it will automatically determined</em></p>
 </li>
 </ul>
 <h3>Writer</h3>
@@ -242,6 +241,10 @@ $excel->writer->saveFile('example');                // save the file with specif
 <li>
 <h3><pre><code>writer->addRow($values)</code></pre></h3>
 <p><em>Adding one row of data</em></p>
+</li>
+<li>
+<h3><pre><code>writer->getAsString()</code></pre></h3>
+<p><em>Get document content as string</em></p>
 </li>
 <li>
 <h3><pre><code>writer->saveFile($filename, $target)</code></pre></h3>
@@ -253,11 +256,11 @@ $excel->writer->saveFile('example');                // save the file with specif
 </li>
 <li>
 <h3><pre><code>writer->setDelimiter($delimiter)</code></pre></h3>
-<p><em>[CSV only] Set the delimiter character, default is comma</em></p>
+<p><strong>[CSV only]</strong> <em>Set the delimiter character, default is comma</em></p>
 </li>
 <li>
 <h3><pre><code>writer->setDocProp($prop, $val)</code></pre></h3>
-<p><em>[XML only] Set the document property</em></p>
+<p><strong>[XML only]</strong> <em>Set the document property</em></p>
 </li>
 </ul>
 
