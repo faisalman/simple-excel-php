@@ -13,7 +13,7 @@ namespace SimpleExcel\Writer;
 interface IWriter
 {
     public function addRow($values);
-    public function getAsString();
+    public function saveString();
     public function saveFile($filename, $target);
     public function setData($values);
 }

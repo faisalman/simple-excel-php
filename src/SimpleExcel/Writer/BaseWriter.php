@@ -59,7 +59,7 @@ class BaseWriter implements IWriter
      * 
      * @return  string  Content of document
      */
-    public function getAsString(){
+    public function saveString(){
         $content = '';
         foreach ($this->tabl_data as $row) {
             foreach ($row as $cell) {

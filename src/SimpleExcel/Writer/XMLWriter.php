@@ -97,7 +97,7 @@ class XMLWriter implements IWriter
      * 
      * @return  string  Content of document
      */
-    public function getAsString(){
+    public function saveString(){
         $content = '<?xml version="1.0"?>
 <?mso-application progid="Excel.Sheet"?>
 <Workbook xmlns="urn:schemas-microsoft-com:office:spreadsheet"

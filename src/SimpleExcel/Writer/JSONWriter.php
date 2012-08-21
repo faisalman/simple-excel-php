@@ -31,7 +31,7 @@ class JSONWriter extends BaseWriter implements IWriter
      * 
      * @return  string  Content of document
      */
-    public function getAsString(){
+    public function saveString(){
         return json_encode($this->tabl_data);
     }
 }

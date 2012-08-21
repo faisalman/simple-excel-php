@@ -31,7 +31,7 @@ class HTMLWriter extends BaseWriter implements IWriter
      * 
      * @return  string  Content of document
      */
-    public function getAsString(){
+    public function saveString(){
         $content = '<table>';
         foreach ($this->tabl_data as $row) {
             $content .= '<tr>';
