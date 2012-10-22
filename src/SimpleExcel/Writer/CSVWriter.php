@@ -40,10 +40,13 @@ class CSVWriter extends BaseWriter implements IWriter
      * @return  string  Content of document
      */
     public function saveString(){
-        $content = '';
+        $fp = fopen('php://temp', 'r+');
         foreach ($this->tabl_data as $row) {
-            fputcsv($content, $row, $this->delimiter);
+            fputcsv($fp, $row, $this->delimiter);
         }
+        rewind($fp);
+        $content = stream_get_contents($fp);
+        fclose($fp);
         return $content;
     }
 

@@ -92,7 +92,7 @@ class BaseWriter implements IWriter
         header('Content-Disposition: attachment; filename='.$filename.'.'.$this->file_extension);
 
         $fp = fopen($target, 'w');
-        fwrite($fp, $this->getAsString());
+        fwrite($fp, $this->saveString());
         fclose($fp);
 
         if ($target == 'php://output') {
