@@ -8,16 +8,8 @@ namespace SimpleExcel\Writer;
  * @author  Faisalman
  * @package SimpleExcel
  */
-class XMLWriter implements IWriter
+class XMLWriter extends BaseWriter implements IWriter
 {
-    /**
-     * Holds data part of XML
-     * 
-     * @access  private
-     * @var     string
-     */
-    private $xml_data;
-
     /**
      * Defines content-type for HTTP header
      * 
@@ -63,7 +55,7 @@ class XMLWriter implements IWriter
      * @return  void
      */
     public function addRow($values){
-        $row = &$this->xml_data;
+        $row = &$this->tabl_data;
         $row .= '
     <Row ss:AutoFitHeight="0">';
 
@@ -115,7 +107,7 @@ class XMLWriter implements IWriter
         $content .= '
  </DocumentProperties>
  <Worksheet ss:Name="Sheet1">
-  <Table>'.$this->xml_data.'
+  <Table>'.$this->tabl_data.'
   </Table>
  </Worksheet>
 </Workbook>';
@@ -132,7 +124,7 @@ class XMLWriter implements IWriter
         if(!is_array($values)){
             $values = array($values);
         }
-        $this->xml_data = ""; // reset the xml data.
+        $this->tabl_data = ""; // reset the xml data.
 
         // append values as rows
         foreach ($values as $value) {

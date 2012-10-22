@@ -102,7 +102,7 @@ class BaseWriter implements IWriter
     }
 
     /**
-     * Set CSV data
+     * Set tabular data
      * 
      * @param   array   $values An array contains ordered value of arrays for all fields
      * @return  void
