@@ -39,9 +39,7 @@ class CSVParser extends BaseParser implements IParser
             return;
         }
 
-        $handle = fopen($file_path, 'r');
-        $this->loadString($handle);
-        fclose($handle);
+        $this->loadString(file_get_contents($file_path));
     }
     
     /**
