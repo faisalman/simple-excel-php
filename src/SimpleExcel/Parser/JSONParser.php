@@ -27,7 +27,7 @@ class JSONParser extends BaseParser implements IParser
     */
     public function loadFile($file_path) {
     
-        if (!$this->isFileOk($file_path)) {
+        if (!$this->isFileReady($file_path)) {
             return;
         }
 

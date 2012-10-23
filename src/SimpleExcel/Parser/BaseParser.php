@@ -166,7 +166,7 @@ class BaseParser implements IParser
     * @throws   Exception           If file extension doesn't match
     * @throws   Exception           If error reading the file
     */
-    public function isFileOk($file_path) {
+    public function isFileReady($file_path) {
     
         // file exists?
         if (!file_exists($file_path)) {
