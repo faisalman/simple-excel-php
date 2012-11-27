@@ -8,7 +8,7 @@ namespace SimpleExcel\Writer;
  * @author  Faisalman
  * @package SimpleExcel
  */
-class BaseWriter implements IWriter
+abstract class BaseWriter implements IWriter
 {
     /**
      * Holds tabular data

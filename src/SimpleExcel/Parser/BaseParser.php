@@ -10,7 +10,7 @@ use SimpleExcel\Exception\SimpleExcelException;
  * @author  Faisalman
  * @package SimpleExcel
  */ 
-class BaseParser implements IParser
+abstract class BaseParser implements IParser
 {
     /**
     * Holds the parsed result
@@ -196,14 +196,12 @@ class BaseParser implements IParser
     * 
     * @param    string  $file_path  Path to file
     */
-    public function loadFile($file_path) {
-    }    
+    abstract public function loadFile($file_path);
 
     /**
     * Implemented in each class
     * 
     * @param    string  $string     String to be loaded
     */
-    public function loadString($str) {
-    }
+    abstract public function loadString($str);
 }
