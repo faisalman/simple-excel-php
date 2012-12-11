@@ -190,18 +190,4 @@ abstract class BaseParser implements IParser
             return TRUE;
         }
     }
-
-    /**
-    * Implemented in each class
-    * 
-    * @param    string  $file_path  Path to file
-    */
-    abstract public function loadFile($file_path);
-
-    /**
-    * Implemented in each class
-    * 
-    * @param    string  $string     String to be loaded
-    */
-    abstract public function loadString($str);
 }
