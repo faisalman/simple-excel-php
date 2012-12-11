@@ -84,7 +84,7 @@
 <h2>Authors</h2>
 <ul><li>Faisalman &lt;fyzlman@gmail.com&gt;</li></ul>
 <h2>Latest Version</h2>
-<p>v0.3.10</p>
+<p>v0.3.12</p>
 <h2>Features</h2>
 <ul>
 <li>Parsing Microsoft Excel XML/CSV/TSV/HTML/JSON</li>
@@ -306,8 +306,8 @@ $excel->writer->saveFile('example');                // save the file with specif
 <p><strong>[XML only]</strong> <em>Set the document property</em></p>
 </li>
 </ul>
-<h2>Exception</h2>
-<p>For handling exception, the error codes can be found in <code>SimpleExcelException.php</code></p>
+<h2>Exception handling</h2>
+<p>Error codes can be found in <code>SimpleExcelException.php</code></p>
 <pre><code>&lt;?php
 
 use SimpleExcel\SimpleExcel;
@@ -320,7 +320,7 @@ try {
     $excel->parser->loadFile('inexistfile.csv');        // Try load a file which doesn't actually exists
 } catch (Exception $e) {    
     // handle exception here
-    if ($e->getCode() == '1') {                         // If exception code is 1 (which means FILE_NOT_FOUND)
+    if ($e->getCode() == SimpleExcelException::FILE_NOT_FOUND) {
         echo $e->getMessage();
         echo 'Please try to load another file';
     }
