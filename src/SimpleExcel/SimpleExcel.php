@@ -30,7 +30,7 @@
  * @license     http://www.opensource.org/licenses/mit-license
  * @link        http://github.com/faisalman/simple-excel-php
  * @package     SimpleExcel
- * @version     0.3.12
+ * @version     0.3.13
  */
 
 namespace SimpleExcel;

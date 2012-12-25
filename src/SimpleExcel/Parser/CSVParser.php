@@ -53,7 +53,7 @@ class CSVParser extends BaseParser implements IParser
         if(!isset($this->delimiter)){
             $numofcols = NULL;
             // assume the delimiter is semicolon
-            while(($line = fgetcsv($str, 0, ';')) !== FALSE){
+            while(($line = str_getcsv($str, ';')) !== FALSE){
                 if($numofcols === NULL){
                     $numofcols = count($line);
                 }
@@ -70,12 +70,12 @@ class CSVParser extends BaseParser implements IParser
             }
             // if null, check whether values are separated by commas
             if($numofcols === NULL){
-                while(($line = fgetcsv($str, 0, ',')) !== FALSE){
+                while(($line = str_getcsv($str, ',')) !== FALSE){
                     array_push($this->table_arr, $line);
                 }
             }
         } else {
-            while(($line = fgetcsv($str, 0, $this->delimiter)) !== FALSE){
+            while(($line = str_getcsv($str, $this->delimiter)) !== FALSE){
                 array_push($this->table_arr, $line);
             }
         }
