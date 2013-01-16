@@ -70,7 +70,7 @@ class XMLWriter extends BaseWriter implements IWriter
                 $datatype = $val[1];
             } else {
                 $value = $val;
-                $datatype = is_numeric($val) ? 'Number' : 'String';
+                $datatype = is_string($val) ? 'String' : (is_numeric($val) ? 'Number' : 'String');
             }
             
             // escape value from HTML tags

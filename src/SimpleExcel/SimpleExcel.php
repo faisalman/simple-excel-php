@@ -30,15 +30,15 @@
  * @license     http://www.opensource.org/licenses/mit-license
  * @link        http://github.com/faisalman/simple-excel-php
  * @package     SimpleExcel
- * @version     0.3.13
+ * @version     0.3.14
  */
 
 namespace SimpleExcel;
 
 use  SimpleExcel\Exception\SimpleExcelException;
 
-/** autoload all interfaces & classes */
 if (!class_exists('Composer\\Autoload\\ClassLoader', false)){
+    // autoload all interfaces & classes
     spl_autoload_register(function($class_name){
         if($class_name != 'SimpleExcel') require_once(dirname(__FILE__).DIRECTORY_SEPARATOR.str_replace('\\', DIRECTORY_SEPARATOR, substr($class_name, strlen('SimpleExcel\\'))).'.php');
     });
@@ -63,6 +63,13 @@ class SimpleExcel
     * @var CSVWriter | TSVWriter | XMLWriter | HTMLWriter | JSONWriter
     */
     public $writer;
+    
+    /**
+    * 
+    * @var array
+    */    
+    protected $validParserTypes = array('XML', 'CSV', 'TSV', 'HTML', 'JSON');
+    protected $validWriterTypes = array('XML', 'CSV', 'TSV', 'HTML', 'JSON');
 
     /**
     * SimpleExcel constructor method
@@ -83,7 +90,7 @@ class SimpleExcel
     */
     public function constructParser($filetype){
         $filetype = strtoupper($filetype);
-        if(!preg_match('/XML|CSV|TSV|HTML|JSON/',$filetype)){
+        if(in_array($filetype, $validParserTypes)){
             throw new \Exception('Filetype '.$filetype.' is not supported', SimpleExcelException::FILETYPE_NOT_SUPPORTED);
         }
         $parser_class = 'SimpleExcel\\Parser\\'.$filetype.'Parser';
@@ -100,7 +107,7 @@ class SimpleExcel
     public function constructWriter($filetype){
         $filetype = strtoupper($filetype);
 
-        if(!preg_match('/XML|CSV|TSV|HTML|JSON/',$filetype)){
+        if(in_array($filetype, $validWriterTypes)){
             throw new \Exception('Filetype '.$filetype.' is not supported', SimpleExcelException::FILETYPE_NOT_SUPPORTED);
         }
         $writer_class = 'SimpleExcel\\Writer\\'.$filetype.'Writer';
