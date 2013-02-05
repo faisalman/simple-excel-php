@@ -90,7 +90,7 @@ class SimpleExcel
     */
     public function constructParser($filetype){
         $filetype = strtoupper($filetype);
-        if(in_array($filetype, $validParserTypes)){
+        if(!in_array($filetype, $this->validParserTypes)){
             throw new \Exception('Filetype '.$filetype.' is not supported', SimpleExcelException::FILETYPE_NOT_SUPPORTED);
         }
         $parser_class = 'SimpleExcel\\Parser\\'.$filetype.'Parser';
@@ -107,7 +107,7 @@ class SimpleExcel
     public function constructWriter($filetype){
         $filetype = strtoupper($filetype);
 
-        if(in_array($filetype, $validWriterTypes)){
+        if(!in_array($filetype, $this->validWriterTypes)){
             throw new \Exception('Filetype '.$filetype.' is not supported', SimpleExcelException::FILETYPE_NOT_SUPPORTED);
         }
         $writer_class = 'SimpleExcel\\Writer\\'.$filetype.'Writer';

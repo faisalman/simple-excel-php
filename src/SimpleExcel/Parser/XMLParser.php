@@ -183,10 +183,11 @@ class XMLParser extends BaseParser implements IParser
     }
 
     /**
-    * Process the loaded file/string
-    * 
-    * @param    SimpleXMLElement $xml   SimpleXMLElement object of XML
-    * @throws   Exception               If document namespace invalid
+     * Process the loaded file/string
+     *
+     * @param    SimpleXMLElement $xml   SimpleXMLElement object of XML
+     * @throws   Exception               If document namespace invalid
+     * @return bool
     */
     private function parseDOM($xml){
     
@@ -289,28 +290,32 @@ class XMLParser extends BaseParser implements IParser
             ));
             $row_num += 1;
         }
+
+        return true;
     }
     
     /**
-    * Load the XML file to be parsed
-    * 
-    * @param    string  $file_path  Path to XML file
-    */
+     * Load the XML file to be parsed
+     *
+     * @param    string  $file_path  Path to XML file
+     * @return bool
+     */
     public function loadFile($file_path) {
     
         if (!$this->isFileReady($file_path)) {
-            return;
+            return false;
         }
 
-        $this->parseDOM(simplexml_load_file($file_path));
+        return $this->parseDOM(simplexml_load_file($file_path));
     }
     
     /**
-    * Load the string to be parsed
-    * 
-    * @param    string  $str    String with XML format
-    */
+     * Load the string to be parsed
+     *
+     * @param    string  $str    String with XML format
+     * @return bool
+     */
     public function loadString($str){
-        $this->parseDOM(simplexml_load_string($str));
+        return $this->parseDOM(simplexml_load_string($str));
     }
 }
