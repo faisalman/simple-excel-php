@@ -105,6 +105,7 @@ class CSVParser extends BaseParser implements IParser
 				$c = count($row);
 				while ($c < $max) {
 					$row[] = ""; // fill with empty strings
+					$c += 1;
 				}
 				$rows[$i] = $row;
 			}
