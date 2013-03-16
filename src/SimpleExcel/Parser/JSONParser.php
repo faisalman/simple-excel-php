@@ -32,7 +32,8 @@ class JSONParser extends BaseParser implements IParser
         }
 
         $handle = fopen($file_path, 'r');
-        $this->loadString($handle);
+        $contents = fread($handle, filesize($file_path));
+        $this->loadString($contents);
         fclose($handle);
     }
     

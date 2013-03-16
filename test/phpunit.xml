@@ -5,5 +5,8 @@
         <testsuite name="CSV">
             <directory>./CSV/</directory>
         </testsuite>
+        <testsuite name="JSON">
+            <directory>./JSON/</directory>
+        </testsuite>
     </testsuites>
 </phpunit>

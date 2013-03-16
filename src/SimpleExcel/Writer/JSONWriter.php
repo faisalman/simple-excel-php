@@ -32,7 +32,15 @@ class JSONWriter extends BaseWriter implements IWriter
      * @return  string  Content of document
      */
     public function saveString(){
-        return json_encode($this->tabl_data);
+        $json = array();
+        foreach ($this->tabl_data as $row) {
+            $row_array = array();
+            for ($i = 0; $i < count($row); $i++) {
+                $row_array[$i] = $row[$i];
+            }
+            array_push($json, (object)$row);
+        }
+        return json_encode($json);
     }
 }
 ?>
