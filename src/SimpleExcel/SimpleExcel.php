@@ -5,7 +5,7 @@
  * A PHP library with simplistic approach
  * Easily parse/convert/write between Microsoft Excel XML/CSV/TSV/HTML/JSON/etc formats
  *  
- * Copyright (c) 2011-2012 Faisalman <fyzlman@gmail.com>
+ * Copyright (c) 2011-2013 Faisalman <fyzlman@gmail.com>
  *
  * Permission is hereby granted, free of charge, to any person obtaining a copy
  * of this software and associated documentation files (the "Software"), to deal
@@ -26,11 +26,11 @@
  * THE SOFTWARE.
  * 
  * @author      Faisalman
- * @copyright   2011-2012 (c) Faisalman
+ * @copyright   2011-2013 (c) Faisalman
  * @license     http://www.opensource.org/licenses/mit-license
  * @link        http://github.com/faisalman/simple-excel-php
  * @package     SimpleExcel
- * @version     0.3.14
+ * @version     0.3.15
  */
 
 namespace SimpleExcel;
