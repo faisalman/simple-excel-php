@@ -9,6 +9,16 @@ Easily parse / convert / write between Microsoft Excel XML / CSV / TSV / HTML / 
 * Available parsers: Microsoft Excel 2003 XML, CSV, TSV, HTML, JSON
 * Available writers: Microsoft Excel 2003 XML, CSV, TSV, HTML, JSON
 
+## Development
+
+[![Build Status](https://travis-ci.org/faisalman/simple-excel-php.png)](https://travis-ci.org/faisalman/simple-excel-php)
+
+Testing
+
+```sh
+$ phpunit --configuration test/phpunit.xml
+```
+
 ## License
 
 Copyright (c) 2011-2012 Faisalman <<fyzlman@gmail.com>>
