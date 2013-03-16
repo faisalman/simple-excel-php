@@ -66,7 +66,7 @@ class CSVParser extends BaseParser implements IParser
 			// do guess work
 			$separators = array(';' => 0, ',' => 0);
 			foreach ($separators as $sep => $count) {
-				$args  = explode($sep, $line);
+				$args  = str_getcsv($sep, $line);
 				$count = count($args);
 				
 				$separators[$sep] = $count;
@@ -87,7 +87,7 @@ class CSVParser extends BaseParser implements IParser
 		$sep  = $this->delimiter;
 		$rows = array(); 
 		foreach ($lines as $line) {
-			$args   = explode($sep, $line); // faster than str_getcsv it seems
+			$args   = str_getcsv($line, $sep);
 			$rows[] = $args;
 			
 			$cols = count($args);
