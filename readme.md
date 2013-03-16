@@ -9,6 +9,21 @@ Easily parse / convert / write between Microsoft Excel XML / CSV / TSV / HTML / 
 * Available parsers: Microsoft Excel 2003 XML, CSV, TSV, HTML, JSON
 * Available writers: Microsoft Excel 2003 XML, CSV, TSV, HTML, JSON
 
+## Usage
+
+```php
+use SimpleExcel\SimpleExcel
+
+$excel = new SimpleExcel('CSV');
+$excel->parser->loadFile('test.csv');
+
+echo $excel->parser->getCell(1, 1);
+
+$excel->convertTo('JSON');
+$excel->writer->addRow(array('add', 'another', 'row'));
+$excel->writer->saveFile('example');
+```
+
 ## Development
 
 [![Build Status](https://travis-ci.org/faisalman/simple-excel-php.png)](https://travis-ci.org/faisalman/simple-excel-php)
