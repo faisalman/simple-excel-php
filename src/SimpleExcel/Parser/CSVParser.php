@@ -67,7 +67,7 @@ class CSVParser extends BaseParser implements IParser
 			$separators = array(';' => 0, ',' => 0);
 			foreach ($separators as $sep => $count) {
 				$args  = explode($sep, $line);
-				$count = cont($args);
+				$count = count($args);
 				
 				$separators[$sep] = $count;
 			}
