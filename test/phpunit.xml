@@ -8,5 +8,8 @@
         <testsuite name="JSON">
             <directory>./JSON/</directory>
         </testsuite>
+        <testsuite name="HTML">
+            <directory>./HTML/</directory>
+        </testsuite>
     </testsuites>
 </phpunit>
