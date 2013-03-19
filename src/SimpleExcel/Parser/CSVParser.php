@@ -2,7 +2,11 @@
  
 namespace SimpleExcel\Parser;
 
+use SimpleExcel\Datatype\SimpleExcelDatatype;
 use SimpleExcel\Exception\SimpleExcelException;
+use SimpleExcel\Spreadsheet\Workbook;
+use SimpleExcel\Spreadsheet\Worksheet;
+use SimpleExcel\Spreadsheet\Cell;
 
 /**
  * SimpleExcel class for parsing Microsoft Excel CSV Spreadsheet
@@ -37,7 +41,6 @@ class CSVParser extends BaseParser implements IParser
     * @throws   Exception           If error reading the file
 	*/
 	public function loadFile ($file_path) {
-
 	    $isValid = true;
 	    try {
 		    $this->checkFile($file_path);
@@ -56,9 +59,9 @@ class CSVParser extends BaseParser implements IParser
 	* @param    string  $str    String with CSV format
 	*/
 	public function loadString ($str) {
-		$this->table_arr = array();
-		
-	// 1. Split into lines by newline http://stackoverflow.com/questions/3997336/explode-php-string-by-new-line 
+		$this->workbook = new Workbook();
+        
+        // 1. Split into lines by newline http://stackoverflow.com/questions/3997336/explode-php-string-by-new-line 
 		$pattern = "/\r\n|\n|\r/";
 		$lines   = preg_split($pattern, $str, -1, PREG_SPLIT_NO_EMPTY);
 		$total   = count($lines);
@@ -106,7 +109,7 @@ class CSVParser extends BaseParser implements IParser
 				$min = $cols;
 			}
 		}
-		
+
 		// 4. Expand those rows which have less cols than max cols found
 		if ($min != $max) {
 			foreach ($rows as $i => $row) {
@@ -118,7 +121,16 @@ class CSVParser extends BaseParser implements IParser
 				$rows[$i] = $row;
 			}
 		}
-		$this->table_arr = $rows;
+
+        // convert each cell value to SimpleExcel Cell instance
+        foreach ($rows as $i => $row) {
+            foreach ($row as $j => $cell) {
+                $row[$j] = new Cell($cell, SimpleExcelDatatype::TEXT);
+            }
+        }
+        $worksheet = new Worksheet();
+        $worksheet->setRecords($rows);
+		$this->workbook->insertWorksheet($worksheet);
 	}
 	
 	/**

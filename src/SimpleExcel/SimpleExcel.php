@@ -85,6 +85,7 @@ class SimpleExcel
     * @return   void
     */
     public function __construct($filetype = NULL){
+        $this->workbook = new Workbook();
         if (isset($filetype)) {
             $this->setParserType($filetype);
             $this->setWriterType($filetype);

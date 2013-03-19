@@ -17,15 +17,24 @@ class Cell
     * Cell datatype
     * 
     * @access   public
-    * @var      SimpleExcelDatatype
+    * @var      int
     */
-    public $datatype = SimpleExcelDatatype::TEXT;
+    public $datatype;
 
     /**
     * Cell value
     * 
     * @access   public
-    * @var      string
+    * @var      mixed
     */
-    public $value = '';
+    public $value;
+    
+    /**
+    * @param    mixed  $value       Cell value
+    * @param    string  $datatype   Cell type (optional)
+    */
+    public function __construct($value = '', $datatype = SimpleExcelDatatype::TEXT) {
+        $this->value = $value;
+        $this->datatype = $datatype;
+    }
 }

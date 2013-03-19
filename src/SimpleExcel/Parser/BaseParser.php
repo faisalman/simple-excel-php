@@ -30,7 +30,7 @@ abstract class BaseParser implements IParser
     protected $file_extension = '';
 
     /**
-    * @param    string  $file_url   Path to file (optional)
+    * @param    string  $workbook
     */
     public function __construct(Workbook $workbook) {
         $this->workbook = $workbook;

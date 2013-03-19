@@ -8,7 +8,6 @@ Easily parse / convert / write between Microsoft Excel XML / CSV / TSV / HTML / 
 
 * Available parsers: Microsoft Excel 2003 XML, CSV, TSV, HTML, JSON
 * Available writers: Microsoft Excel 2003 XML, CSV, TSV, HTML, JSON
-* Copying data from parser result to writer
 
 ## Usage
 
@@ -27,7 +26,7 @@ $excel->writer->addRow(array('add', 'another', 'row'));
 $excel->writer->saveFile('example');
 ```
 
-### New API
+### New API (parser & writer now refers to the same workbook for each SimpleExcel instance)
 
 ```php
 use SimpleExcel\SimpleExcel
@@ -36,9 +35,10 @@ $excel = new SimpleExcel();
 $excel->setParserType('CSV');
 $excel->parser->loadFile('test.csv');
 
-echo $excel->workbook->getWorksheet(1)->getCell(1, 1);
+echo $excel->workbook->getWorksheet(1)->getCell(1, 1); // print
 
-$excel->workbook->getWorksheet(1)->insertRecord(array('add', 'another', 'row'));
+$excel->workbook->getWorksheet(1)->insertRecord(array('add', 'another', 'row')); // insert more record
+
 $excel->setWriterType('JSON');
 $excel->writer->saveFile('example.json');
 ```
