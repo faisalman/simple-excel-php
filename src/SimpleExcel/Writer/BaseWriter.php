@@ -11,6 +11,14 @@ namespace SimpleExcel\Writer;
 abstract class BaseWriter implements IWriter
 {
     /**
+    * Holds the workbook instance
+    * 
+    * @access   protected
+    * @var      Workbook
+    */
+    protected $workbook;
+    
+    /**
      * Defines content-type for HTTP header
      * 
      * @access  protected
@@ -29,74 +37,17 @@ abstract class BaseWriter implements IWriter
     /**
      * @return  void
      */
-    public function __construct(){
-        $this->tabl_data = array();
+    public function __construct(Workbook $workbook){
+        $this->workbook = $workbook;
     }
     
     /**
      * @return  void
      */
-    public function exportFile () {
-        throw new \BadMethodCallException('Unimplemented method', SimpleExcelException::UNIMPLEMENTED_METHOD);
-    }
-    
-    /**
-     * @return  string
-     */
-    public function toString () {
-        throw new \BadMethodCallException('Unimplemented method', SimpleExcelException::UNIMPLEMENTED_METHOD);
-    }
-
-    /**
-     * Holds tabular data
-     * 
-     * @deprecated since v0.4
-     * @access  protected
-     * @var     array
-     */
-    protected $tabl_data;
-    
-    /**
-     * Adding row data to table
-     * 
-     * @deprecated since v0.4
-     * @param   array   $values An array contains ordered value for every cell
-     * @return  void
-     */
-    public function addRow($values){
-        if (!is_array($values)) {
-            $values = array($values);
-        }
-        array_push($this->tabl_data, $values);
-    }
-    
-    /**
-     * Get document content as string
-     * 
-     * @return  string  Content of document
-     */
-    public function saveString(){
-        $content = '';
-        foreach ($this->tabl_data as $row) {
-            foreach ($row as $cell) {
-                $content .= $cell.'\t';
-            }
-            $content .= '\n';
-        }
-        return $content;
-    }
-
-    /**
-     * Export the document
-     * 
-     * @param   string  $filename   Name for the saved file (extension will be set automatically)
-     * @param   string  $target     Save location
-     * @return  void
-     */
-    public function saveFile($filename, $target = NULL){
-
+    public function exportFile ($filename, $target) {
+        
         if (!isset($filename)) {
-            $filename = date('YmdHis');
+            $filename = date('Y-m-d-H-i-s');
         }
         if (!isset($target)) {
             // write output to browser
@@ -116,19 +67,36 @@ abstract class BaseWriter implements IWriter
             exit();
         }
     }
+    
+    /**
+     * @return  string
+     */
+    public function toString () {
+        $content = '';
+        foreach ($this->tabl_data as $row) {
+            foreach ($row as $cell) {
+                $content .= $cell.'\t';
+            }
+            $content .= '\n';
+        }
+        return $content;
+    }
 
     /**
-     * Set tabular data
-     * 
      * @deprecated since v0.4
-     * @param   array   $values An array contains ordered value of arrays for all fields
-     * @return  void
      */
+    protected $tabl_data;
+    public function addRow($values){
+        throw new \BadMethodCallException('Unimplemented method', SimpleExcelException::UNIMPLEMENTED_METHOD);
+    }
     public function setData($values){
-        if(!is_array($values)){
-            $values = array($values);
-        }
-        $this->tabl_data = $values;
+        throw new \BadMethodCallException('Unimplemented method', SimpleExcelException::UNIMPLEMENTED_METHOD);
+    }
+    public function saveString(){
+        throw new \BadMethodCallException('Unimplemented method', SimpleExcelException::UNIMPLEMENTED_METHOD);
+    }
+    public function saveFile($filename, $target = NULL){
+        throw new \BadMethodCallException('Unimplemented method', SimpleExcelException::UNIMPLEMENTED_METHOD);
     }
 }
 ?>

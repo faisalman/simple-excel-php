@@ -30,12 +30,13 @@
  * @license     http://www.opensource.org/licenses/mit-license
  * @link        http://github.com/faisalman/simple-excel-php
  * @package     SimpleExcel
- * @version     0.3.15
+ * @version     0.4.0
  */
 
 namespace SimpleExcel;
 
-use  SimpleExcel\Exception\SimpleExcelException;
+use SimpleExcel\Exception\SimpleExcelException;
+use SimpleExcel\Spreadsheet\Workbook;
 
 if (!class_exists('Composer\\Autoload\\ClassLoader', false)){
     // autoload all interfaces & classes
@@ -54,13 +55,19 @@ class SimpleExcel
 {
     /**
     * 
-    * @var CSVParser | TSVParser | XMLParser | HTMLParser | JSONParser
+    * @var Workbook
+    */
+    public $workbook;
+
+    /**
+    * 
+    * @var IParser
     */
     public $parser;
 
     /**
     * 
-    * @var CSVWriter | TSVWriter | XMLWriter | HTMLWriter | JSONWriter
+    * @var IWriter
     */
     public $writer;
     
@@ -77,9 +84,11 @@ class SimpleExcel
     * @param    string  $filetype   Set the filetype of the file which will be parsed (XML/CSV/TSV/HTML/JSON)
     * @return   void
     */
-    public function __construct($filetype = 'XML'){
-        $this->constructParser($filetype);
-        $this->constructWriter($filetype);
+    public function __construct($filetype = NULL){
+        if (isset($filetype)) {
+            $this->setParserType($filetype);
+            $this->setWriterType($filetype);
+        }
     }
 
     /**
@@ -88,13 +97,13 @@ class SimpleExcel
     * @param    string  $filetype   Set the filetype of the file which will be parsed (XML/CSV/TSV/HTML/JSON)
     * @throws   Exception           If filetype is neither XML/CSV/TSV/HTML/JSON
     */
-    public function constructParser($filetype){
+    public function setParserType($filetype){
         $filetype = strtoupper($filetype);
         if(!in_array($filetype, $this->validParserTypes)){
             throw new \Exception('Filetype '.$filetype.' is not supported', SimpleExcelException::FILETYPE_NOT_SUPPORTED);
         }
         $parser_class = 'SimpleExcel\\Parser\\'.$filetype.'Parser';
-        $this->parser = new $parser_class();
+        $this->parser = new $parser_class($this->workbook);
     }
 
     /**
@@ -104,23 +113,26 @@ class SimpleExcel
     * @return   bool
     * @throws   Exception           If filetype is neither XML/CSV/TSV/HTML/JSON
     */
-    public function constructWriter($filetype){
+    public function setWriterType($filetype){
         $filetype = strtoupper($filetype);
 
         if(!in_array($filetype, $this->validWriterTypes)){
             throw new \Exception('Filetype '.$filetype.' is not supported', SimpleExcelException::FILETYPE_NOT_SUPPORTED);
         }
         $writer_class = 'SimpleExcel\\Writer\\'.$filetype.'Writer';
-        $this->writer = new $writer_class();
+        $this->writer = new $writer_class($this->workbook);
     }
-    
+
     /**
-    * Change writer type to convert to another format
-    * 
-    * @param    string  $filetype   Set the filetype of the file which will be written (XML/CSV/TSV/HTML/JSON)
+    * @deprecated since v0.4
     */
+    public function constructParser($filetype){
+        throw new \BadMethodCallException('Unimplemented method', SimpleExcelException::UNIMPLEMENTED_METHOD);
+    }
+    public function constructWriter($filetype){
+        throw new \BadMethodCallException('Unimplemented method', SimpleExcelException::UNIMPLEMENTED_METHOD);
+    }
     public function convertTo($filetype){
-        $this->constructWriter($filetype);
-        $this->writer->setData($this->parser->getField());
+        throw new \BadMethodCallException('Deprecated method', SimpleExcelException::DEPRECATED_METHOD);
     }
 }

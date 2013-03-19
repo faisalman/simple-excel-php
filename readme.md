@@ -1,4 +1,4 @@
-# Simple Excel
+# SimpleExcel.php
 
 http://faisalman.github.com/simple-excel-php
 
@@ -8,8 +8,11 @@ Easily parse / convert / write between Microsoft Excel XML / CSV / TSV / HTML / 
 
 * Available parsers: Microsoft Excel 2003 XML, CSV, TSV, HTML, JSON
 * Available writers: Microsoft Excel 2003 XML, CSV, TSV, HTML, JSON
+* Copying data from parser result to writer
 
 ## Usage
+
+### Prior to version 0.4:
 
 ```php
 use SimpleExcel\SimpleExcel
@@ -24,6 +27,22 @@ $excel->writer->addRow(array('add', 'another', 'row'));
 $excel->writer->saveFile('example');
 ```
 
+### New API
+
+```php
+use SimpleExcel\SimpleExcel
+
+$excel = new SimpleExcel();
+$excel->setParserType('CSV');
+$excel->parser->loadFile('test.csv');
+
+echo $excel->workbook->getWorksheet(1)->getCell(1, 1);
+
+$excel->workbook->getWorksheet(1)->insertRecord(array('add', 'another', 'row'));
+$excel->setWriterType('JSON');
+$excel->writer->saveFile('example.json');
+```
+
 ## Development
 
 [![Build Status](https://travis-ci.org/faisalman/simple-excel-php.png)](https://travis-ci.org/faisalman/simple-excel-php)
@@ -36,7 +55,7 @@ $ phpunit --configuration test/phpunit.xml
 
 ## License
 
-Copyright (c) 2011-2012 Faisalman <<fyzlman@gmail.com>>
+Copyright (c) 2011-2013 Faisalman <<fyzlman@gmail.com>>
 
 Permission is hereby granted, free of charge, to any person obtaining a copy
 of this software and associated documentation files (the "Software"), to deal

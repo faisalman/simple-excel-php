@@ -37,7 +37,8 @@ class XMLWriter extends BaseWriter implements IWriter
     /**
      * @return  void
      */
-    public function __construct(){
+    public function __construct(Workbook $workbook){
+        parent::__construct($workbook);
         $this->doc_prop = array(
             'Author' => 'SimpleExcel',
             'Company' => 'SimpleExcel',
@@ -48,43 +49,6 @@ class XMLWriter extends BaseWriter implements IWriter
         );
     }
 
-    /**
-     * Adding row data to XML
-     * 
-     * @deprecated since v0.4
-     * @param   array   $values An array contains ordered value for every cell
-     * @return  void
-     */
-    public function addRow($values){
-        $row = &$this->tabl_data;
-        $row .= '
-    <Row ss:AutoFitHeight="0">';
-
-        foreach($values as $val){
-            
-            $value = '';
-            $datatype = 'String';
-            
-            // check if given variable contains array
-            if(is_array($val)){
-                $value = $val[0];
-                $datatype = $val[1];
-            } else {
-                $value = $val;
-                $datatype = is_string($val) ? 'String' : (is_numeric($val) ? 'Number' : 'String');
-            }
-            
-            // escape value from HTML tags
-            $value = filter_var($value, FILTER_SANITIZE_SPECIAL_CHARS);
-            
-            $row .= '
-    <Cell><Data ss:Type="'.$datatype.'">'.$value.'</Data></Cell>';
-        }
-
-        $row .= '
-    </Row>';
-    }
-    
     /**
      * Get document content as string
      * 
@@ -113,25 +77,6 @@ class XMLWriter extends BaseWriter implements IWriter
  </Worksheet>
 </Workbook>';
         return $content;
-    }
-
-    /**
-    * Set XML data
-    * 
-    * @deprecated since v0.4
-    * @param    array   $values An array contains ordered value of arrays for all fields
-    * @return   void
-    */
-    public function setData($values){
-        if(!is_array($values)){
-            $values = array($values);
-        }
-        $this->tabl_data = ""; // reset the xml data.
-
-        // append values as rows
-        foreach ($values as $value) {
-            $this->addRow($value);  
-        }
     }
 
     /**
