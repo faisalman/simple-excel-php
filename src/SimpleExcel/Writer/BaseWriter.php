@@ -13,6 +13,7 @@ abstract class BaseWriter implements IWriter
     /**
      * Holds tabular data
      * 
+     * @deprecated since v0.4
      * @access  protected
      * @var     array
      */
@@ -44,6 +45,7 @@ abstract class BaseWriter implements IWriter
     /**
      * Adding row data to table
      * 
+     * @deprecated since v0.4
      * @param   array   $values An array contains ordered value for every cell
      * @return  void
      */
@@ -104,6 +106,7 @@ abstract class BaseWriter implements IWriter
     /**
      * Set tabular data
      * 
+     * @deprecated since v0.4
      * @param   array   $values An array contains ordered value of arrays for all fields
      * @return  void
      */

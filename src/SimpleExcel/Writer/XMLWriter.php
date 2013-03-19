@@ -51,6 +51,7 @@ class XMLWriter extends BaseWriter implements IWriter
     /**
      * Adding row data to XML
      * 
+     * @deprecated since v0.4
      * @param   array   $values An array contains ordered value for every cell
      * @return  void
      */
@@ -117,6 +118,7 @@ class XMLWriter extends BaseWriter implements IWriter
     /**
     * Set XML data
     * 
+    * @deprecated since v0.4
     * @param    array   $values An array contains ordered value of arrays for all fields
     * @return   void
     */

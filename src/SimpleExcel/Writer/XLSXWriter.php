@@ -42,6 +42,7 @@ class XLSXWriter extends BaseWriter implements IWriter
     /**
      * Adding row data to XLSX
      * 
+     * @deprecated since v0.4
      * @param   array   $values An array contains ordered value for every cell
      * @return  void
      */
@@ -57,6 +58,7 @@ class XLSXWriter extends BaseWriter implements IWriter
     /**
     * Set XLSX data
     * 
+    * @deprecated since v0.4
     * @param    array   $values An array contains ordered value of arrays for all fields
     * @return   void
     */

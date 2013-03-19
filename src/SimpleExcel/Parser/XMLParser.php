@@ -42,6 +42,7 @@ class XMLParser extends BaseParser implements IParser
     /**
     * Get value of the specified cell
     * 
+    * @deprecated since v0.4
     * @param    int $row_num    Row number
     * @param    int $col_num    Column number
     * @param    int $val_only   Whether returns only it's value or complete data
@@ -69,6 +70,7 @@ class XMLParser extends BaseParser implements IParser
     /**
     * Get data of the specified column as an array
     * 
+    * @deprecated since v0.4
     * @param    int     $col_num    Column number
     * @param    bool    $val_only   Returns (value only | complete data) for every cell, default to TRUE
     * @return   array
@@ -101,6 +103,7 @@ class XMLParser extends BaseParser implements IParser
     /**
     * Get data of all cells as an array
     * 
+    * @deprecated since v0.4
     * @param    bool    $val_only   Returns (value only | complete data) for every cell, default to TRUE
     * @return   array
     * @throws   Exception   If the field is not set.
@@ -129,6 +132,7 @@ class XMLParser extends BaseParser implements IParser
     /**
     * Get data of the specified row as an array
     * 
+    * @deprecated since v0.4
     * @param    int     $row_num    Row number
     * @param    bool    $val_only   Returns (value only | complete data) for every cell, default to TRUE
     * @return   array
@@ -157,6 +161,7 @@ class XMLParser extends BaseParser implements IParser
     /**
     * Check whether a specified column exists
     * 
+    * @deprecated since v0.4
     * @param    int     $col_num    Column number
     * @return   bool
     */
@@ -175,6 +180,7 @@ class XMLParser extends BaseParser implements IParser
     /**
     * Check whether a specified row exists
     * 
+    * @deprecated since v0.4
     * @param    int     $row_num    Row number
     * @return   bool
     */

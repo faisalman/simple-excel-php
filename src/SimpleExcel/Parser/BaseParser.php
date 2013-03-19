@@ -13,14 +13,6 @@ use SimpleExcel\Exception\SimpleExcelException;
 abstract class BaseParser implements IParser
 {
     /**
-    * Holds the parsed result
-    * 
-    * @access   private
-    * @var      array
-    */
-    protected $table_arr;
-    
-    /**
     * Defines valid file extension
     * 
     * @access   protected
@@ -36,10 +28,20 @@ abstract class BaseParser implements IParser
             $this->loadFile($file_url);
         }
     }
+    
+    /**
+    * Holds the parsed result
+    * 
+    * @deprecated since v0.4
+    * @access   private
+    * @var      array
+    */
+    protected $table_arr;
 
     /**
     * Get value of the specified cell
     * 
+    * @deprecated since v0.4
     * @param    int $row_num    Row number
     * @param    int $col_num    Column number
     * @param    int $val_only
@@ -57,6 +59,7 @@ abstract class BaseParser implements IParser
     /**
     * Get data of the specified column as an array
     * 
+    * @deprecated since v0.4
     * @param    int     $col_num    Column number
     * @param    bool    $val_only
     * @return   array
@@ -81,6 +84,7 @@ abstract class BaseParser implements IParser
     /**
     * Get data of all cells as an array
     * 
+    * @deprecated since v0.4
     * @param    bool    $val_only
     * @return   array
     * @throws   Exception   If the field is not set.
@@ -97,6 +101,7 @@ abstract class BaseParser implements IParser
     /**
     * Get data of the specified row as an array
     * 
+    * @deprecated since v0.4
     * @param    int     $row_num    Row number
     * @param    bool    $val_only
     * @return   array
@@ -114,6 +119,7 @@ abstract class BaseParser implements IParser
     /**
     * Check whether cell with specified row & column exists
     * 
+    * @deprecated since v0.4
     * @param    int     $row_num    Row number
     * @param    int     $col_num    Column number
     * @return   bool
@@ -125,6 +131,7 @@ abstract class BaseParser implements IParser
     /**
     * Check whether a specified column exists
     * 
+    * @deprecated since v0.4
     * @param    int     $col_num    Column number
     * @return   bool
     */
@@ -141,6 +148,7 @@ abstract class BaseParser implements IParser
     /**
     * Check whether a specified row exists
     * 
+    * @deprecated since v0.4
     * @param    int     $row_num    Row number
     * @return   bool
     */
@@ -151,6 +159,7 @@ abstract class BaseParser implements IParser
     /**
     * Check whether table exists
     * 
+    * @deprecated since v0.4
     * @return   bool
     */
     public function isFieldExists(){
@@ -160,6 +169,7 @@ abstract class BaseParser implements IParser
     /**
     * Check whether file exists, valid, and readable
     * 
+    * @deprecated since v0.4
     * @param    string  $file_path  Path to file
     * @return   bool
     * @throws   Exception           If file being loaded doesn't exist
