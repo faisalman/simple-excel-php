@@ -32,22 +32,30 @@ class CSVParser extends BaseParser implements IParser
 	* Load the CSV file to be parsed
 	* 
 	* @param    string  $file_path  Path to CSV file
+    * @throws   Exception           If file being loaded doesn't exist
+    * @throws   Exception           If file extension doesn't match
+    * @throws   Exception           If error reading the file
 	*/
-	public function loadFile($file_path){
-	
-		if (!$this->isFileReady($file_path)) {
-			return;
-		}
+	public function loadFile ($file_path) {
 
-		$this->loadString(file_get_contents($file_path));
+	    $isValid = true;
+	    try {
+		    $this->checkFile($file_path);
+		} catch (Exception $e) {
+		    $isValid = false;
+		    throw $e;
+		}
+		if ($isValid) {
+		    $this->loadString(file_get_contents($file_path));
+		}
 	}
-	
+
 	/**
 	* Load the string to be parsed
 	* 
 	* @param    string  $str    String with CSV format
 	*/
-	public function loadString($str){
+	public function loadString ($str) {
 		$this->table_arr = array();
 		
 	// 1. Split into lines by newline http://stackoverflow.com/questions/3997336/explode-php-string-by-new-line 

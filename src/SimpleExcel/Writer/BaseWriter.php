@@ -11,15 +11,6 @@ namespace SimpleExcel\Writer;
 abstract class BaseWriter implements IWriter
 {
     /**
-     * Holds tabular data
-     * 
-     * @deprecated since v0.4
-     * @access  protected
-     * @var     array
-     */
-    protected $tabl_data;
-
-    /**
      * Defines content-type for HTTP header
      * 
      * @access  protected
@@ -41,7 +32,30 @@ abstract class BaseWriter implements IWriter
     public function __construct(){
         $this->tabl_data = array();
     }
+    
+    /**
+     * @return  void
+     */
+    public function exportFile () {
+        throw new \BadMethodCallException('Unimplemented method', SimpleExcelException::UNIMPLEMENTED_METHOD);
+    }
+    
+    /**
+     * @return  string
+     */
+    public function toString () {
+        throw new \BadMethodCallException('Unimplemented method', SimpleExcelException::UNIMPLEMENTED_METHOD);
+    }
 
+    /**
+     * Holds tabular data
+     * 
+     * @deprecated since v0.4
+     * @access  protected
+     * @var     array
+     */
+    protected $tabl_data;
+    
     /**
      * Adding row data to table
      * 
