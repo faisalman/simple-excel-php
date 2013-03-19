@@ -22,6 +22,6 @@ abstract class SimpleExcelException
     const COLUMN_NOT_FOUND              = 7;
     const CELL_NOT_FOUND                = 8;
     const FILETYPE_NOT_SUPPORTED        = 9;
-    const MALFORMED_JSON           = 10;
+    const MALFORMED_JSON                = 10;
+    const UNIMPLEMENTED_METHOD          = 11;
 }
-?>
