@@ -25,16 +25,13 @@ class JSONParser extends BaseParser implements IParser
     * 
     * @param    string  $file_path  Path to JSON file
     */
-    public function loadFile($file_path) {
-    
-        if (!$this->isFileReady($file_path)) {
-            return;
-        }
-
-        $handle = fopen($file_path, 'r');
-        $contents = fread($handle, filesize($file_path));
-        $this->loadString($contents);
-        fclose($handle);
+    public function loadFile ($file_path, $options = NULL) {    
+	    if ($this->checkFile($file_path)) {
+            $handle = fopen($file_path, 'r');
+            $contents = fread($handle, filesize($file_path));
+            $this->loadString($contents, $options);
+            fclose($handle);
+		}
     }
     
     /**
@@ -43,7 +40,7 @@ class JSONParser extends BaseParser implements IParser
     * @param    string  $str    String with JSON format
     * @throws   Exception           If JSON format is invalid (or too deep)
     */
-    public function loadString($str){
+    public function loadString ($str, $options = NULL) {
         $field = array();
         if (($table = json_decode(utf8_encode($str), false, 4)) === NULL) {
             throw new \Exception('Invalid JSON format: '.$str, SimpleExcelException::MALFORMED_JSON);

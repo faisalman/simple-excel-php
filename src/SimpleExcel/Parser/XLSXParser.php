@@ -8,7 +8,7 @@ namespace SimpleExcel\Parser;
  * @author  Faisalman
  * @package SimpleExcel
  */
-class XLSXParser extends BaseParser implements IParser
+class XLSXParser extends BaseParser
 {
     /**
     * Defines valid file extension
@@ -23,12 +23,12 @@ class XLSXParser extends BaseParser implements IParser
     * 
     * @param    string  $file_path  Path to XLSX file
     */
-    public function loadFile($file_path) { }
+    public function loadFile($file_path, $options) { }
     
     /**
     * Load the string to be parsed
     * 
     * @param    string  $str    String with XLSX format
     */
-    public function loadString($str) { }
+    public function loadString($str, $options) { }
 }

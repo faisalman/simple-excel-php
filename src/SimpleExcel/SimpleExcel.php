@@ -54,38 +54,49 @@ if (!class_exists('Composer\\Autoload\\ClassLoader', false)){
 class SimpleExcel
 {
     /**
-    * 
+    * @var IParser
+    */
+    protected $parser;
+    
+    /**
+    * @var string
+    */
+    protected $parserType;
+
+    /**
+    * @var array
+    */
+    protected $validParserTypes;
+    
+    /**
+    * @var array
+    */
+    protected $validWriterTypes;
+    
+    /**
+    * @var IWriter
+    */
+    protected $writer;
+    
+    /**
+    * @var string
+    */
+    protected $writerType;
+    
+    /**
     * @var Workbook
     */
     public $workbook;
 
     /**
-    * 
-    * @var IParser
-    */
-    public $parser;
-
-    /**
-    * 
-    * @var IWriter
-    */
-    public $writer;
-    
-    /**
-    * 
-    * @var array
-    */    
-    protected $validParserTypes = array('XML', 'CSV', 'TSV', 'HTML', 'JSON');
-    protected $validWriterTypes = array('XML', 'CSV', 'TSV', 'HTML', 'JSON');
-
-    /**
     * SimpleExcel constructor method
     * 
     * @param    string  $filetype   Set the filetype of the file which will be parsed (XML/CSV/TSV/HTML/JSON)
-    * @return   void
     */
-    public function __construct($filetype = NULL){
+    public function __construct ($filetype = NULL) {
         $this->workbook = new Workbook();
+        $this->validParserTypes = array('XML', 'CSV', 'TSV', 'HTML', 'JSON');
+        $this->validWriterTypes = array('XML', 'CSV', 'TSV', 'HTML', 'JSON');
         if (isset($filetype)) {
             $this->setParserType($filetype);
             $this->setWriterType($filetype);
@@ -93,18 +104,97 @@ class SimpleExcel
     }
 
     /**
+    * Clear all data
+    */
+    public function clearAll () {
+        $this->workbook = new Workbook();
+    }
+
+    /**
+    * Export data as file
+    * 
+    * @param    string  $filename   Name for the file
+    * @param    string  $target     Where to write the file
+    * @param    string  $filetype   Type of the file to be written
+    * @throws   Exception           If filetype is not supported
+    * @throws   Exception           If error writing file
+    */
+    public function exportFile ($fileName, $target, $fileType, $options = NULL) {
+        $this->setWriterType($fileType);
+        $this->writer->exportFile($fileName, $target, $options);
+    }
+    
+    /**
+    * Get specified worksheet
+    * 
+    * @param    int     $index      Worksheet index
+    * @throws   Exception           If worksheet with specified index is not found
+    */
+    public function getWorksheet ($index = 1) {
+        return $this->workbook->getWorksheet($index);
+    }
+    
+    /**
+    * Insert a worksheet
+    * 
+    * @param    Worksheet   $worksheet  Worksheet to be inserted
+    */
+    public function insertWorksheet (Worksheet $worksheet) {
+        $this->workbook->insertWorksheet($worksheet);
+    }
+
+    /**
+    * Load file to parser
+    * 
+    * @param    string  $filepath   Path to file
+    * @param    string  $filetype   Set the filetype of the file which will be parsed
+    * @throws   Exception           If filetype is not supported
+    * @throws   Exception           If file being loaded doesn't exist
+    * @throws   Exception           If file extension doesn't match
+    * @throws   Exception           If error reading the file
+    */
+    public function loadFile ($filePath, $fileType, $options = NULL) {
+        $this->setParserType($fileType);
+        $this->parser->loadFile($filePath, $options);
+    }
+    
+    /**
+    * Load string to parser
+    * 
+    * @param    string  $filepath   Path to file
+    * @param    string  $filetype   Set the filetype of the file which will be parsed
+    * @throws   Exception           If filetype is not supported
+    */
+    public function loadString ($string, $fileType) {
+        $this->setParserType($fileType);
+        $this->parser->loadString($string);
+    }
+    
+    /**
+    * Remove a worksheet
+    * 
+    * @param    int   $index  Worksheet index to be removed
+    */
+    public function removeWorksheet ($index) {
+        $this->workbook->removeWorksheet($index);
+    }
+
+    /**
     * Construct a SimpleExcel Parser
     * 
     * @param    string  $filetype   Set the filetype of the file which will be parsed (XML/CSV/TSV/HTML/JSON)
-    * @throws   Exception           If filetype is neither XML/CSV/TSV/HTML/JSON
+    * @throws   Exception           If filetype is not supported
     */
-    public function setParserType($filetype){
+    protected function setParserType($filetype){
         $filetype = strtoupper($filetype);
-        if(!in_array($filetype, $this->validParserTypes)){
-            throw new \Exception('Filetype '.$filetype.' is not supported', SimpleExcelException::FILETYPE_NOT_SUPPORTED);
+        if ($filetype != $this->parserType) {
+            if(!in_array($filetype, $this->validParserTypes)){
+                throw new \Exception('Filetype '.$filetype.' is not supported', SimpleExcelException::FILETYPE_NOT_SUPPORTED);
+            }
+            $parser_class = 'SimpleExcel\\Parser\\'.$filetype.'Parser';
+            $this->parser = new $parser_class($this->workbook);
+            $this->parserType = $filetype;
         }
-        $parser_class = 'SimpleExcel\\Parser\\'.$filetype.'Parser';
-        $this->parser = new $parser_class($this->workbook);
     }
 
     /**
@@ -112,28 +202,29 @@ class SimpleExcel
     * 
     * @param    string  $filetype   Set the filetype of the file which will be written (XML/CSV/TSV/HTML/JSON)
     * @return   bool
-    * @throws   Exception           If filetype is neither XML/CSV/TSV/HTML/JSON
+    * @throws   Exception           If filetype is not supported
     */
-    public function setWriterType($filetype){
+    protected function setWriterType ($filetype) {
         $filetype = strtoupper($filetype);
-
-        if(!in_array($filetype, $this->validWriterTypes)){
-            throw new \Exception('Filetype '.$filetype.' is not supported', SimpleExcelException::FILETYPE_NOT_SUPPORTED);
+        if ($filetype != $this->writerType) {
+            if(!in_array($filetype, $this->validWriterTypes)) {
+                throw new \Exception('Filetype '.$filetype.' is not supported', SimpleExcelException::FILETYPE_NOT_SUPPORTED);
+            }
+            $writer_class = 'SimpleExcel\\Writer\\'.$filetype.'Writer';
+            $this->writer = new $writer_class($this->workbook);
+            $this->writerType = $filetype;
         }
-        $writer_class = 'SimpleExcel\\Writer\\'.$filetype.'Writer';
-        $this->writer = new $writer_class($this->workbook);
     }
-
+    
     /**
-    * @deprecated since v0.4
+    * Get data as string
+    * 
+    * @param    string  $filetype   Document format for the string to be returned
+    * @return   void
+    * @throws   Exception           If filetype is not supported
     */
-    public function constructParser($filetype){
-        throw new \BadMethodCallException('Unimplemented method', SimpleExcelException::UNIMPLEMENTED_METHOD);
-    }
-    public function constructWriter($filetype){
-        throw new \BadMethodCallException('Unimplemented method', SimpleExcelException::UNIMPLEMENTED_METHOD);
-    }
-    public function convertTo($filetype){
-        throw new \BadMethodCallException('Deprecated method', SimpleExcelException::DEPRECATED_METHOD);
+    public function toString ($filetype, $options) {
+        $this->setWriterType($filetype);
+        return $this->writer->toString($options);
     }
 }

@@ -10,7 +10,7 @@ use SimpleExcel\Exception\SimpleExcelException;
  * @author  Faisalman
  * @package SimpleExcel
  */ 
-class XMLParser extends BaseParser implements IParser
+class XMLParser extends BaseParser
 {    
     /**
     * Defines valid file extension
@@ -23,11 +23,11 @@ class XMLParser extends BaseParser implements IParser
     /**
     * Extract attributes from SimpleXMLElement object
     * 
-    * @access   private
+    * @access   protected
     * @param    object  $attrs_obj
     * @return   array
     */
-    private function getAttributes($attrs_obj) {
+    protected function getAttributes($attrs_obj) {
         $attrs_arr = array();
         foreach ($attrs_obj as $attrs) {
             $attrs = (array) $attrs;
@@ -40,162 +40,13 @@ class XMLParser extends BaseParser implements IParser
     }
 
     /**
-    * Get value of the specified cell
-    * 
-    * @deprecated since v0.4
-    * @param    int $row_num    Row number
-    * @param    int $col_num    Column number
-    * @param    int $val_only   Whether returns only it's value or complete data
-    * @return   array
-    * @throws   Exception       If the cell identified doesn't exist.
-    */
-    public function getCell($row_num, $col_num, $val_only = true) {
-        // check whether the cell exists
-        if (!$this->isCellExists($row_num, $col_num)) {
-            throw new \Exception('Cell '.$row_num.','.$col_num.' doesn\'t exist', SimpleExcelException::CELL_NOT_FOUND);
-        }
-        if(is_array($this->table_arr['table_contents'][$row_num-1]['row_contents'])){
-            if(array_key_exists($col_num-1, $this->table_arr['table_contents'][$row_num-1]['row_contents'])){
-                $cell = $this->table_arr['table_contents'][$row_num-1]['row_contents'][$col_num-1];
-                if(!$val_only){
-                    return $cell;
-                } else {
-                    return $cell['value'];
-                }
-            }
-        }
-        return "";
-    }
-
-    /**
-    * Get data of the specified column as an array
-    * 
-    * @deprecated since v0.4
-    * @param    int     $col_num    Column number
-    * @param    bool    $val_only   Returns (value only | complete data) for every cell, default to TRUE
-    * @return   array
-    * @throws   Exception           If the column requested doesn't exist.
-    */
-    public function getColumn($col_num, $val_only = TRUE) {
-        $col_arr = array();
-
-        if (!$this->isColumnExists($col_num)) {
-            throw new \Exception('Column '.$col_num.' doesn\'t exist', SimpleExcelException::COLUMN_NOT_FOUND);
-        }
-
-        // get the specified column within every row
-        foreach ($this->table_arr['table_contents'] as $row) {
-            if ($row['row_contents']) {
-                if(!$val_only) {
-                    array_push($col_arr, $row['row_contents'][$col_num-1]);
-                } else {
-                    array_push($col_arr, $row['row_contents'][$col_num-1]['value']);
-                }
-            } else {
-                array_push($col_arr, "");
-            }
-        }
-
-        // return the array
-        return $col_arr;
-    }
-
-    /**
-    * Get data of all cells as an array
-    * 
-    * @deprecated since v0.4
-    * @param    bool    $val_only   Returns (value only | complete data) for every cell, default to TRUE
-    * @return   array
-    * @throws   Exception   If the field is not set.
-    */
-    public function getField($val_only = TRUE) {
-        if (!$this->isFieldExists()) {
-            throw new \Exception('Field is not set', SimpleExcelException::FIELD_NOT_FOUND);           
-        }
-        if($val_only){
-            $field = array();
-            foreach($this->table_arr['table_contents'] as $row){
-                $cells = array();
-                if($row['row_contents']){
-                    foreach($row['row_contents'] as $cell){
-                        array_push($cells, $cell['value']);
-                    }
-                }
-                array_push($field, $cells);
-            }
-            return $field;
-        } else {
-            return $this->table_arr;
-        }
-    }
-
-    /**
-    * Get data of the specified row as an array
-    * 
-    * @deprecated since v0.4
-    * @param    int     $row_num    Row number
-    * @param    bool    $val_only   Returns (value only | complete data) for every cell, default to TRUE
-    * @return   array
-    * @throws   Exception           When a row is requested that doesn't exist.
-    */
-    public function getRow($row_num, $val_only = TRUE) {
-        if (!$this->isRowExists($row_num)) {
-            throw new \Exception('Row '.$row_num.' doesn\'t exist', SimpleExcelException::ROW_NOT_FOUND);
-        }
-        $row = $this->table_arr['table_contents'][$row_num-1]['row_contents'];
-        $row_arr = array();
-
-        // get the specified column within every row 
-        foreach ($row as $cell) {
-            if (!$val_only) {
-                array_push($row_arr, $cell);
-            } else {
-                array_push($row_arr, $cell['value']);
-            }
-        }
-
-        // return the array, if empty then return FALSE
-        return $row_arr;
-    }
-    
-    /**
-    * Check whether a specified column exists
-    * 
-    * @deprecated since v0.4
-    * @param    int     $col_num    Column number
-    * @return   bool
-    */
-    public function isColumnExists($col_num){
-        $exist = false;
-        foreach($this->table_arr['table_contents'] as $row){
-            if(is_array($row['row_contents'])){
-                if(array_key_exists($col_num-1, $row['row_contents'])){
-                    $exist = true;
-                }
-            }
-        }
-        return $exist;
-    }
-    
-    /**
-    * Check whether a specified row exists
-    * 
-    * @deprecated since v0.4
-    * @param    int     $row_num    Row number
-    * @return   bool
-    */
-    public function isRowExists($row_num){
-        return array_key_exists($row_num-1, $this->table_arr['table_contents']);
-    }
-
-    /**
      * Process the loaded file/string
      *
      * @param    SimpleXMLElement $xml   SimpleXMLElement object of XML
      * @throws   Exception               If document namespace invalid
      * @return bool
     */
-    private function parseDOM($xml){
+    protected function parseDOM ($xml) {
     
         // get XML namespace
         $xmlns = $xml->getDocNamespaces();
@@ -306,13 +157,10 @@ class XMLParser extends BaseParser implements IParser
      * @param    string  $file_path  Path to XML file
      * @return bool
      */
-    public function loadFile($file_path) {
-    
-        if (!$this->isFileReady($file_path)) {
-            return false;
+    public function loadFile($file_path, $options = NULL) {    
+        if ($this->checkFile($file_path)) {
+            $this->parseDOM(simplexml_load_file($file_path));
         }
-
-        return $this->parseDOM(simplexml_load_file($file_path));
     }
     
     /**
@@ -321,7 +169,7 @@ class XMLParser extends BaseParser implements IParser
      * @param    string  $str    String with XML format
      * @return bool
      */
-    public function loadString($str){
-        return $this->parseDOM(simplexml_load_string($str));
+    public function loadString ($str, $options = NULL) {
+        $this->parseDOM(simplexml_load_string($str));
     }
 }

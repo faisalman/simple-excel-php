@@ -62,38 +62,8 @@ abstract class BaseParser implements IParser
         
             throw new \Exception('Error reading the file in'.$file_path, SimpleExcelException::ERROR_READING_FILE);
             fclose($handle);
+        } else {
+            return TRUE;
         }
-    }
-    
-    /**
-    * @deprecated since v0.4
-    */
-    protected $table_arr;
-    public function getCell($row_num, $col_num, $val_only = true) {
-        throw new \BadMethodCallException('Unimplemented method', SimpleExcelException::UNIMPLEMENTED_METHOD);
-    }
-    public function getColumn($col_num, $val_only = TRUE) {
-        throw new \BadMethodCallException('Unimplemented method', SimpleExcelException::UNIMPLEMENTED_METHOD);
-    }
-    public function getField($val_only = TRUE) {
-        throw new \BadMethodCallException('Unimplemented method', SimpleExcelException::UNIMPLEMENTED_METHOD);
-    }
-    public function getRow($row_num, $val_only = TRUE) {
-        throw new \BadMethodCallException('Unimplemented method', SimpleExcelException::UNIMPLEMENTED_METHOD);
-    }
-    public function isCellExists($row_num, $col_num){
-        throw new \BadMethodCallException('Unimplemented method', SimpleExcelException::UNIMPLEMENTED_METHOD);
-    }
-    public function isColumnExists($col_num){
-        throw new \BadMethodCallException('Unimplemented method', SimpleExcelException::UNIMPLEMENTED_METHOD);
-    }
-    public function isRowExists($row_num){
-        throw new \BadMethodCallException('Unimplemented method', SimpleExcelException::UNIMPLEMENTED_METHOD);
-    }
-    public function isFieldExists(){
-        throw new \BadMethodCallException('Unimplemented method', SimpleExcelException::UNIMPLEMENTED_METHOD);
-    }
-    public function isFileReady($file_path) {
-        throw new \BadMethodCallException('Unimplemented method', SimpleExcelException::UNIMPLEMENTED_METHOD);
     }
 }

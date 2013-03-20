@@ -25,7 +25,7 @@ class HTMLParser extends BaseParser implements IParser
     * 
     * @param    DOMDocument $html   DOMDocument object of HTML
     */
-    private function parseDOM($html){
+    protected function parseDOM($html){
         $tables = $html->getElementsByTagName('table');
         $field = array();    
         foreach ($tables as $table) {
@@ -67,15 +67,12 @@ class HTMLParser extends BaseParser implements IParser
     * 
     * @param    string  $file_path  Path to HTML file
     */
-    public function loadFile($file_path) {
-    
-        if (!$this->isFileReady($file_path)) {
-            return;
-        }
-        
-        $html = new \DOMDocument();        
-        $html->loadHTMLFile($file_path);
-        $this->parseDOM($html);
+    public function loadFile($file_path, $options = NULL) {
+	    if ($this->checkFile($file_path)) {
+		    $html = new \DOMDocument();        
+            $html->loadHTMLFile($file_path);
+            $this->loadString($html, $options);
+		}
     }
     
     /**
@@ -83,7 +80,7 @@ class HTMLParser extends BaseParser implements IParser
     * 
     * @param    string  $str    String with HTML format
     */
-    public function loadString($str){
+    public function loadString($str, $options = NULL){
         $html = new \DOMDocument();        
         $html->loadHTML($str);
         $this->parseDOM($html);

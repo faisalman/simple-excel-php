@@ -14,7 +14,7 @@ use SimpleExcel\Spreadsheet\Cell;
  * @author  Faisalman
  * @package SimpleExcel
  */
-class CSVParser extends BaseParser implements IParser
+class CSVParser extends BaseParser
 {    
  /**
 	* Defines delimiter character
@@ -40,16 +40,9 @@ class CSVParser extends BaseParser implements IParser
     * @throws   Exception           If file extension doesn't match
     * @throws   Exception           If error reading the file
 	*/
-	public function loadFile ($file_path) {
-	    $isValid = true;
-	    try {
-		    $this->checkFile($file_path);
-		} catch (Exception $e) {
-		    $isValid = false;
-		    throw $e;
-		}
-		if ($isValid) {
-		    $this->loadString(file_get_contents($file_path));
+	public function loadFile ($file_path, $options = NULL) {
+	    if ($this->checkFile($file_path)) {
+		    $this->loadString(file_get_contents($file_path), $options);
 		}
 	}
 
@@ -58,8 +51,12 @@ class CSVParser extends BaseParser implements IParser
 	* 
 	* @param    string  $str    String with CSV format
 	*/
-	public function loadString ($str) {
+	public function loadString ($str, $options = NULL) {
 		$this->workbook = new Workbook();
+        
+        if (isset($options['delimiter'])) {
+            $this->delimiter = $options['delimiter'];
+        }
         
         // 1. Split into lines by newline http://stackoverflow.com/questions/3997336/explode-php-string-by-new-line 
 		$pattern = "/\r\n|\n|\r/";
@@ -131,14 +128,5 @@ class CSVParser extends BaseParser implements IParser
         $worksheet = new Worksheet();
         $worksheet->setRecords($rows);
 		$this->workbook->insertWorksheet($worksheet);
-	}
-	
-	/**
-	* Set delimiter that should be used to parse CSV document
-	* 
-	* @param    string  $delimiter   Delimiter character
-	*/
-	public function setDelimiter($delimiter){
-		$this->delimiter = $delimiter;
 	}
 }

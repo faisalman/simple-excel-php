@@ -26,21 +26,18 @@ $excel->writer->addRow(array('add', 'another', 'row'));
 $excel->writer->saveFile('example');
 ```
 
-### New API (parser & writer now refers to the same workbook for each SimpleExcel instance)
+### New API
 
 ```php
 use SimpleExcel\SimpleExcel
 
 $excel = new SimpleExcel();
-$excel->setParserType('CSV');
-$excel->parser->loadFile('test.csv');
+$excel->loadFile('test.csv', 'CSV');
 
-echo $excel->workbook->getWorksheet(1)->getCell(1, 1); // print
+echo $excel->getWorksheet(1)->getCell(1, 1)->value; // print
 
-$excel->workbook->getWorksheet(1)->insertRecord(array('add', 'another', 'row')); // insert more record
-
-$excel->setWriterType('JSON');
-$excel->writer->saveFile('example.json');
+$excel->getWorksheet(1)->insertRecord(array('add', 'another', 'row')); // insert more record
+$excel->saveFile('example.json', 'php://output', 'JSON');
 ```
 
 ## Development
