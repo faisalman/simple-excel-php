@@ -2,6 +2,8 @@
 
 namespace SimpleExcel\Writer;
 
+use SimpleExcel\Spreadsheet\Workbook;
+
 /**
  * SimpleExcel base class for writing spreadsheet
  *  
@@ -44,7 +46,7 @@ abstract class BaseWriter implements IWriter
     /**
      * @return  void
      */
-    public function exportFile ($filename, $target) {
+    public function exportFile ($filename, $target, $options = NULL) {
         
         if (!isset($filename)) {
             $filename = date('Y-m-d-H-i-s');
@@ -71,32 +73,8 @@ abstract class BaseWriter implements IWriter
     /**
      * @return  string
      */
-    public function toString () {
-        $content = '';
-        foreach ($this->tabl_data as $row) {
-            foreach ($row as $cell) {
-                $content .= $cell.'\t';
-            }
-            $content .= '\n';
-        }
-        return $content;
-    }
-
-    /**
-     * @deprecated since v0.4
-     */
-    protected $tabl_data;
-    public function addRow($values){
-        throw new \BadMethodCallException('Unimplemented method', SimpleExcelException::UNIMPLEMENTED_METHOD);
-    }
-    public function setData($values){
-        throw new \BadMethodCallException('Unimplemented method', SimpleExcelException::UNIMPLEMENTED_METHOD);
-    }
-    public function saveString(){
-        throw new \BadMethodCallException('Unimplemented method', SimpleExcelException::UNIMPLEMENTED_METHOD);
-    }
-    public function saveFile($filename, $target = NULL){
-        throw new \BadMethodCallException('Unimplemented method', SimpleExcelException::UNIMPLEMENTED_METHOD);
+    public function toString ($options = NULL) {
+        return $this->workbook->getWorksheet(1)->getCell(1, 1)->value;
     }
 }
 ?>

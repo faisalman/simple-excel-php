@@ -37,6 +37,7 @@ namespace SimpleExcel;
 
 use SimpleExcel\Exception\SimpleExcelException;
 use SimpleExcel\Spreadsheet\Workbook;
+use SimpleExcel\Spreadsheet\Worksheet;
 
 if (!class_exists('Composer\\Autoload\\ClassLoader', false)){
     // autoload all interfaces & classes
@@ -95,6 +96,7 @@ class SimpleExcel
     */
     public function __construct ($filetype = NULL) {
         $this->workbook = new Workbook();
+        $this->workbook->insertWorksheet(new Worksheet());
         $this->validParserTypes = array('XML', 'CSV', 'TSV', 'HTML', 'JSON');
         $this->validWriterTypes = array('XML', 'CSV', 'TSV', 'HTML', 'JSON');
         if (isset($filetype)) {
@@ -223,7 +225,7 @@ class SimpleExcel
     * @return   void
     * @throws   Exception           If filetype is not supported
     */
-    public function toString ($filetype, $options) {
+    public function toString ($filetype, $options = NULL) {
         $this->setWriterType($filetype);
         return $this->writer->toString($options);
     }

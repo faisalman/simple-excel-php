@@ -12,6 +12,12 @@ use SimpleExcel\Exception\SimpleExcelException;
  */ 
 class Worksheet implements IWorksheet
 {    
+    protected $records;
+
+    public function __construct () {
+        $this->records = array();
+    }
+    
     public function getCell($rowIndex, $colIndex) {
         throw new \BadMethodCallException('Unimplemented method', SimpleExcelException::UNIMPLEMENTED_METHOD);
     }
@@ -41,6 +47,6 @@ class Worksheet implements IWorksheet
     }
     
     public function setRecords(array $records) {
-        throw new \BadMethodCallException('Unimplemented method', SimpleExcelException::UNIMPLEMENTED_METHOD);
+        $this->records = $records;
     }
 }

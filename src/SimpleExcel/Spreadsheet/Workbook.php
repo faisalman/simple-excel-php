@@ -14,9 +14,13 @@ class Workbook implements IWorkbook
 {
     protected $worksheets;
     
+    public function __construct () {
+        $this->worksheets = array();
+    }
+    
     public function getWorksheet($index) {
-        if (!isset($this->worsheets[$index])) {
-            throw new \Error('Worksheet ' . $index . ' not found', SimpleExcelException::WORKSHEET_NOT_FOUND);
+        if (!isset($this->worksheets[$index])) {
+            throw new \Exception('Worksheet ' . $index . ' not found', SimpleExcelException::WORKSHEET_NOT_FOUND);
         } else {
             return $this->worksheets[$index];
         }

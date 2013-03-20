@@ -8,7 +8,7 @@ namespace SimpleExcel\Writer;
  * @author  Faisalman
  * @package SimpleExcel
  */
-class CSVWriter extends BaseWriter implements IWriter
+class CSVWriter extends BaseWriter
 {
     /**
      * Defines content-type for HTTP header

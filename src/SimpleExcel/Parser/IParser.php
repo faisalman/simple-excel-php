@@ -13,5 +13,5 @@ namespace SimpleExcel\Parser;
 interface IParser
 {
     public function loadFile($file_path, $options);
-    public function loadString($str $options);
+    public function loadString($str, $options);
 }

@@ -14,3 +14,4 @@ interface IWriter
 {
     public function exportFile($fileName, $target, $options);
     public function toString($options);
+}
