@@ -2,6 +2,7 @@
 
 use SimpleExcel\SimpleExcel;
 use SimpleExcel\Spreadsheet\Cell;
+use SimpleExcel\Spreadsheet\Worksheet;
 
 require_once('src/SimpleExcel/SimpleExcel.php');
 
@@ -30,14 +31,16 @@ class CSVTest extends PHPUnit_Framework_TestCase
     
     public function testWriter()
     {
-        $excel->writer->setData(
-            array(
-                array('ID', 'Nama', 'Kode Wilayah'),
-                array('1', 'Kab. Bogor', '1')
-            )
-        );
-        $this->assertEquals("ID,Nama,\"Kode Wilayah\"\n1,\"Kab. Bogor\",1\n", $excel->writer->saveString());        
-        $excel->writer->addRow(array('2', 'Kab. Cianjur', '1'));
-        $this->assertEquals("ID,Nama,\"Kode Wilayah\"\n1,\"Kab. Bogor\",1\n2,\"Kab. Cianjur\",1\n", $excel->writer->saveString());
+        $excel = new SimpleExcel();
+        
+        $sheet = new Worksheet();
+        $sheet->insertRecord(array('ID', 'Nama', 'Kode Wilayah'));
+        $sheet->insertRecord(array('1', 'Kab. Bogor', '1'));
+        $excel->insertWorksheet($sheet);        
+        $this->assertEquals("ID,Nama,\"Kode Wilayah\"\n1,\"Kab. Bogor\",1\n", $excel->toString('CSV'));        
+        
+        $excel->getWorksheet(1)->insertRecord(array('2', 'Kab. Cianjur', '1'));
+        $this->assertEquals("ID,Nama,\"Kode Wilayah\"\n1,\"Kab. Bogor\",1\n2,\"Kab. Cianjur\",1\n", $excel->toString('CSV'));        
+        $this->assertEquals("ID;Nama;\"Kode Wilayah\"\n1;\"Kab. Bogor\";1\n2;\"Kab. Cianjur\";1\n", $excel->toString('CSV', array('delimiter' => ';')));
     }
 }

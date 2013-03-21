@@ -9,7 +9,7 @@ Easily parse / convert / write between Microsoft Excel XML / CSV / TSV / HTML / 
 * Available parsers: Microsoft Excel 2003 XML, CSV, TSV, HTML, JSON
 * Available writers: Microsoft Excel 2003 XML, CSV, TSV, HTML, JSON
 
-## What's New
+## Usage
 
 ### Prior to version 0.4:
 
