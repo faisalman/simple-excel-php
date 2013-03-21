@@ -26,13 +26,15 @@ $excel->writer->saveFile('example');
 
 ## Development
 
-[![Build Status](https://travis-ci.org/faisalman/simple-excel-php.png)](https://travis-ci.org/faisalman/simple-excel-php)
+[![Build Status](https://travis-ci.org/faisalman/simple-excel-php.png?branch=master)](https://travis-ci.org/faisalman/simple-excel-php)
 
 Testing
 
 ```sh
 $ phpunit --configuration test/phpunit.xml
 ```
+
+Next version 0.4.0-alpha is now available under [develop](https://github.com/faisalman/simple-excel-php/tree/develop) branch
 
 ## License
 
