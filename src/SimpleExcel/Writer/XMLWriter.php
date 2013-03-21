@@ -39,14 +39,14 @@ class XMLWriter extends BaseWriter
     /**
      * @return  void
      */
-    public function __construct(Workbook $workbook){
-        parent::__construct($workbook);
+    public function __construct(&$workbook){
+        parent::__construct(&$workbook);
         $this->doc_prop = array(
-            'Author' => 'SimpleExcel',
-            'Company' => 'SimpleExcel',
+            'Author' => 'SimpleExcel.php',
+            'Company' => 'SimpleExcel.php',
             'Created' => gmdate("Y-m-d\TH:i:s\Z"),
-            'Keywords' => 'SimpleExcel',
-            'LastAuthor' => 'SimpleExcel'
+            'Keywords' => 'SimpleExcel.php',
+            'LastAuthor' => 'SimpleExcel.php'
         );
     }
 
@@ -71,9 +71,9 @@ class XMLWriter extends BaseWriter
         }
         $content .= '
  </DocumentProperties>';
-        foreach ($this->workbook->getWorksheets as $i => $worksheet) {
+        foreach ($this->workbook->getWorksheets() as $i => $worksheet) {
             $content .= '
- <Worksheet ss:Name="Sheet' . $i . '">
+ <Worksheet ss:Name="Sheet' . ($i + 1) . '">
   <Table>';
             foreach ($worksheet->getRecords() as $record) {
                 $content .= '
@@ -103,9 +103,10 @@ class XMLWriter extends BaseWriter
             }
             $content .= '
   </Table>
- </Worksheet>
-</Workbook>';
+ </Worksheet>';
         }
+        $content .= '
+</Workbook>';
         return $content;
     }
 }
