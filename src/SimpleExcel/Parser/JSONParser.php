@@ -2,7 +2,10 @@
 
 namespace SimpleExcel\Parser;
 
-use SimpleExcel\Exception\SimpleExcelException;
+use SimpleExcel\Enums\SimpleExcelException;
+use SimpleExcel\Spreadsheet\Cell;
+use SimpleExcel\Spreadsheet\Workbook;
+use SimpleExcel\Spreadsheet\Worksheet;
 
 /**
  * SimpleExcel class for parsing JSON table
@@ -41,18 +44,23 @@ class JSONParser extends BaseParser implements IParser
     * @throws   Exception           If JSON format is invalid (or too deep)
     */
     public function loadString ($str, $options = NULL) {
-        $field = array();
-        if (($table = json_decode(utf8_encode($str), false, 4)) === NULL) {
+        $this->workbook = new Workbook();
+        if (($workbook = json_decode(utf8_encode($str), false, 5)) === NULL) {
             throw new \Exception('Invalid JSON format: '.$str, SimpleExcelException::MALFORMED_JSON);
         } else {
-            foreach ($table as $rows) {
-                $row = array();
-                foreach ($rows as $cell) {
-                    array_push($row, $cell);
+            foreach ($workbook as $worksheet) {
+                $sheet = new Worksheet();
+                $rows = array();
+                foreach ($worksheet as $record) {
+                    $row = array();
+                    foreach ($record as $cell) {
+                        array_push($row, new Cell($cell));
+                    }
+                    array_push($rows, $row);
                 }
-                array_push($field, $row);
+                $sheet->setRecords($rows);
+                $this->workbook->insertWorksheet($sheet);
             }
         }
-        $this->table_arr = $field;
     }
 }

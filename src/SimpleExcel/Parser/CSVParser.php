@@ -2,11 +2,11 @@
  
 namespace SimpleExcel\Parser;
 
-use SimpleExcel\Exception\SimpleExcelException;
+use SimpleExcel\Enums\Datatype;
+use SimpleExcel\Enums\SimpleExcelException;
 use SimpleExcel\Spreadsheet\Workbook;
 use SimpleExcel\Spreadsheet\Worksheet;
 use SimpleExcel\Spreadsheet\Cell;
-use SimpleExcel\Spreadsheet\Datatype;
 
 /**
  * SimpleExcel class for parsing Microsoft Excel CSV Spreadsheet
@@ -16,7 +16,7 @@ use SimpleExcel\Spreadsheet\Datatype;
  */
 class CSVParser extends BaseParser
 {    
- /**
+    /**
 	* Defines delimiter character
 	* 
 	* @access   protected

@@ -12,6 +12,6 @@ namespace SimpleExcel\Writer;
 /** define writer interface */
 interface IWriter
 {
-    public function exportFile($fileName, $target, $options);
+    public function exportFile($target, $options);
     public function toString($options);
 }

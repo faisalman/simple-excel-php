@@ -2,7 +2,7 @@
 
 namespace SimpleExcel\Spreadsheet;
 
-use SimpleExcel\Exception\SimpleExcelException;
+use SimpleExcel\Enums\SimpleExcelException;
 
 /**
  * SimpleExcel class for constructing workbook
@@ -10,7 +10,7 @@ use SimpleExcel\Exception\SimpleExcelException;
  * @author  Faisalman
  * @package SimpleExcel
  */ 
-class Workbook implements IWorkbook
+class Workbook
 {
     protected $worksheets;
     

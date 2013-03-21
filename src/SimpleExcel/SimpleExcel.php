@@ -35,7 +35,7 @@
 
 namespace SimpleExcel;
 
-use SimpleExcel\Exception\SimpleExcelException;
+use SimpleExcel\Enums\SimpleExcelException;
 use SimpleExcel\Spreadsheet\Workbook;
 use SimpleExcel\Spreadsheet\Worksheet;
 
@@ -120,9 +120,9 @@ class SimpleExcel
     * @throws   Exception           If filetype is not supported
     * @throws   Exception           If error writing file
     */
-    public function exportFile ($fileName, $target, $fileType, $options = NULL) {
+    public function exportFile ($target, $fileType, $options = NULL) {
         $this->setWriterType($fileType);
-        $this->writer->exportFile($fileName, $target, $options);
+        $this->writer->exportFile($target, $options);
     }
     
     /**

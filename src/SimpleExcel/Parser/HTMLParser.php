@@ -2,7 +2,7 @@
 
 namespace SimpleExcel\Parser;
 
-use SimpleExcel\Exception\SimpleExcelException;
+use SimpleExcel\Enums\SimpleExcelException;
 
 /**
  * SimpleExcel class for parsing HTML table

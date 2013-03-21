@@ -2,7 +2,7 @@
 
 namespace SimpleExcel\Spreadsheet;
 
-use SimpleExcel\Exception\SimpleExcelException;
+use SimpleExcel\Enums\SimpleExcelException;
 
 /**
  * SimpleExcel class for constructing worksheet
@@ -10,8 +10,8 @@ use SimpleExcel\Exception\SimpleExcelException;
  * @author  Faisalman
  * @package SimpleExcel
  */ 
-class Worksheet implements IWorksheet
-{    
+class Worksheet
+{
     protected $records;
 
     public function __construct () {
@@ -35,7 +35,15 @@ class Worksheet implements IWorksheet
     }
     
     public function insertRecord(array $record) {
-        throw new \BadMethodCallException('Unimplemented method', SimpleExcelException::UNIMPLEMENTED_METHOD);
+        $row = array();
+        foreach ($record as $cell) {
+            if ($cell instanceof Cell) {
+                array_push($row, $cell);
+            } else {
+                array_push($row, new Cell($cell));
+            }
+        };
+        array_push($records, $row);
     }
     
     public function removeRecord($index) {

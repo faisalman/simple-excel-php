@@ -2,7 +2,7 @@
 
 namespace SimpleExcel\Parser;
 
-use SimpleExcel\Exception\SimpleExcelException;
+use SimpleExcel\Enums\SimpleExcelException;
 
 /**
  * SimpleExcel class for parsing Microsoft Excel 2003 XML Spreadsheet

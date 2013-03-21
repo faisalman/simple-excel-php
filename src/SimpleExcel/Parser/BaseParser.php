@@ -2,7 +2,7 @@
 
 namespace SimpleExcel\Parser;
 
-use SimpleExcel\Exception\SimpleExcelException;
+use SimpleExcel\Enums\SimpleExcelException;
 use SimpleExcel\Spreadsheet\Workbook;
 
 /**

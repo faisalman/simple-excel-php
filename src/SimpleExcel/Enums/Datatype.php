@@ -1,6 +1,6 @@
 <?php
 
-namespace SimpleExcel\Spreadsheet;
+namespace SimpleExcel\Enums;
 
 /**
  * Defines SimpleExcel datatype enum

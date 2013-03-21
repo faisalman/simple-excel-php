@@ -2,7 +2,7 @@
 
 namespace SimpleExcel\Writer;
 
-use SimpleExcel\Exception\SimpleExcelException;
+use SimpleExcel\Enums\SimpleExcelException;
 use SimpleExcel\Spreadsheet\Workbook;
 
 /**
@@ -47,31 +47,25 @@ abstract class BaseWriter implements IWriter
     /**
      * @return  void
      */
-    public function exportFile ($filename, $target, $options = NULL) {
-        
-        if (!isset($filename)) {
-            $filename = date('Y-m-d-H-i-s');
+    public function exportFile ($target, $options = NULL) {
+        if ($target == 'php://output') {
+            if (!isset($options['filename'])) {
+                $options['filename'] = date('Y-m-d-H-i-s');
+            }
+            if (strcasecmp(substr($options['filename'], strlen($this->file_extension) * -1), $this->file_extension) != 0) {
+                $options['filename'] = $options['filename'] . '.' . $this->file_extension;
+            }            
+            // set HTTP response header
+            header('Content-Type: '.$this->content_type);
+            header('Content-Disposition: attachment; filename='.$options['filename']);
         }
-        if (!isset($target)) {
-            // write output to browser
-            $target = 'php://output';
-        }
-        if (strcasecmp(substr($filename, strlen($this->file_extension) * -1), $this->file_extension) != 0) {
-            $filename = $filename . '.' . $this->file_extension;
-        }
-
-        // set HTTP response header
-        header('Content-Type: '.$this->content_type);
-        header('Content-Disposition: attachment; filename='.$filename);
 
         $fp = fopen($target, 'w');
         fwrite($fp, $this->toString());
         fclose($fp);
 
-        if ($target == 'php://output') {
-            // since there must be no data below
-            exit();
-        }
+        // since there must be no data below exported document
+        exit();
     }
     
     /**

@@ -2,6 +2,8 @@
 
 namespace SimpleExcel\Writer;
 
+use SimpleExcel\Spreadsheet\Cell;
+
 /**
  * SimpleExcel class for writing table as JSON
  *  
@@ -31,14 +33,18 @@ class JSONWriter extends BaseWriter implements IWriter
      * 
      * @return  string  Content of document
      */
-    public function saveString(){
+    public function toString ($options = NULL) {
         $json = array();
-        foreach ($this->tabl_data as $row) {
-            $row_array = array();
-            for ($i = 0; $i < count($row); $i++) {
-                $row_array[$i] = $row[$i];
+        $sheet = array();
+        foreach ($this->workbook->getWorksheets() as $i => $worksheet) {
+            foreach ($worksheet->getRecords() as $record) {
+                $row = array();
+                for ($i = 0; $i < count($record); $i++) {
+                    $row[$i] = $record[$i]->value;
+                }
+                array_push($sheet, (object)$row);
             }
-            array_push($json, (object)$row);
+            array_push($json, $sheet);
         }
         return json_encode($json);
     }

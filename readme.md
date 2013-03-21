@@ -22,7 +22,7 @@ $excel->parser->loadFile('test.csv');
 echo $excel->parser->getCell(1, 1);
 
 $excel->convertTo('JSON');
-$excel->writer->addRow(array('add', 'another', 'row'));
+$excel->writer->addRow(array('add', 'another', 'row')); // insert more record
 $excel->writer->saveFile('example');
 ```
 
@@ -34,10 +34,10 @@ use SimpleExcel\SimpleExcel
 $excel = new SimpleExcel();
 $excel->loadFile('test.csv', 'CSV');
 
-echo $excel->getWorksheet(1)->getCell(1, 1)->value; // print
+print_r($excel->getWorksheet(1)->getCell(1, 1));
 
 $excel->getWorksheet(1)->insertRecord(array('add', 'another', 'row')); // insert more record
-$excel->saveFile('example.json', 'php://output', 'JSON');
+$excel->exportFile('/home/faisalman/Downloads/saved.json', 'JSON');
 ```
 
 ## Development

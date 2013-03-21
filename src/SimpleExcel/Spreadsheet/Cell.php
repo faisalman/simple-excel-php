@@ -2,7 +2,8 @@
 
 namespace SimpleExcel\Spreadsheet;
 
-use SimpleExcel\Exception\SimpleExcelException;
+use SimpleExcel\Enums\Datatype;
+use SimpleExcel\Enums\SimpleExcelException;
 
 /**
  * SimpleExcel struct for cell
