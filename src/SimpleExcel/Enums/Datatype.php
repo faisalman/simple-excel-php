@@ -18,4 +18,5 @@ abstract class Datatype
     const DATETIME  = 3;
     const CURRENCY  = 4;
     const FORMULA   = 5;
+    const ERROR     = 6;
 }
