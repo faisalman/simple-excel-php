@@ -23,11 +23,15 @@ class Worksheet
     }
     
     public function getColumn($index) {
-        throw new \BadMethodCallException('Unimplemented method', SimpleExcelException::UNIMPLEMENTED_METHOD);
+        $column = array();
+        foreach ($this->records as $row) {
+            array_push($column, $row[$index - 1]);
+        }
+        return $column;
     }
     
     public function getRow($index) {
-        throw new \BadMethodCallException('Unimplemented method', SimpleExcelException::UNIMPLEMENTED_METHOD);
+        return $this->records[$index - 1];
     }
     
     public function getRecords() {

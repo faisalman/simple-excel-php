@@ -40,6 +40,9 @@ class CSVWriter extends BaseWriter
      * @return  string  Content of document
      */
     public function toString ($options = NULL) {
+        if (isset($options['delimiter'])) {
+            $this->delimiter = $options['delimiter'];
+        }
         $fp = fopen('php://temp', 'r+');
         foreach ($this->workbook->getWorksheets() as $worksheet) {
             foreach ($worksheet->getRecords() as $record) {
