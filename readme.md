@@ -9,7 +9,7 @@ Easily parse / convert / write between Microsoft Excel XML / CSV / TSV / HTML / 
 * Available parsers: Microsoft Excel 2003 XML, CSV, TSV, HTML, JSON
 * Available writers: Microsoft Excel 2003 XML, CSV, TSV, HTML, JSON
 
-## Usage
+## What's New
 
 ### Prior to version 0.4:
 
@@ -49,6 +49,10 @@ Testing
 ```sh
 $ phpunit --configuration test/phpunit.xml
 ```
+
+What's still missing:
+
+- Support XLSX format
 
 ## License
 

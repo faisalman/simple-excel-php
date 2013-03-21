@@ -3,6 +3,8 @@
 namespace SimpleExcel\Parser;
 
 use SimpleExcel\Enums\SimpleExcelException;
+use SimpleExcel\Spreadsheet\Workbook;
+use SimpleExcel\Spreadsheet\Worksheet;
 
 /**
  * SimpleExcel class for parsing HTML table
@@ -27,8 +29,9 @@ class HTMLParser extends BaseParser implements IParser
     */
     protected function parseDOM($html){
         $tables = $html->getElementsByTagName('table');
-        $field = array();    
+        $this->workbook = new Workbook();    
         foreach ($tables as $table) {
+            $sheet = new Worksheet();
             $table_child = $table->childNodes;
             foreach ($table_child as $twrap) {
                 if($twrap->nodeType === XML_ELEMENT_NODE) {
@@ -43,7 +46,7 @@ class HTMLParser extends BaseParser implements IParser
                                         array_push($row, $td->nodeValue);
                                     }
                                 }
-                                array_push($field, $row);
+                                $sheet->insertRecord($row);
                             }
                         }                        
                     } else if ($twrap->nodeName === "tr") {
@@ -54,12 +57,12 @@ class HTMLParser extends BaseParser implements IParser
                                 array_push($row, $td->nodeValue);
                             }
                         }
-                        array_push($field, $row);
+                        $sheet->insertRecord($row);
                     }
                 }
             }
-        }        
-        $this->table_arr = $field;
+            $this->workbook->insertWorksheet($sheet);
+        }
     }
     
     /**
