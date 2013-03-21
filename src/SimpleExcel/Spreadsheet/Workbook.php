@@ -18,19 +18,23 @@ class Workbook implements IWorkbook
         $this->worksheets = array();
     }
     
-    public function getWorksheet($index) {
-        if (!isset($this->worksheets[$index])) {
-            throw new \Exception('Worksheet ' . $index . ' not found', SimpleExcelException::WORKSHEET_NOT_FOUND);
+    public function getWorksheet ($index) {
+        if (!isset($this->worksheets[$index - 1])) {
+            throw new \Exception('Worksheet ' . $index . ' is not found', SimpleExcelException::WORKSHEET_NOT_FOUND);
         } else {
-            return $this->worksheets[$index];
+            return $this->worksheets[$index - 1];
         }
     }
     
-    public function insertWorksheet(Worksheet $worksheet) {
+    public function getWorksheets () {
+        return $this->worksheets;
+    }
+    
+    public function insertWorksheet (Worksheet $worksheet) {
         array_push($this->worksheets, $worksheet);
     }
 
-    public function removeWorksheet($index) {
-        $this->worksheets[$index] = NULL;
+    public function removeWorksheet ($index) {
+        $this->worksheets[$index - 1] = NULL;
     }
 }

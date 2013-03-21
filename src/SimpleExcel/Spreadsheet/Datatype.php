@@ -1,6 +1,6 @@
 <?php
 
-namespace SimpleExcel\Datatype;
+namespace SimpleExcel\Spreadsheet;
 
 /**
  * Defines SimpleExcel datatype enum
@@ -10,7 +10,7 @@ namespace SimpleExcel\Datatype;
  */
 
 /** define datatype enum */
-abstract class SimpleExcelDatatype
+abstract class Datatype
 {
     const TEXT      = 0;
     const NUMBER    = 1;

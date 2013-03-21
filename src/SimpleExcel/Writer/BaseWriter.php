@@ -2,6 +2,7 @@
 
 namespace SimpleExcel\Writer;
 
+use SimpleExcel\Exception\SimpleExcelException;
 use SimpleExcel\Spreadsheet\Workbook;
 
 /**
@@ -39,8 +40,8 @@ abstract class BaseWriter implements IWriter
     /**
      * @return  void
      */
-    public function __construct(Workbook $workbook){
-        $this->workbook = $workbook;
+    public function __construct(&$workbook){
+        $this->workbook = &$workbook;
     }
     
     /**
@@ -55,13 +56,16 @@ abstract class BaseWriter implements IWriter
             // write output to browser
             $target = 'php://output';
         }
+        if (strcasecmp(substr($filename, strlen($this->file_extension) * -1), $this->file_extension) != 0) {
+            $filename = $filename . '.' . $this->file_extension;
+        }
 
         // set HTTP response header
         header('Content-Type: '.$this->content_type);
-        header('Content-Disposition: attachment; filename='.$filename.'.'.$this->file_extension);
+        header('Content-Disposition: attachment; filename='.$filename);
 
         $fp = fopen($target, 'w');
-        fwrite($fp, $this->saveString());
+        fwrite($fp, $this->toString());
         fclose($fp);
 
         if ($target == 'php://output') {
@@ -74,7 +78,7 @@ abstract class BaseWriter implements IWriter
      * @return  string
      */
     public function toString ($options = NULL) {
-        return $this->workbook->getWorksheet(1)->getCell(1, 1)->value;
+        throw new \BadMethodCallException('Unimplemented method', SimpleExcelException::UNIMPLEMENTED_METHOD);
     }
 }
 ?>

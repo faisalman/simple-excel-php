@@ -96,7 +96,6 @@ class SimpleExcel
     */
     public function __construct ($filetype = NULL) {
         $this->workbook = new Workbook();
-        $this->workbook->insertWorksheet(new Worksheet());
         $this->validParserTypes = array('XML', 'CSV', 'TSV', 'HTML', 'JSON');
         $this->validWriterTypes = array('XML', 'CSV', 'TSV', 'HTML', 'JSON');
         if (isset($filetype)) {
@@ -134,6 +133,13 @@ class SimpleExcel
     */
     public function getWorksheet ($index = 1) {
         return $this->workbook->getWorksheet($index);
+    }
+    
+    /**
+    * Get all worksheets
+    */
+    public function getWorksheets () {
+        return $this->workbook->getWorksheets();
     }
     
     /**
@@ -194,7 +200,7 @@ class SimpleExcel
                 throw new \Exception('Filetype '.$filetype.' is not supported', SimpleExcelException::FILETYPE_NOT_SUPPORTED);
             }
             $parser_class = 'SimpleExcel\\Parser\\'.$filetype.'Parser';
-            $this->parser = new $parser_class($this->workbook);
+            $this->parser = new $parser_class(&$this->workbook);
             $this->parserType = $filetype;
         }
     }
@@ -213,7 +219,7 @@ class SimpleExcel
                 throw new \Exception('Filetype '.$filetype.' is not supported', SimpleExcelException::FILETYPE_NOT_SUPPORTED);
             }
             $writer_class = 'SimpleExcel\\Writer\\'.$filetype.'Writer';
-            $this->writer = new $writer_class($this->workbook);
+            $this->writer = new $writer_class(&$this->workbook);
             $this->writerType = $filetype;
         }
     }

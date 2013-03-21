@@ -19,7 +19,7 @@ class Worksheet implements IWorksheet
     }
     
     public function getCell($rowIndex, $colIndex) {
-        throw new \BadMethodCallException('Unimplemented method', SimpleExcelException::UNIMPLEMENTED_METHOD);
+        return $this->records[$rowIndex - 1][$colIndex - 1];
     }
     
     public function getColumn($index) {
@@ -31,7 +31,7 @@ class Worksheet implements IWorksheet
     }
     
     public function getRecords() {
-        throw new \BadMethodCallException('Unimplemented method', SimpleExcelException::UNIMPLEMENTED_METHOD);
+        return $this->records;
     }
     
     public function insertRecord(array $record) {

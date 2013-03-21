@@ -2,11 +2,11 @@
  
 namespace SimpleExcel\Parser;
 
-use SimpleExcel\Datatype\SimpleExcelDatatype;
 use SimpleExcel\Exception\SimpleExcelException;
 use SimpleExcel\Spreadsheet\Workbook;
 use SimpleExcel\Spreadsheet\Worksheet;
 use SimpleExcel\Spreadsheet\Cell;
+use SimpleExcel\Spreadsheet\Datatype;
 
 /**
  * SimpleExcel class for parsing Microsoft Excel CSV Spreadsheet
@@ -122,7 +122,7 @@ class CSVParser extends BaseParser
         // convert each cell value to SimpleExcel Cell instance
         foreach ($rows as $i => $row) {
             foreach ($row as $j => $cell) {
-                $row[$j] = new Cell($cell, SimpleExcelDatatype::TEXT);
+                $rows[$i][$j] = new Cell($cell, Datatype::TEXT);
             }
         }
         $worksheet = new Worksheet();

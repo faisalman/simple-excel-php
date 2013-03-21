@@ -2,15 +2,16 @@
 
 namespace SimpleExcel\Spreadsheet;
 
-use SimpleExcel\Datatype\SimpleExcelDatatype;
 use SimpleExcel\Exception\SimpleExcelException;
 
 /**
- * SimpleExcel class for cell
+ * SimpleExcel struct for cell
  * 
  * @author  Faisalman
  * @package SimpleExcel
- */ 
+ */
+
+/** define cell struct */
 class Cell
 {
     /**
@@ -33,7 +34,7 @@ class Cell
     * @param    mixed  $value       Cell value
     * @param    string  $datatype   Cell type (optional)
     */
-    public function __construct($value = '', $datatype = SimpleExcelDatatype::TEXT) {
+    public function __construct($value = '', $datatype = Datatype::TEXT) {
         $this->value = $value;
         $this->datatype = $datatype;
     }

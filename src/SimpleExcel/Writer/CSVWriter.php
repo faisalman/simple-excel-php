@@ -39,25 +39,21 @@ class CSVWriter extends BaseWriter
      * 
      * @return  string  Content of document
      */
-    public function saveString(){
+    public function toString ($options = NULL) {
         $fp = fopen('php://temp', 'r+');
-        foreach ($this->tabl_data as $row) {
-            fputcsv($fp, $row, $this->delimiter);
+        foreach ($this->workbook->getWorksheets() as $worksheet) {
+            foreach ($worksheet->getRecords() as $record) {
+                $row = array();
+                foreach ($record as $cell) {
+                    array_push($row, $cell->value);
+                }
+                fputcsv($fp, $row, $this->delimiter);
+            }
         }
         rewind($fp);
         $content = stream_get_contents($fp);
         fclose($fp);
         return $content;
-    }
-
-    /**
-     * Set character for delimiter
-     * 
-     * @param   string  $delimiter  Commonly used character can be a comma, semicolon, tab, or space
-     * @return  void
-     */
-    public function setDelimiter($delimiter){
-        $this->delimiter = $delimiter;
     }
 }
 ?>

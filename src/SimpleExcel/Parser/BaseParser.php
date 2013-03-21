@@ -32,8 +32,8 @@ abstract class BaseParser implements IParser
     /**
     * @param    string  $workbook
     */
-    public function __construct(Workbook $workbook) {
-        $this->workbook = $workbook;
+    public function __construct(&$workbook) {
+        $this->workbook = &$workbook;
     }
     
     /**
