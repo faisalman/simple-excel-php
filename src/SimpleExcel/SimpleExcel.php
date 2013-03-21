@@ -193,7 +193,7 @@ class SimpleExcel
                 throw new \Exception('Filetype '.$filetype.' is not supported', SimpleExcelException::FILETYPE_NOT_SUPPORTED);
             }
             $parser_class = 'SimpleExcel\\Parser\\'.$filetype.'Parser';
-            $this->parser = new $parser_class(&$this->workbook);
+            $this->parser = new $parser_class($this->workbook);
             $this->parserType = $filetype;
         }
     }
@@ -212,7 +212,7 @@ class SimpleExcel
                 throw new \Exception('Filetype '.$filetype.' is not supported', SimpleExcelException::FILETYPE_NOT_SUPPORTED);
             }
             $writer_class = 'SimpleExcel\\Writer\\'.$filetype.'Writer';
-            $this->writer = new $writer_class(&$this->workbook);
+            $this->writer = new $writer_class($this->workbook);
             $this->writerType = $filetype;
         }
     }
