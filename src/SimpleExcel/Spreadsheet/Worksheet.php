@@ -43,7 +43,7 @@ class Worksheet
                 array_push($row, new Cell($cell));
             }
         };
-        array_push($records, $row);
+        array_push($this->records, $row);
     }
     
     public function removeRecord($index) {

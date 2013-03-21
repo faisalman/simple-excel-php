@@ -28,8 +28,8 @@ class HTMLParser extends BaseParser implements IParser
     * @param    DOMDocument $html   DOMDocument object of HTML
     */
     protected function parseDOM($html){
-        $tables = $html->getElementsByTagName('table');
-        $this->workbook = new Workbook();    
+        $this->workbook = new Workbook();
+        $tables = $html->getElementsByTagName('table');    
         foreach ($tables as $table) {
             $sheet = new Worksheet();
             $table_child = $table->childNodes;
@@ -74,7 +74,7 @@ class HTMLParser extends BaseParser implements IParser
 	    if ($this->checkFile($file_path)) {
 		    $html = new \DOMDocument();        
             $html->loadHTMLFile($file_path);
-            $this->loadString($html, $options);
+            $this->loadString($html->saveHTML(), $options);
 		}
     }
     

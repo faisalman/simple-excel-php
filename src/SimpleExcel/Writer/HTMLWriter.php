@@ -31,13 +31,13 @@ class HTMLWriter extends BaseWriter implements IWriter
      * 
      * @return  string  Content of document
      */
-    public function toString(){
+    public function toString ($options = NULL) {
         $content = '<table>';
         foreach ($this->workbook->getWorksheets() as $worksheet) {
             foreach ($worksheet->getRecords() as $record) {
                 $content .= '<tr>';
                 foreach ($record as $cell) {
-                    $content .= '<td>'.$cell->value.'</td>';
+                    $content .= '<td>' . $cell->value . '</td>';
                 }
                 $content .= '</tr>';
             }
