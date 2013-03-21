@@ -2,13 +2,15 @@
 
 namespace SimpleExcel\Writer;
 
+use SimpleExcel\Enums\Datatype;
+
 /**
  * SimpleExcel class for writing Microsoft Excel 2003 XML Spreadsheet
  *  
  * @author  Faisalman
  * @package SimpleExcel
  */
-class XMLWriter extends BaseWriter implements IWriter
+class XMLWriter extends BaseWriter
 {
     /**
      * Defines content-type for HTTP header
@@ -44,8 +46,7 @@ class XMLWriter extends BaseWriter implements IWriter
             'Company' => 'SimpleExcel',
             'Created' => gmdate("Y-m-d\TH:i:s\Z"),
             'Keywords' => 'SimpleExcel',
-            'LastAuthor' => 'SimpleExcel',
-            'Version' => '12.00'
+            'LastAuthor' => 'SimpleExcel'
         );
     }
 
@@ -54,7 +55,8 @@ class XMLWriter extends BaseWriter implements IWriter
      * 
      * @return  string  Content of document
      */
-    public function saveString(){
+    public function toString ($options = NULL) {
+        $properties = isset($options['properties']) ? $options['properties'] : $this->doc_prop;
         $content = '<?xml version="1.0"?>
 <?mso-application progid="Excel.Sheet"?>
 <Workbook xmlns="urn:schemas-microsoft-com:office:spreadsheet"
@@ -63,31 +65,47 @@ class XMLWriter extends BaseWriter implements IWriter
  xmlns:ss="urn:schemas-microsoft-com:office:spreadsheet"
  xmlns:html="http://www.w3.org/TR/REC-html40">
  <DocumentProperties xmlns="urn:schemas-microsoft-com:office:office">';
- 
-        foreach($this->doc_prop as $propname => $propval){
+        foreach ($properties as $propname => $propval) {
             $content .= '
   <'.$propname.'>'.$propval.'</'.$propname.'>';
         }
- 
         $content .= '
- </DocumentProperties>
- <Worksheet ss:Name="Sheet1">
-  <Table>'.$this->tabl_data.'
+ </DocumentProperties>';
+        foreach ($this->workbook->getWorksheets as $i => $worksheet) {
+            $content .= '
+ <Worksheet ss:Name="Sheet' . $i . '">
+  <Table>';
+            foreach ($worksheet->getRecords() as $record) {
+                $content .= '
+   <Row>';   
+                foreach ($record as $cell) {
+                    $datatype = 'String';
+                    switch ($cell->datatype) {
+                        case Datatype::NUMBER:
+                            $datatype = 'Number';
+                            break;
+                        case Datatype::LOGICAL:
+                            $datatype = 'Boolean';
+                            break;
+                        case Datatype::DATETIME:
+                            $datatype = 'DateTime';
+                            break;
+                        case Datatype::ERROR:
+                            $datatype = 'Error';
+                    }
+                    $content .= '
+    <Cell>
+     <Data ss:Type="' . $datatype . '">' . $cell->value . '</Data>
+    </Cell>';
+                }
+                $content .= '
+   </Row>';
+            }
+            $content .= '
   </Table>
  </Worksheet>
 </Workbook>';
+        }
         return $content;
     }
-
-    /**
-    * Set a document property of the XML
-    * 
-    * @param    string  $prop   Document property to be set
-    * @param    string  $val    Value of the document property
-    * @return   void
-    */
-    public function setDocProp($prop, $val){
-        $this->doc_prop[$prop] = $val;
-    }
 }
-?>

@@ -30,7 +30,7 @@
  * @license     http://www.opensource.org/licenses/mit-license
  * @link        http://github.com/faisalman/simple-excel-php
  * @package     SimpleExcel
- * @version     0.4.0
+ * @version     0.4.0-alpha
  */
 
 namespace SimpleExcel;
@@ -102,13 +102,6 @@ class SimpleExcel
             $this->setParserType($filetype);
             $this->setWriterType($filetype);
         }
-    }
-
-    /**
-    * Clear all data
-    */
-    public function clearAll () {
-        $this->workbook = new Workbook();
     }
 
     /**
