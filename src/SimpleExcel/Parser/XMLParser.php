@@ -100,6 +100,7 @@ class XMLParser extends BaseParser
      * Load the XML file to be parsed
      *
      * @param    string  $file_path  Path to XML file
+	 * @param    array   $options    Options
      * @return bool
      */
     public function loadFile($file_path, $options = NULL) {    
@@ -111,7 +112,8 @@ class XMLParser extends BaseParser
     /**
      * Load the string to be parsed
      *
-     * @param    string  $str    String with XML format
+     * @param    string  $str       String with XML format
+	 * @param    array   $options   Options
      * @return bool
      */
     public function loadString ($str, $options = NULL) {

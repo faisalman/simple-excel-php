@@ -8,7 +8,7 @@ namespace SimpleExcel\Writer;
  * @author  Faisalman
  * @package SimpleExcel
  */
-class TSVWriter extends CSVWriter implements IWriter
+class TSVWriter extends CSVWriter
 {
     /**
      * Defines content-type for HTTP header
@@ -33,12 +33,4 @@ class TSVWriter extends CSVWriter implements IWriter
      * @var     string
      */
     protected $file_extension = 'tsv';
-    
-    /**
-    * Override parent class, this method is ignored in TSV
-    */
-    public function setDelimiter($delimiter){
-        // do nothing
-    }
 }
-?>

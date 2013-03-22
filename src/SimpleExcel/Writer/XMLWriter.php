@@ -37,6 +37,7 @@ class XMLWriter extends BaseWriter
     private $doc_prop;
 
     /**
+     * @param   Workbook    reference to workbook
      * @return  void
      */
     public function __construct(&$workbook){
@@ -53,7 +54,8 @@ class XMLWriter extends BaseWriter
     /**
      * Get document content as string
      * 
-     * @return  string  Content of document
+	 * @param   array   $options    Options
+     * @return  string              Content of document
      */
     public function toString ($options = NULL) {
         $properties = isset($options['properties']) ? $options['properties'] : $this->doc_prop;

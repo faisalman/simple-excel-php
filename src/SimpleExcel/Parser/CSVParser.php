@@ -36,6 +36,7 @@ class CSVParser extends BaseParser
 	* Load the CSV file to be parsed
 	* 
 	* @param    string  $file_path  Path to CSV file
+	* @param    array   $options    Options
     * @throws   Exception           If file being loaded doesn't exist
     * @throws   Exception           If file extension doesn't match
     * @throws   Exception           If error reading the file
@@ -50,6 +51,7 @@ class CSVParser extends BaseParser
 	* Load the string to be parsed
 	* 
 	* @param    string  $str    String with CSV format
+	* @param    array   $options    Options
 	*/
 	public function loadString ($str, $options = NULL) {
 		$this->workbook = new Workbook();

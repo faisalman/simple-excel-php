@@ -10,7 +10,7 @@ use SimpleExcel\Spreadsheet\Cell;
  * @author  Faisalman
  * @package SimpleExcel
  */
-class JSONWriter extends BaseWriter implements IWriter
+class JSONWriter extends BaseWriter
 {
     /**
      * Defines content-type for HTTP header
@@ -31,7 +31,8 @@ class JSONWriter extends BaseWriter implements IWriter
     /**
      * Get document content as string
      * 
-     * @return  string  Content of document
+	 * @param   array   $options    Options
+     * @return  string              Content of document
      */
     public function toString ($options = NULL) {
         $json = array();
@@ -49,4 +50,3 @@ class JSONWriter extends BaseWriter implements IWriter
         return json_encode($json);
     }
 }
-?>

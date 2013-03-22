@@ -30,7 +30,7 @@ abstract class BaseParser implements IParser
     protected $file_extension = '';
 
     /**
-    * @param    string  $workbook
+    * @param    Workbook    reference to workbook
     */
     public function __construct(&$workbook) {
         $this->workbook = &$workbook;
@@ -40,7 +40,7 @@ abstract class BaseParser implements IParser
     * Check whether file exists, valid, and readable
     * 
     * @param    string  $file_path  Path to file
-    * @return   void
+    * @return   bool
     * @throws   Exception           If file being loaded doesn't exist
     * @throws   Exception           If file extension doesn't match
     * @throws   Exception           If error reading the file

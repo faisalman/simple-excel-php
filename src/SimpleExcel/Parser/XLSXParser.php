@@ -22,13 +22,15 @@ class XLSXParser extends BaseParser
     * Load an XLSX file to be parsed
     * 
     * @param    string  $file_path  Path to XLSX file
+	* @param    array   $options    Options
     */
     public function loadFile($file_path, $options) { }
     
     /**
     * Load the string to be parsed
     * 
-    * @param    string  $str    String with XLSX format
+    * @param    string  $str        String with XLSX format
+	* @param    array   $options    Options
     */
     public function loadString($str, $options) { }
 }

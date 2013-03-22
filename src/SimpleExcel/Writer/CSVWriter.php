@@ -37,7 +37,8 @@ class CSVWriter extends BaseWriter
     /**
      * Get document content as string
      * 
-     * @return  string  Content of document
+	 * @param   array   $options    Options
+     * @return  string              Content of document
      */
     public function toString ($options = NULL) {
         if (isset($options['delimiter'])) {

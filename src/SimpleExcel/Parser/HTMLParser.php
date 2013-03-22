@@ -69,6 +69,7 @@ class HTMLParser extends BaseParser implements IParser
     * Load the HTML file to be parsed
     * 
     * @param    string  $file_path  Path to HTML file
+	* @param    array   $options    Options
     */
     public function loadFile($file_path, $options = NULL) {
 	    if ($this->checkFile($file_path)) {
@@ -81,7 +82,8 @@ class HTMLParser extends BaseParser implements IParser
     /**
     * Load the string to be parsed
     * 
-    * @param    string  $str    String with HTML format
+    * @param    string  $str        String with HTML format
+	* @param    array   $options    Options
     */
     public function loadString($str, $options = NULL){
         $html = new \DOMDocument();        

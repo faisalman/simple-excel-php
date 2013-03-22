@@ -20,7 +20,7 @@ abstract class BaseWriter implements IWriter
     * @var      Workbook
     */
     protected $workbook;
-    
+
     /**
      * Defines content-type for HTTP header
      * 
@@ -38,23 +38,25 @@ abstract class BaseWriter implements IWriter
     protected $file_extension = 'txt';
 
     /**
-     * @return  void
+     * @param   Workbook    reference to workbook
      */
     public function __construct(&$workbook){
         $this->workbook = &$workbook;
     }
-    
+
     /**
-     * @return  void
+	 * @param    string  $target     File pointer
+	 * @param    array   $options    Options
      */
     public function exportFile ($target, $options = NULL) {
-        if ($target == 'php://output') {
+        // check if target is browser
+        if ($is_browser = (PHP_SAPI != 'cli' && $target == 'php://output')) {
             if (!isset($options['filename'])) {
                 $options['filename'] = date('Y-m-d-H-i-s');
             }
             if (strcasecmp(substr($options['filename'], strlen($this->file_extension) * -1), $this->file_extension) != 0) {
                 $options['filename'] = $options['filename'] . '.' . $this->file_extension;
-            }            
+            }
             // set HTTP response header
             header('Content-Type: '.$this->content_type);
             header('Content-Disposition: attachment; filename='.$options['filename']);
@@ -65,9 +67,11 @@ abstract class BaseWriter implements IWriter
         fclose($fp);
 
         // since there must be no data below exported document
-        exit();
+        if ($is_browser) {
+            exit();
+        }
     }
-    
+
     /**
      * @return  string
      */
@@ -75,4 +79,3 @@ abstract class BaseWriter implements IWriter
         throw new \BadMethodCallException('Unimplemented method', SimpleExcelException::UNIMPLEMENTED_METHOD);
     }
 }
-?>

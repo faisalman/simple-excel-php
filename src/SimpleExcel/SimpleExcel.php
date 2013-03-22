@@ -92,7 +92,7 @@ class SimpleExcel
     /**
     * SimpleExcel constructor method
     * 
-    * @param    string  $filetype   Set the filetype of the file which will be parsed (XML/CSV/TSV/HTML/JSON)
+    * @param    string  $filetype   Set the filetype of the file
     */
     public function __construct ($filetype = NULL) {
         $this->workbook = new Workbook();
@@ -107,9 +107,9 @@ class SimpleExcel
     /**
     * Export data as file
     * 
-    * @param    string  $filename   Name for the file
     * @param    string  $target     Where to write the file
     * @param    string  $filetype   Type of the file to be written
+    * @param    string  $options    Options
     * @throws   Exception           If filetype is not supported
     * @throws   Exception           If error writing file
     */
@@ -122,6 +122,7 @@ class SimpleExcel
     * Get specified worksheet
     * 
     * @param    int     $index      Worksheet index
+    * @return   Worksheet
     * @throws   Exception           If worksheet with specified index is not found
     */
     public function getWorksheet ($index = 1) {
@@ -130,6 +131,8 @@ class SimpleExcel
     
     /**
     * Get all worksheets
+    *
+    * @return   array
     */
     public function getWorksheets () {
         return $this->workbook->getWorksheets();
@@ -149,6 +152,7 @@ class SimpleExcel
     * 
     * @param    string  $filepath   Path to file
     * @param    string  $filetype   Set the filetype of the file which will be parsed
+    * @param    string  $options    Options
     * @throws   Exception           If filetype is not supported
     * @throws   Exception           If file being loaded doesn't exist
     * @throws   Exception           If file extension doesn't match
@@ -201,8 +205,7 @@ class SimpleExcel
     /**
     * Construct a SimpleExcel Writer
     * 
-    * @param    string  $filetype   Set the filetype of the file which will be written (XML/CSV/TSV/HTML/JSON)
-    * @return   bool
+    * @param    string  $filetype   Set the filetype of the file which will be written
     * @throws   Exception           If filetype is not supported
     */
     protected function setWriterType ($filetype) {
@@ -221,7 +224,8 @@ class SimpleExcel
     * Get data as string
     * 
     * @param    string  $filetype   Document format for the string to be returned
-    * @return   void
+    * @param    string  $options    Options
+    * @return   string
     * @throws   Exception           If filetype is not supported
     */
     public function toString ($filetype, $options = NULL) {

@@ -29,7 +29,8 @@ class HTMLWriter extends BaseWriter implements IWriter
     /**
      * Get document content as string
      * 
-     * @return  string  Content of document
+	 * @param   array   $options    Options
+     * @return  string              Content of document
      */
     public function toString ($options = NULL) {
         $content = '<table>';
@@ -49,4 +50,3 @@ class HTMLWriter extends BaseWriter implements IWriter
 </table>';
     }
 }
-?>

@@ -13,7 +13,7 @@ use SimpleExcel\Spreadsheet\Worksheet;
  * @author  Faisalman
  * @package SimpleExcel
  */ 
-class JSONParser extends BaseParser implements IParser
+class JSONParser extends BaseParser
 {    
     /**
     * Defines valid file extension
@@ -27,6 +27,7 @@ class JSONParser extends BaseParser implements IParser
     * Load the JSON file to be parsed
     * 
     * @param    string  $file_path  Path to JSON file
+	* @param    array   $options    Options
     */
     public function loadFile ($file_path, $options = NULL) {    
 	    if ($this->checkFile($file_path)) {
@@ -40,7 +41,8 @@ class JSONParser extends BaseParser implements IParser
     /**
     * Load the string to be parsed
     * 
-    * @param    string  $str    String with JSON format
+    * @param    string  $str        String with JSON format
+	* @param    array   $options    Options
     * @throws   Exception           If JSON format is invalid (or too deep)
     */
     public function loadString ($str, $options = NULL) {
