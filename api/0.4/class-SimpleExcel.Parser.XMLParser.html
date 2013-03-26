@@ -1,0 +1,355 @@
+<!DOCTYPE html>
+<html>
+<head>
+	<meta http-equiv="Content-Type" content="text/html; charset=utf-8" />
+	<meta name="generator" content="ApiGen 2.8.0" />
+
+	<title>Class SimpleExcel\Parser\XMLParser</title>
+
+	<script type="text/javascript" src="resources/combined.js?394153670"></script>
+	<script type="text/javascript" src="elementlist.js?1374066188"></script>
+	<link rel="stylesheet" type="text/css" media="all" href="resources/style.css?3505392360" />
+
+</head>
+
+<body>
+<div id="left">
+	<div id="menu">
+		<a href="index.html" title="Overview"><span>Overview</span></a>
+
+
+		<div id="groups">
+			<h3>Namespaces</h3>
+			<ul>
+				<li><a href="namespace-PHP.html">PHP</a>
+						</li>
+				<li class="active"><a href="namespace-SimpleExcel.html">SimpleExcel<span></span></a>
+						<ul>
+				<li><a href="namespace-SimpleExcel.Enums.html">Enums</a>
+						</li>
+				<li class="active"><a href="namespace-SimpleExcel.Parser.html">Parser</a>
+						</li>
+				<li><a href="namespace-SimpleExcel.Spreadsheet.html">Spreadsheet</a>
+						</li>
+				<li><a href="namespace-SimpleExcel.Writer.html">Writer</a>
+						</li>
+							</ul></li>
+			</ul>
+		</div>
+
+		<hr />
+
+
+		<div id="elements">
+			<h3>Classes</h3>
+			<ul>
+				<li><a href="class-SimpleExcel.Parser.BaseParser.html">BaseParser</a></li>
+				<li><a href="class-SimpleExcel.Parser.CSVParser.html">CSVParser</a></li>
+				<li><a href="class-SimpleExcel.Parser.HTMLParser.html">HTMLParser</a></li>
+				<li><a href="class-SimpleExcel.Parser.JSONParser.html">JSONParser</a></li>
+				<li><a href="class-SimpleExcel.Parser.TSVParser.html">TSVParser</a></li>
+				<li><a href="class-SimpleExcel.Parser.XLSXParser.html">XLSXParser</a></li>
+				<li class="active"><a href="class-SimpleExcel.Parser.XMLParser.html">XMLParser</a></li>
+			</ul>
+
+			<h3>Interfaces</h3>
+			<ul>
+				<li><a href="class-SimpleExcel.Parser.IParser.html">IParser</a></li>
+			</ul>
+
+
+
+
+		</div>
+	</div>
+</div>
+
+<div id="splitter"></div>
+
+<div id="right">
+<div id="rightInner">
+	<form id="search">
+		<input type="hidden" name="cx" value="" />
+		<input type="hidden" name="ie" value="UTF-8" />
+		<input type="text" name="q" class="text" />
+		<input type="submit" value="Search" />
+	</form>
+
+	<div id="navigation">
+		<ul>
+			<li>
+				<a href="index.html" title="Overview"><span>Overview</span></a>
+			</li>
+			<li>
+				<a href="namespace-SimpleExcel.Parser.html" title="Summary of SimpleExcel\Parser"><span>Namespace</span></a>
+			</li>
+			<li class="active">
+<span>Class</span>			</li>
+		</ul>
+		<ul>
+			<li>
+				<a href="tree.html" title="Tree view of classes, interfaces, traits and exceptions"><span>Tree</span></a>
+			</li>
+		</ul>
+		<ul>
+		</ul>
+	</div>
+
+<div id="content" class="class">
+	<h1>Class XMLParser</h1>
+
+
+	<div class="description">
+	
+<p>SimpleExcel class for parsing Microsoft Excel 2003 XML Spreadsheet</p>
+
+	</div>
+
+	<dl class="tree">
+		<dd style="padding-left:0px">
+			<a href="class-SimpleExcel.Parser.BaseParser.html"><span>SimpleExcel\Parser\BaseParser</span></a>
+			
+			 implements 
+				<a href="class-SimpleExcel.Parser.IParser.html"><span>SimpleExcel\Parser\IParser</span></a>
+			
+			
+		</dd>
+		<dd style="padding-left:30px">
+			<img src="resources/inherit.png" alt="Extended by" />
+<b><span>SimpleExcel\Parser\XMLParser</span></b>			
+			
+			
+		</dd>
+	</dl>
+
+
+
+
+
+
+
+
+	<div class="info">
+		
+		
+		<b>Namespace:</b> <a href="namespace-SimpleExcel.html">SimpleExcel</a>\<a href="namespace-SimpleExcel.Parser.html">Parser</a><br />
+		<b>Package:</b> SimpleExcel<br />
+
+				<b>Author:</b>
+				Faisalman<br />
+		<b>Located at</b> <a href="source-class-SimpleExcel.Parser.XMLParser.html#11-122" title="Go to source code">Parser/XMLParser.php</a><br />
+	</div>
+
+
+
+	<table class="summary" id="methods">
+	<caption>Methods summary</caption>
+	<tr data-order="parseDOM" id="_parseDOM">
+
+		<td class="attributes"><code>
+			 protected 
+			boolean
+			
+			</code>
+		</td>
+
+		<td class="name"><div>
+		<a class="anchor" href="#_parseDOM">#</a>
+		<code><a href="source-class-SimpleExcel.Parser.XMLParser.html#27-97" title="Go to source code">parseDOM</a>( <span><code><a href="class-SimpleXMLElement.html">SimpleXMLElement</a></code> <var>$xml</var></span> )</code>
+
+		<div class="description short">
+			
+<p>Process the loaded file/string</p>
+
+		</div>
+
+		<div class="description detailed hidden">
+			
+<p>Process the loaded file/string</p>
+
+
+
+				<h4>Parameters</h4>
+				<div class="list"><dl>
+					<dt><var>$xml</var></dt>
+					<dd><code><code><a href="class-SimpleXMLElement.html">SimpleXMLElement</a></code></code><br>$xml SimpleXMLElement object of XML</dd>
+				</dl></div>
+
+				<h4>Returns</h4>
+				<div class="list">
+					<code>boolean</code><br />
+				</div>
+
+				<h4>Throws</h4>
+				<div class="list">
+					<code><code><a href="class-Exception.html">Exception</a></code></code><br>If document namespace invalid<br />
+				</div>
+
+
+
+		</div>
+		</div></td>
+	</tr>
+	<tr data-order="loadFile" id="_loadFile">
+
+		<td class="attributes"><code>
+			 public 
+			boolean
+			
+			</code>
+		</td>
+
+		<td class="name"><div>
+		<a class="anchor" href="#_loadFile">#</a>
+		<code><a href="source-class-SimpleExcel.Parser.XMLParser.html#99-110" title="Go to source code">loadFile</a>( <span>string <var>$file_path</var></span>, <span>array <var>$options</var> = <span class="php-keyword1">NULL</span></span> )</code>
+
+		<div class="description short">
+			
+<p>Load the XML file to be parsed</p>
+
+		</div>
+
+		<div class="description detailed hidden">
+			
+<p>Load the XML file to be parsed</p>
+
+
+
+				<h4>Parameters</h4>
+				<div class="list"><dl>
+					<dt><var>$file_path</var></dt>
+					<dd><code>string</code><br>$file_path Path to XML file</dd>
+					<dt><var>$options</var></dt>
+					<dd><code>array</code><br>$options Options</dd>
+				</dl></div>
+
+				<h4>Returns</h4>
+				<div class="list">
+					<code>boolean</code><br />
+				</div>
+
+
+
+
+		</div>
+		</div></td>
+	</tr>
+	<tr data-order="loadString" id="_loadString">
+
+		<td class="attributes"><code>
+			 public 
+			boolean
+			
+			</code>
+		</td>
+
+		<td class="name"><div>
+		<a class="anchor" href="#_loadString">#</a>
+		<code><a href="source-class-SimpleExcel.Parser.XMLParser.html#112-121" title="Go to source code">loadString</a>( <span>string <var>$str</var></span>, <span>array <var>$options</var> = <span class="php-keyword1">NULL</span></span> )</code>
+
+		<div class="description short">
+			
+<p>Load the string to be parsed</p>
+
+		</div>
+
+		<div class="description detailed hidden">
+			
+<p>Load the string to be parsed</p>
+
+
+
+				<h4>Parameters</h4>
+				<div class="list"><dl>
+					<dt><var>$str</var></dt>
+					<dd><code>string</code><br>$str String with XML format</dd>
+					<dt><var>$options</var></dt>
+					<dd><code>array</code><br>$options Options</dd>
+				</dl></div>
+
+				<h4>Returns</h4>
+				<div class="list">
+					<code>boolean</code><br />
+				</div>
+
+
+
+
+		</div>
+		</div></td>
+	</tr>
+	</table>
+
+	<table class="summary inherited">
+	<caption>Methods inherited from <a href="class-SimpleExcel.Parser.BaseParser.html#methods">SimpleExcel\Parser\BaseParser</a></caption>
+	<tr>
+		<td><code>
+			<a href="class-SimpleExcel.Parser.BaseParser.html#___construct">__construct()</a>, 
+			<a href="class-SimpleExcel.Parser.BaseParser.html#_checkFile">checkFile()</a>
+		</code></td>
+	</tr>
+	</table>
+
+
+
+
+
+
+
+
+
+
+
+	<table class="summary" id="properties">
+	<caption>Properties summary</caption>
+	<tr data-order="file_extension" id="$file_extension">
+		<td class="attributes"><code>
+			protected  
+			string
+		</code></td>
+
+		<td class="name">
+				<a href="source-class-SimpleExcel.Parser.XMLParser.html#19-25" title="Go to source code"><var>$file_extension</var></a>
+		</td>
+		<td class="value"><code><span class="php-quote">'xml'</span></code></td>
+		<td class="description"><div>
+			<a href="#$file_extension" class="anchor">#</a>
+
+			<div class="description short">
+				
+<p>Defines valid file extension</p>
+
+			</div>
+
+			<div class="description detailed hidden">
+				
+<p>Defines valid file extension</p>
+
+
+			</div>
+		</div></td>
+	</tr>
+	</table>
+
+	<table class="summary inherited">
+	<caption>Properties inherited from <a href="class-SimpleExcel.Parser.BaseParser.html#properties">SimpleExcel\Parser\BaseParser</a></caption>
+	<tr>
+		<td><code>
+			<a href="class-SimpleExcel.Parser.BaseParser.html#$workbook"><var>$workbook</var></a>
+		</code></td>
+	</tr>
+	</table>
+
+
+
+
+
+</div>
+
+	<div id="footer">
+		 API documentation generated by <a href="http://apigen.org">ApiGen 2.8.0</a>
+	</div>
+</div>
+</div>
+</body>
+</html>

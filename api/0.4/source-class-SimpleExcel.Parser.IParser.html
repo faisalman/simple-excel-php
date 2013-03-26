@@ -1,0 +1,125 @@
+<!DOCTYPE html>
+<html>
+<head>
+	<meta http-equiv="Content-Type" content="text/html; charset=utf-8" />
+	<meta name="generator" content="ApiGen 2.8.0" />
+	<meta name="robots" content="noindex" />
+
+	<title>File Parser/IParser.php</title>
+
+	<script type="text/javascript" src="resources/combined.js?394153670"></script>
+	<script type="text/javascript" src="elementlist.js?1374066188"></script>
+	<link rel="stylesheet" type="text/css" media="all" href="resources/style.css?3505392360" />
+
+</head>
+
+<body>
+<div id="left">
+	<div id="menu">
+		<a href="index.html" title="Overview"><span>Overview</span></a>
+
+
+		<div id="groups">
+			<h3>Namespaces</h3>
+			<ul>
+				<li><a href="namespace-PHP.html">PHP</a>
+						</li>
+				<li class="active"><a href="namespace-SimpleExcel.html">SimpleExcel<span></span></a>
+						<ul>
+				<li><a href="namespace-SimpleExcel.Enums.html">Enums</a>
+						</li>
+				<li class="active"><a href="namespace-SimpleExcel.Parser.html">Parser</a>
+						</li>
+				<li><a href="namespace-SimpleExcel.Spreadsheet.html">Spreadsheet</a>
+						</li>
+				<li><a href="namespace-SimpleExcel.Writer.html">Writer</a>
+						</li>
+							</ul></li>
+			</ul>
+		</div>
+
+		<hr />
+
+
+		<div id="elements">
+			<h3>Classes</h3>
+			<ul>
+				<li><a href="class-SimpleExcel.Parser.BaseParser.html">BaseParser</a></li>
+				<li><a href="class-SimpleExcel.Parser.CSVParser.html">CSVParser</a></li>
+				<li><a href="class-SimpleExcel.Parser.HTMLParser.html">HTMLParser</a></li>
+				<li><a href="class-SimpleExcel.Parser.JSONParser.html">JSONParser</a></li>
+				<li><a href="class-SimpleExcel.Parser.TSVParser.html">TSVParser</a></li>
+				<li><a href="class-SimpleExcel.Parser.XLSXParser.html">XLSXParser</a></li>
+				<li><a href="class-SimpleExcel.Parser.XMLParser.html">XMLParser</a></li>
+			</ul>
+
+			<h3>Interfaces</h3>
+			<ul>
+				<li class="active"><a href="class-SimpleExcel.Parser.IParser.html">IParser</a></li>
+			</ul>
+
+
+
+
+		</div>
+	</div>
+</div>
+
+<div id="splitter"></div>
+
+<div id="right">
+<div id="rightInner">
+	<form id="search">
+		<input type="hidden" name="cx" value="" />
+		<input type="hidden" name="ie" value="UTF-8" />
+		<input type="text" name="q" class="text" />
+		<input type="submit" value="Search" />
+	</form>
+
+	<div id="navigation">
+		<ul>
+			<li>
+				<a href="index.html" title="Overview"><span>Overview</span></a>
+			</li>
+			<li>
+				<a href="namespace-SimpleExcel.Parser.html" title="Summary of SimpleExcel\Parser"><span>Namespace</span></a>
+			</li>
+			<li>
+				<a href="class-SimpleExcel.Parser.IParser.html" title="Summary of SimpleExcel\Parser\IParser"><span>Class</span></a>
+			</li>
+		</ul>
+		<ul>
+			<li>
+				<a href="tree.html" title="Tree view of classes, interfaces, traits and exceptions"><span>Tree</span></a>
+			</li>
+		</ul>
+		<ul>
+		</ul>
+	</div>
+
+<pre><code><span id="1" class="l"><a class="l" href="#1"> 1: </a><span class="xlang">&lt;?php</span>
+</span><span id="2" class="l"><a class="l" href="#2"> 2: </a> 
+</span><span id="3" class="l"><a class="l" href="#3"> 3: </a><span class="php-keyword1">namespace</span> SimpleExcel\Parser;
+</span><span id="4" class="l"><a class="l" href="#4"> 4: </a>
+</span><span id="5" class="l"><a class="l" href="#5"> 5: </a><span class="php-comment">/**
+</span></span><span id="6" class="l"><a class="l" href="#6"> 6: </a><span class="php-comment"> * Defines SimpleExcel parser interface
+</span></span><span id="7" class="l"><a class="l" href="#7"> 7: </a><span class="php-comment"> * 
+</span></span><span id="8" class="l"><a class="l" href="#8"> 8: </a><span class="php-comment"> * @author  Faisalman
+</span></span><span id="9" class="l"><a class="l" href="#9"> 9: </a><span class="php-comment"> * @package SimpleExcel
+</span></span><span id="10" class="l"><a class="l" href="#10">10: </a><span class="php-comment"> */</span>
+</span><span id="11" class="l"><a class="l" href="#11">11: </a>
+</span><span id="12" class="l"><a class="l" href="#12">12: </a><span class="php-comment">/** define parser interface */</span>
+</span><span id="13" class="l"><a class="l" href="#13">13: </a><span class="php-keyword1">interface</span> <a id="IParser" href="#IParser">IParser</a>
+</span><span id="14" class="l"><a class="l" href="#14">14: </a>{
+</span><span id="15" class="l"><a class="l" href="#15">15: </a>    <span class="php-keyword1">public</span> <span class="php-keyword1">function</span> <a id="_loadFile" href="#_loadFile">loadFile</a>(<span class="php-var">$file_path</span>, <span class="php-var">$options</span>);
+</span><span id="16" class="l"><a class="l" href="#16">16: </a>    <span class="php-keyword1">public</span> <span class="php-keyword1">function</span> <a id="_loadString" href="#_loadString">loadString</a>(<span class="php-var">$str</span>, <span class="php-var">$options</span>);
+</span><span id="17" class="l"><a class="l" href="#17">17: </a>}
+</span><span id="18" class="l"><a class="l" href="#18">18: </a></span></code></pre>
+
+	<div id="footer">
+		 API documentation generated by <a href="http://apigen.org">ApiGen 2.8.0</a>
+	</div>
+</div>
+</div>
+</body>
+</html>
