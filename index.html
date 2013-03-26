@@ -34,46 +34,107 @@
 
 <h2>Installation</h2>
 
-<p>Just load this library in your PHP project by including SimpleExcel.php</p>
+<p>If you're using <a href="http://getcomposer.org">Composer</a> to manage libraries, include <a href="https://packagist.org/packages/faisalman/simple-excel-php">this package</a> in your composer.json</p>
+
+<div class="highlight"><pre><span class="s2">"require"</span><span class="o">:</span> <span class="p">{</span>
+    <span class="s2">"faisalman/simple-excel-php"</span><span class="o">:</span> <span class="s2">"0.4.*"</span>
+<span class="p">}</span>
+</pre></div>
+
+<p>Or just load this library in your PHP project by including SimpleExcel.php</p>
 
 <div class="highlight"><pre><span class="k">require_once</span><span class="p">(</span><span class="s1">'../your/project/directory/here/lib/SimpleExcel/SimpleExcel.php'</span><span class="p">);</span>
 </pre></div>
 
-<p>Or, if you're using Composer to manage libraries for your PHP project, just include <a href="https://packagist.org/packages/faisalman/simple-excel-php">this package</a> in composer.json</p>
-
-<div class="highlight"><pre><span class="s2">"require"</span><span class="o">:</span> <span class="p">{</span>
-    <span class="s2">"faisalman/simple-excel-php"</span><span class="o">:</span> <span class="s2">"0.3.*"</span>
-<span class="p">}</span>
-</pre></div>
-
 <h2>Usage Example</h2>
 
-<h3>Prior to version 0.4:</h3>
+<h3>Prior version 0.4</h3>
 
-<div class="highlight"><pre><span class="k">use</span> <span class="nx">SimpleExcel\SimpleExcel</span>
+<pre>
+use SimpleExcel\SimpleExcel;
 
-<span class="nv">$excel</span> <span class="o">=</span> <span class="k">new</span> <span class="nx">SimpleExcel</span><span class="p">(</span><span class="s1">'CSV'</span><span class="p">);</span>
-<span class="nv">$excel</span><span class="o">-&gt;</span><span class="na">parser</span><span class="o">-&gt;</span><span class="na">loadFile</span><span class="p">(</span><span class="s1">'test.csv'</span><span class="p">);</span> <span class="c1">// load file</span>
+$excel = new SimpleExcel('CSV');
+$excel->parser->loadFile('test.csv');
 
-<span class="k">echo</span> <span class="nv">$excel</span><span class="o">-&gt;</span><span class="na">parser</span><span class="o">-&gt;</span><span class="na">getCell</span><span class="p">(</span><span class="mi">1</span><span class="p">,</span> <span class="mi">1</span><span class="p">);</span> <span class="c1">// print</span>
+echo $excel->parser->getCell(1, 1);
 
-<span class="nv">$excel</span><span class="o">-&gt;</span><span class="na">convertTo</span><span class="p">(</span><span class="s1">'JSON'</span><span class="p">);</span>
-<span class="nv">$excel</span><span class="o">-&gt;</span><span class="na">writer</span><span class="o">-&gt;</span><span class="na">addRow</span><span class="p">(</span><span class="k">array</span><span class="p">(</span><span class="s1">'add'</span><span class="p">,</span> <span class="s1">'another'</span><span class="p">,</span> <span class="s1">'row'</span><span class="p">));</span> <span class="c1">// insert more record</span>
-<span class="nv">$excel</span><span class="o">-&gt;</span><span class="na">writer</span><span class="o">-&gt;</span><span class="na">saveFile</span><span class="p">(</span><span class="s1">'example'</span><span class="p">);</span> <span class="c1">// save as file</span>
-</pre></div>
+$excel->convertTo('JSON');
+$excel->writer->addRow(array('add', 'another', 'row'));
+$excel->writer->saveFile('example');
+</pre>
 
 <h3>New API</h3>
 
-<div class="highlight"><pre><span class="k">use</span> <span class="nx">SimpleExcel\SimpleExcel</span>
+<h4>Get specific content from CSV file</h4>
 
-<span class="nv">$excel</span> <span class="o">=</span> <span class="k">new</span> <span class="nx">SimpleExcel</span><span class="p">();</span>
-<span class="nv">$excel</span><span class="o">-&gt;</span><span class="na">loadFile</span><span class="p">(</span><span class="s1">'test.csv'</span><span class="p">,</span> <span class="s1">'CSV'</span><span class="p">);</span> <span class="c1">// load file</span>
+<pre>
+use SimpleExcel\SimpleExcel;
 
-<span class="nb">print_r</span><span class="p">(</span><span class="nv">$excel</span><span class="o">-&gt;</span><span class="na">getWorksheet</span><span class="p">(</span><span class="mi">1</span><span class="p">)</span><span class="o">-&gt;</span><span class="na">getCell</span><span class="p">(</span><span class="mi">1</span><span class="p">,</span> <span class="mi">1</span><span class="p">));</span> <span class="c1">// print</span>
+$excel = new SimpleExcel();
+$excel->loadFile('/home/faisalman/Downloads/test.csv', 'CSV');  // Load CSV file
 
-<span class="nv">$excel</span><span class="o">-&gt;</span><span class="na">getWorksheet</span><span class="p">(</span><span class="mi">1</span><span class="p">)</span><span class="o">-&gt;</span><span class="na">insertRecord</span><span class="p">(</span><span class="k">array</span><span class="p">(</span><span class="s1">'add'</span><span class="p">,</span> <span class="s1">'another'</span><span class="p">,</span> <span class="s1">'row'</span><span class="p">));</span> <span class="c1">// insert more record</span>
-<span class="nv">$excel</span><span class="o">-&gt;</span><span class="na">exportFile</span><span class="p">(</span><span class="s1">'/home/faisalman/Downloads/saved.json'</span><span class="p">,</span> <span class="s1">'JSON'</span><span class="p">);</span> <span class="c1">// save as file</span>
-</pre></div>
+print_r($excel->getWorksheet(1));                   // get array of all cells from worksheet 1
+print_r($excel->getWorksheet(1)->getColumn(2));     // get array of cells in column 2 from worksheet 1
+print_r($excel->getWorksheet(1)->getRow(3));        // get array of cells in row 3 from worksheet 1
+print_r($excel->getWorksheet(1)->getCell(1, 2));    // get specific cell in row 1 column 2 from worksheet 1
+</pre>
+
+<h4>Convert from HTML table to JSON</h4>
+
+<pre>
+use SimpleExcel\SimpleExcel;
+
+$excel = new SimpleExcel();
+$excel->loadFile('/home/faisalman/Downloads/test.html', 'HTML');                // Load HTML file from server
+
+$excel->exportFile('/home/faisalman/Downloads/test.json', 'JSON');              // Save into a directory in running server
+$excel->exportFile('php://output', 'JSON', array('filename' => 'test.json'));   // Save into client (browser download)
+</pre>
+
+<h4>Load CSV with semicolon, export as CSV with comma</h4>
+
+<pre>
+use SimpleExcel\SimpleExcel;
+
+$excel = new SimpleExcel();
+$excel->loadFile('/home/faisalman/Downloads/test.csv', 'CSV', array('delimiter' => ';'));
+$excel->exportFile('/home/faisalman/Downloads/test2.csv', 'CSV', array('delimiter' => ','));
+</pre>
+
+<h4>Change some elements from XML file</h4>
+
+<pre>
+use SimpleExcel\SimpleExcel;
+use SimpleExcel\Spreadsheet\Worksheet;
+
+$excel = new SimpleExcel();
+$excel->loadFile('/home/faisalman/Downloads/test.xml', 'XML');              // Load XML file which contains 3 worksheets
+
+$excel->getWorksheet(1)->setRecord(9, array('9', 'Kota Bandung', '3'));     // Update row 9 in worksheet 1
+$excel->getWorksheet(1)->removeRecord(2);                                   // Delete row 2 from worksheet 1
+
+$excel->insertWorksheet(new Worksheet());                                   // Insert a new worksheet
+$excel->getWorksheet(4)->insertRecord(array('ID', 'Nama Kota', 'Kode'));    // Insert a new row to worksheet 4
+
+$excel->exportFile('/home/faisalman/Downloads/test2.xml', 'XML');           // Write document as another XML file
+</pre>
+
+<h4>Write a new XML file</h4>
+
+<pre>
+use SimpleExcel\SimpleExcel;
+use SimpleExcel\Spreadsheet\Worksheet;
+
+$worksheet = new Worksheet();                                       // Define a new worksheet
+$worksheet->insertRecord(array('ID', 'Nama Kota', 'Kode'));
+
+$excel = new SimpleExcel();
+$excel->insertWorksheet($worksheet);                                // Insert defined worksheet to excel document
+$excel->insertWorksheet(new Worksheet());                           // Insert a new blank worksheet
+$excel->getWorksheet(2)->insertRecord(array('1', '2', '3'));        // Insert a new row to that blank worksheet
+
+$excel->exportFile('/home/faisalman/Downloads/test.xml', 'XML');    // Write document as XML file
+</pre>
 
 <h2>Documentation</h2>
 
