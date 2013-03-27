@@ -52,7 +52,8 @@ class Workbook
     * 
     * @param    Worksheet   $worksheet  Worksheet to be inserted
     */
-    public function insertWorksheet (Worksheet $worksheet) {
+    public function insertWorksheet (Worksheet $worksheet = NULL) {
+        $worksheet = ($worksheet == NULL) ? new Worksheet() : $worksheet;
         array_push($this->worksheets, $worksheet);
     }
 

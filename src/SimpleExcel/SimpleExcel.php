@@ -143,7 +143,7 @@ class SimpleExcel
     * 
     * @param    Worksheet   $worksheet  Worksheet to be inserted
     */
-    public function insertWorksheet (Worksheet $worksheet) {
+    public function insertWorksheet (Worksheet $worksheet = NULL) {
         $this->workbook->insertWorksheet($worksheet);
     }
 

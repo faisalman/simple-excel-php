@@ -5,10 +5,10 @@
         <testsuite name="CSV">
             <directory>./CSV/</directory>
         </testsuite>
-        <!--testsuite name="JSON">
+        <testsuite name="JSON">
             <directory>./JSON/</directory>
         </testsuite>
-        <testsuite name="HTML">
+        <!--testsuite name="HTML">
             <directory>./HTML/</directory>
         </testsuite-->
     </testsuites>
