@@ -17,15 +17,7 @@ class XLSXParser extends BaseParser
     * @var      string
     */
     protected $file_extension = 'xlsx';
-    
-    /**
-    * Load an XLSX file to be parsed
-    * 
-    * @param    string  $file_path  Path to XLSX file
-	* @param    array   $options    Options
-    */
-    public function loadFile($file_path, $options) { }
-    
+
     /**
     * Load the string to be parsed
     * 

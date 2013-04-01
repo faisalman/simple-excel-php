@@ -64,21 +64,7 @@ class HTMLParser extends BaseParser implements IParser
             $this->workbook->insertWorksheet($sheet);
         }
     }
-    
-    /**
-    * Load the HTML file to be parsed
-    * 
-    * @param    string  $file_path  Path to HTML file
-	* @param    array   $options    Options
-    */
-    public function loadFile($file_path, $options = NULL) {
-	    if ($this->checkFile($file_path)) {
-		    $html = new \DOMDocument();        
-            $html->loadHTMLFile($file_path);
-            $this->loadString($html->saveHTML(), $options);
-		}
-    }
-    
+        
     /**
     * Load the string to be parsed
     * 

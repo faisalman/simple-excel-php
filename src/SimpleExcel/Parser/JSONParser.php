@@ -22,22 +22,7 @@ class JSONParser extends BaseParser
     * @var      string
     */
     protected $file_extension = 'json';
-    
-    /**
-    * Load the JSON file to be parsed
-    * 
-    * @param    string  $file_path  Path to JSON file
-	* @param    array   $options    Options
-    */
-    public function loadFile ($file_path, $options = NULL) {    
-	    if ($this->checkFile($file_path)) {
-            $handle = fopen($file_path, 'r');
-            $contents = fread($handle, filesize($file_path));
-            $this->loadString($contents, $options);
-            fclose($handle);
-		}
-    }
-    
+
     /**
     * Load the string to be parsed
     * 

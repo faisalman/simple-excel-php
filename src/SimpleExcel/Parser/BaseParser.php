@@ -66,4 +66,19 @@ abstract class BaseParser implements IParser
             return TRUE;
         }
     }
+
+	/**
+	* Load the file to be parsed
+	* 
+	* @param    string  $file_path  Path to file
+	* @param    array   $options    Options
+    * @throws   Exception           If file being loaded doesn't exist
+    * @throws   Exception           If file extension doesn't match
+    * @throws   Exception           If error reading the file
+	*/
+	public function loadFile ($file_path, $options = NULL) {
+	    if ($this->checkFile($file_path)) {
+		    $this->loadString(file_get_contents($file_path), $options);
+		}
+	}
 }

@@ -97,19 +97,6 @@ class XMLParser extends BaseParser
     }
     
     /**
-     * Load the XML file to be parsed
-     *
-     * @param    string  $file_path  Path to XML file
-	 * @param    array   $options    Options
-     * @return bool
-     */
-    public function loadFile($file_path, $options = NULL) {    
-        if ($this->checkFile($file_path)) {
-            $this->parseDOM(simplexml_load_file($file_path));
-        }
-    }
-    
-    /**
      * Load the string to be parsed
      *
      * @param    string  $str       String with XML format
