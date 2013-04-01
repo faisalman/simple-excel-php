@@ -56,10 +56,6 @@ class CSVParser extends BaseParser
 	public function loadString ($str, $options = NULL) {
 		$this->workbook = new Workbook();
         
-        if (isset($options['delimiter'])) {
-            $this->delimiter = $options['delimiter'];
-        }
-        
         // 1. Split into lines by newline http://stackoverflow.com/questions/3997336/explode-php-string-by-new-line 
 		$pattern = "/\r\n|\n|\r/";
 		$lines   = preg_split($pattern, $str, -1, PREG_SPLIT_NO_EMPTY);
