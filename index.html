@@ -8,12 +8,18 @@
     <link rel="stylesheet" type="text/css" href="stylesheets/stylesheet.css" media="screen" />
     <link rel="stylesheet" type="text/css" href="stylesheets/pygment_trac.css" media="screen" />
     <link rel="stylesheet" type="text/css" href="stylesheets/print.css" media="print" />
+    <link rel="stylesheet" href="api/0.3/highlightjs/github.css">
 
     <!--[if lt IE 9]>
     <script src="//html5shiv.googlecode.com/svn/trunk/html5.js"></script>
     <![endif]-->
 
     <title>SimpleExcel.php by faisalman</title>
+    <script type="text/javascript" src="api/0.3/highlightjs/highlight.pack.js"></script>
+    <script type="text/javascript">
+        hljs.tabReplace = '    ';
+        hljs.initHighlightingOnLoad();
+    </script>
   </head>
 
   <body>
@@ -36,21 +42,27 @@
 
 <p>If you're using <a href="http://getcomposer.org">Composer</a> to manage libraries, include <a href="https://packagist.org/packages/faisalman/simple-excel-php">this package</a> in your composer.json</p>
 
-<div class="highlight"><pre><span class="s2">"require"</span><span class="o">:</span> <span class="p">{</span>
-    <span class="s2">"faisalman/simple-excel-php"</span><span class="o">:</span> <span class="s2">"0.4.*"</span>
-<span class="p">}</span>
-</pre></div>
+<div class="highlight"><pre><code>"require" : {
+    "faisalman/simple-excel-php" : "0.3.*"
+}
+</code></pre></div>
+
+<p>If you want to try version 0.4 (still in <a href="https://github.com/faisalman/simple-excel-php/tree/develop">develop</a> branch) you can use</p>
+
+<div class="highlight"><pre><code>"require" : {
+    "faisalman/simple-excel-php" : "develop as 0.4.0-alpha"
+}
+</code></pre></div>
 
 <p>Or just load this library in your PHP project by including SimpleExcel.php</p>
 
-<div class="highlight"><pre><span class="k">require_once</span><span class="p">(</span><span class="s1">'../your/project/directory/here/lib/SimpleExcel/SimpleExcel.php'</span><span class="p">);</span>
-</pre></div>
+<div class="highlight"><pre><code>require_once('../your/project/directory/here/lib/SimpleExcel/SimpleExcel.php');</code></pre></div>
 
 <h2>Usage Example</h2>
 
 <h3>Prior version 0.4</h3>
 
-<pre>
+<pre><code>
 use SimpleExcel\SimpleExcel;
 
 $excel = new SimpleExcel('CSV');
@@ -61,13 +73,13 @@ echo $excel->parser->getCell(1, 1);
 $excel->convertTo('JSON');
 $excel->writer->addRow(array('add', 'another', 'row'));
 $excel->writer->saveFile('example');
-</pre>
+</code></pre>
 
-<h3>New API</h3>
+<h3>Version 0.4</h3>
 
 <h4>Get specific content from CSV file</h4>
 
-<pre>
+<pre><code>
 use SimpleExcel\SimpleExcel;
 
 $excel = new SimpleExcel();
@@ -77,11 +89,11 @@ print_r($excel->getWorksheet(1));                   // get array of all cells fr
 print_r($excel->getWorksheet(1)->getColumn(2));     // get array of cells in column 2 from worksheet 1
 print_r($excel->getWorksheet(1)->getRow(3));        // get array of cells in row 3 from worksheet 1
 print_r($excel->getWorksheet(1)->getCell(1, 2));    // get specific cell in row 1 column 2 from worksheet 1
-</pre>
+</code></pre>
 
 <h4>Convert from HTML table to JSON</h4>
 
-<pre>
+<pre><code>
 use SimpleExcel\SimpleExcel;
 
 $excel = new SimpleExcel();
@@ -89,21 +101,21 @@ $excel->loadFile('/home/faisalman/Downloads/test.html', 'HTML');                
 
 $excel->exportFile('/home/faisalman/Downloads/test.json', 'JSON');              // Save into a directory in running server
 $excel->exportFile('php://output', 'JSON', array('filename' => 'test.json'));   // Save into client (browser download)
-</pre>
+</code></pre>
 
 <h4>Load CSV with semicolon, export as CSV with comma</h4>
 
-<pre>
+<pre><code>
 use SimpleExcel\SimpleExcel;
 
 $excel = new SimpleExcel();
 $excel->loadFile('/home/faisalman/Downloads/test.csv', 'CSV', array('delimiter' => ';'));
 $excel->exportFile('/home/faisalman/Downloads/test2.csv', 'CSV', array('delimiter' => ','));
-</pre>
+</code></pre>
 
 <h4>Change some elements from XML file</h4>
 
-<pre>
+<pre><code>
 use SimpleExcel\SimpleExcel;
 use SimpleExcel\Spreadsheet\Worksheet;
 
@@ -117,11 +129,11 @@ $excel->insertWorksheet(new Worksheet());                                   // I
 $excel->getWorksheet(4)->insertRecord(array('ID', 'Nama Kota', 'Kode'));    // Insert a new row to worksheet 4
 
 $excel->exportFile('/home/faisalman/Downloads/test2.xml', 'XML');           // Write document as another XML file
-</pre>
+</code></pre>
 
 <h4>Write a new XML file</h4>
 
-<pre>
+<pre><code>
 use SimpleExcel\SimpleExcel;
 use SimpleExcel\Spreadsheet\Worksheet;
 
@@ -134,7 +146,7 @@ $excel->insertWorksheet(new Worksheet());                           // Insert a 
 $excel->getWorksheet(2)->insertRecord(array('1', '2', '3'));        // Insert a new row to that blank worksheet
 
 $excel->exportFile('/home/faisalman/Downloads/test.xml', 'XML');    // Write document as XML file
-</pre>
+</code></pre>
 
 <h2>Documentation</h2>
 
