@@ -54,7 +54,8 @@ abstract class BaseWriter implements IWriter
             if (!isset($options['filename'])) {
                 $options['filename'] = date('Y-m-d-H-i-s');
             }
-            if (strcasecmp(substr($options['filename'], strlen($this->file_extension) * -1), $this->file_extension) != 0) {
+            // check if no extension is set
+            if (!preg_match('/\.\w+$/', $options['filename'])) {
                 $options['filename'] = $options['filename'] . '.' . $this->file_extension;
             }
             // set HTTP response header
