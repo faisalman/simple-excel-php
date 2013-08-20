@@ -93,6 +93,45 @@ class Worksheet
     }
     
     /**
+     * Remove a column of data from all records
+     *
+     * @author  kari.eve.trace@healthplan.com
+     * @date    2013-08-15
+     * @since   v0.4.0-alpha
+     * @param   int $colIndex Column number
+     * @todo    Write up unit tests
+     */
+    public function removeColumn($colIndex) {
+
+        // For each record (row)
+        $r_counter = 0;
+        foreach($this->records as $r_k => $r_v) {
+
+            // For each column (stack)
+            $c_counter = 0;
+            foreach ($r_v as $c_k => $c_v) {
+
+                // If the loop counter matches the passed $colIndex
+                if ($c_counter == $colIndex) {
+
+                    // Unset that array 
+                    unset($this->records[$r_counter][$c_counter]);
+
+                    // Re-apply other array values back to class property
+                    $this->records[$r_counter] = array_values($this->records[$r_counter]);
+                }
+
+                $c_counter++;
+            }
+            $r_counter++;
+        }
+
+
+        // Return on completion
+        return true;
+    }
+
+    /**
     * Set specified cell value
     * 
     * @param    int     $rowIndex   Row number
