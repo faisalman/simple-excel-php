@@ -93,15 +93,24 @@ class Worksheet
     }
     
     /**
-     * Remove a column of data from all records
-     *
-     * @author  kari.eve.trace@healthplan.com
-     * @date    2013-08-15
-     * @since   v0.4.0-alpha
-     * @param   int $colIndex Column number
-     * @todo    Write up unit tests
-     */
+    * Remove a column of data from all records
+    *
+    * @author  kari.eve.trace@healthplan.com
+    * @date    2013-08-15
+    * @since   v0.4.0-alpha
+    * @param   int     $colIndex   Column number  
+    */
     public function removeColumn($colIndex) {
+
+        // ensure method param is an positive 
+        if (
+            !is_integer($colIndex) &&
+            $colIndex >= 0
+        ) {
+            return false;
+        }
+
+
 
         // For each record (row)
         $r_counter = 0;
@@ -109,6 +118,7 @@ class Worksheet
 
             // For each column (stack)
             $c_counter = 0;
+
             foreach ($r_v as $c_k => $c_v) {
 
                 // If the loop counter matches the passed $colIndex
@@ -125,6 +135,7 @@ class Worksheet
             }
             $r_counter++;
         }
+
 
 
         // Return on completion
