@@ -50,6 +50,10 @@ class CSVParser extends BaseParser
 		if ($total == 0) {
 			return;
 		}
+        
+        if (isset($options['delimiter']) {
+            $this->delimiter = $options['delimiter'];
+        }
 		
 		// 2. Guess delimiter if none set
 		$line = $lines[0];
