@@ -51,7 +51,7 @@ class CSVParser extends BaseParser
 			return;
 		}
         
-        if (isset($options['delimiter']) {
+        if (isset($options['delimiter'])) {
             $this->delimiter = $options['delimiter'];
         }
 		
