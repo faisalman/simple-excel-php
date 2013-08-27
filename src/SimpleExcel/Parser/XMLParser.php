@@ -23,15 +23,17 @@ class XMLParser extends BaseParser
     * @var      string
     */
     protected $file_extension = 'xml';
-
+    
     /**
-     * Process the loaded file/string
+     * Load the string to be parsed
      *
-     * @param    SimpleXMLElement $xml   SimpleXMLElement object of XML
+     * @param    string  $str       String with XML format
+	 * @param    array   $options   Options
      * @throws   Exception               If document namespace invalid
      * @return bool
-    */
-    protected function parseDOM ($xml) {
+     */
+    public function loadString ($str, $options = NULL) {
+        $xml = simplexml_load_string($str);
         $this->workbook = new Workbook();
         $xmlns = $xml->getDocNamespaces();
         if ($xmlns['ss'] != 'urn:schemas-microsoft-com:office:spreadsheet') {
@@ -94,16 +96,5 @@ class XMLParser extends BaseParser
             }
             $this->workbook->insertWorksheet($sheet);
         }
-    }
-    
-    /**
-     * Load the string to be parsed
-     *
-     * @param    string  $str       String with XML format
-	 * @param    array   $options   Options
-     * @return bool
-     */
-    public function loadString ($str, $options = NULL) {
-        $this->parseDOM(simplexml_load_string($str));
     }
 }
