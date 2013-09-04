@@ -103,7 +103,7 @@ class Worksheet
     public function removeColumn($colIndex) {
 
         // ensure method param is an positive 
-        if (!is_integer($colIndex) || $colIndex >= 0) {
+        if (!is_numeric($colIndex) || $colIndex <= 0) {
             return false;
         }
 
