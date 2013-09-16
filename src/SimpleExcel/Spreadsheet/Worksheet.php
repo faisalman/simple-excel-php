@@ -21,7 +21,7 @@ class Worksheet
     public function __construct () {
         $this->records = array();
     }
-    
+
     /**
     * Get a specified cell
     * 
@@ -32,7 +32,7 @@ class Worksheet
     public function getCell($rowIndex, $colIndex) {
         return $this->records[$rowIndex - 1][$colIndex - 1];
     }
-    
+
     /**
     * Get array of cells from a specified column
     * 
@@ -46,7 +46,7 @@ class Worksheet
         }
         return $column;
     }
-    
+
     /**
     * Get array of cells from a specified row
     * 
@@ -56,7 +56,7 @@ class Worksheet
     public function getRow($index) {
         return $this->records[$index - 1];
     }
-    
+
     /**
     * Get all cells
     * 
@@ -65,9 +65,57 @@ class Worksheet
     public function getRecords() {
         return $this->records;
     }
-    
+
     /**
-    * Insert a record to worksheet
+    * Add new column, vertical dataset 
+    *
+    * @author   kari.eve.trace@gmail.com
+    * @date     2013-09-13
+    * @since    0.4.0-5811690c
+    * @version  0.4.1
+    * @param    string      $colData    Data to fill the column with
+    * @param    integer     $rowCount   Number of rows to add the new column to
+    */
+    public function insertColumn(array $colData, $rowCount = null) {
+
+        // Set col and row counts
+        $colCount = count($this->getRow(1));
+
+        // Ensure rowCount is numeric if it is passed int
+        if (isset($rowCount) && !is_numeric($rowCount)) {return false;}
+        $rowCount = (!$rowCount) ? count($this->records) : $rowCount;
+
+
+
+        // Iterate for each new column to be added
+        foreach ($colData as $c_k => $c_v) {
+
+            // Iterate over each record in data set
+            for ($i = 1; $i <= $rowCount; $i++) {
+
+                // Set the value of the new cell based on iteration value
+                $cell_data = null;
+
+                // not the first row? Set to 0
+                if ($i != 1) {
+                    $cell_data = new Cell(0, 0);
+                // ...is the first row? Set to title
+                } elseif ($i == 1) {
+                    $cell_data = new Cell($c_v, 0);
+                // ...any other options? set to null.
+                } else {
+                    $cell_data = new Cell(null, 0);
+                }
+
+                $this->setCell($i, $colCount+1, $cell_data);
+            }
+        }
+
+        return true;
+    }
+
+    /**
+    * Insert a record to worksheet, horizontal dataset.
     * 
     * @param    array   $record     Array of cells to be inserted
     */
@@ -82,27 +130,27 @@ class Worksheet
         };
         array_push($this->records, $row);
     }
-    
+
     /**
     * Remove specified record from worksheet
     * 
     * @param    int     $index      Row number
     */
-    public function removeRecord($index) {        
+    public function removeRecord($index) {
         array_splice($this->records, $index - 1, 1);
     }
-    
+
     /**
     * Remove a column of data from all records
     *
-    * @author  kari.eve.trace@healthplan.com
+    * @author  kari.eve.trace@gmail.com
     * @date    2013-08-15
     * @since   v0.4.0-alpha
     * @param   int     $colIndex   Column number  
     */
     public function removeColumn($colIndex) {
 
-        // ensure method param is an positive 
+        // Ensure method param is an positive 
         if (!is_numeric($colIndex) || $colIndex <= 0) {
             return false;
         }
@@ -149,7 +197,7 @@ class Worksheet
     public function setCell($rowIndex, $colIndex, Cell $cell) {
         $this->records[$rowIndex - 1][$colIndex - 1] = $cell;
     }
-    
+
     /**
     * Set specified record values
     * 
@@ -159,7 +207,7 @@ class Worksheet
     public function setRecord($index, array $record) {
         $this->records[$index - 1] = $record;
     }
-    
+
     /**
     * Set record values all at once
     * 
