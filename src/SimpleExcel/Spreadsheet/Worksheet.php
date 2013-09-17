@@ -88,7 +88,7 @@ class Worksheet
     public function insertColumn(array $colData, $rowCount = null) {
 
         // Set col and row counts
-        $colCount = count($this->getRow(1));
+        $colCount = count($this->getRecord(1));
 
         // Ensure rowCount is numeric if it is passed int
         if (isset($rowCount) && !is_numeric($rowCount)) {return false;}
