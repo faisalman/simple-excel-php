@@ -48,12 +48,21 @@ class Worksheet
     }
 
     /**
+    * Get count of columns
+    * 
+    * @return   integer
+    */
+    public function getColumns() {
+        return count($this->records[0]);
+    }
+
+    /**
     * Get array of cells from a specified row
     * 
     * @param    int     $index      Row number
     * @return   array
     */
-    public function getRow($index) {
+    public function getRecord($index) {
         return $this->records[$index - 1];
     }
 
