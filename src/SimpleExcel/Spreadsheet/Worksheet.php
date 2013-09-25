@@ -48,12 +48,21 @@ class Worksheet
     }
 
     /**
+    * Get count of columns
+    * 
+    * @return   integer
+    */
+    public function getColumns() {
+        return count($this->records[0]);
+    }
+
+    /**
     * Get array of cells from a specified row
     * 
     * @param    int     $index      Row number
     * @return   array
     */
-    public function getRow($index) {
+    public function getRecord($index) {
         return $this->records[$index - 1];
     }
 
@@ -79,7 +88,7 @@ class Worksheet
     public function insertColumn(array $colData, $rowCount = null) {
 
         // Set col and row counts
-        $colCount = count($this->getRow(1));
+        $colCount = count($this->getRecord(1));
 
         // Ensure rowCount is numeric if it is passed int
         if (isset($rowCount) && !is_numeric($rowCount)) {return false;}
