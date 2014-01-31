@@ -73,8 +73,10 @@ class HTMLParser extends BaseParser implements IParser
             return;
         }
         
-        $html = new \DOMDocument();        
-        $html->loadHTMLFile($file_path);
+        $html = new \DOMDocument('1.0', 'UTF-8');
+	    $sp = mb_convert_encoding(file_get_contents($file_path), 'HTML-ENTITIES', "UTF-8"); 
+        $html->loadHTML($sp);
+	    $html->encoding = 'UTF-8'; 
         $this->parseDOM($html);
     }
     
@@ -84,8 +86,10 @@ class HTMLParser extends BaseParser implements IParser
     * @param    string  $str    String with HTML format
     */
     public function loadString($str){
-        $html = new \DOMDocument();        
-        $html->loadHTML($str);
+        $html = new \DOMDocument('1.0', 'UTF-8');
+        $sp = mb_convert_encoding($str, 'HTML-ENTITIES', "UTF-8"); 
+        $html->loadHTML($sp);
+	    $html->encoding = 'UTF-8'; 
         $this->parseDOM($html);
     }
 }
