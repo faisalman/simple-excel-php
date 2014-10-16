@@ -11,7 +11,7 @@ class JSONTest extends PHPUnit_Framework_TestCase
     {
         $excel = new SimpleExcel();
         $excel->loadFile('test/JSON/test.json', 'JSON');
-        $this->assertEquals(array(new Cell('ID'), new Cell('Nama'), new Cell('Kode Wilayah')), $excel->getWorksheet(1)->getRow(1));
+        $this->assertEquals(array(new Cell('ID'), new Cell('Nama'), new Cell('Kode Wilayah')), $excel->getWorksheet(1)->getRecord(1));
     }
     
     public function testWriter()

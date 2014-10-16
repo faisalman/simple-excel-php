@@ -17,7 +17,7 @@ class CSVTest extends PHPUnit_Framework_TestCase
         $this->assertEquals('Kab. Cianjur', $excel->getWorksheet(1)->getCell(3, 2)->value);
         
         $row6 = array(new Cell('5'), new Cell('Comma, inside, double-quotes'), new Cell('3'));
-        $this->assertEquals($row6, $excel->getWorksheet(1)->getRow(6));
+        $this->assertEquals($row6, $excel->getWorksheet(1)->getRecord(6));
         
         $col3 = array(new Cell('Kode Wilayah'), new Cell('1'), new Cell('1'), new Cell('1'), new Cell('2'), new Cell('3'));
         $this->assertEquals($col3, $excel->getWorksheet(1)->getColumn(3));
