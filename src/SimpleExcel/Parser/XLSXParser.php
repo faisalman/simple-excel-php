@@ -36,6 +36,15 @@ class XLSXParser extends BaseParser
     public function loadFile ($file_path, $options = NULL) {
         if ($this->checkFile($file_path)) {
             // TODO: extract zip & map string to worksheet
+            $zip = zip_open($file_path);    
+            while($zip_entry = zip_read($zip))
+            {
+                if(preg_match("/xl\/worksheets\/sheet\d/", zip_entry_name($zip_entry)))
+                {
+                    print_r(zip_entry_read($zip_entry));
+                }
+            }    
+            zip_close($zip);
         }
     }
 
