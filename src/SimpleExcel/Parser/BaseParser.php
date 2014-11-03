@@ -53,11 +53,6 @@ abstract class BaseParser implements IParser
             throw new \Exception('File '.$file_path.' doesn\'t exist', SimpleExcelException::FILE_NOT_FOUND);
         
         // extension valid?
-        } else if (strtoupper(pathinfo($file_path, PATHINFO_EXTENSION))!= strtoupper($this->file_extension)){
-
-            throw new \Exception('File extension '.$file_extension.' doesn\'t match with '.$this->file_extension, SimpleExcelException::FILE_EXTENSION_MISMATCH);
-        
-        // file readable?
         } else if (($handle = fopen($file_path, 'r')) === FALSE) {            
         
             throw new \Exception('Error reading the file in'.$file_path, SimpleExcelException::ERROR_READING_FILE);
