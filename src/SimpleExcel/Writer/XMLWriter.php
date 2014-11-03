@@ -41,7 +41,7 @@ class XMLWriter extends BaseWriter
      * @return  void
      */
     public function __construct(&$workbook){
-        parent::__construct(&$workbook);
+        parent::__construct($workbook);
         $this->doc_prop = array(
             'Author' => 'SimpleExcel.php',
             'Company' => 'SimpleExcel.php',
