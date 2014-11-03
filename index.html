@@ -87,7 +87,7 @@ $excel->loadFile('/home/faisalman/Downloads/test.csv', 'CSV');  // Load CSV file
 
 print_r($excel->getWorksheet(1));                   // get array of all cells from worksheet 1
 print_r($excel->getWorksheet(1)->getColumn(2));     // get array of cells in column 2 from worksheet 1
-print_r($excel->getWorksheet(1)->getRow(3));        // get array of cells in row 3 from worksheet 1
+print_r($excel->getWorksheet(1)->getRecord(3));        // get array of cells in row 3 from worksheet 1
 print_r($excel->getWorksheet(1)->getCell(1, 2));    // get specific cell in row 1 column 2 from worksheet 1
 </code></pre>
 
