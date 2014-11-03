@@ -96,7 +96,7 @@ class SimpleExcel
     */
     public function __construct ($filetype = NULL) {
         $this->workbook = new Workbook();
-        $this->validParserTypes = array('XML', 'CSV', 'TSV', 'HTML', 'JSON');
+        $this->validParserTypes = array('XML', 'CSV', 'TSV', 'HTML', 'JSON', 'XLSX');
         $this->validWriterTypes = array('XML', 'CSV', 'TSV', 'HTML', 'JSON');
         if (isset($filetype)) {
             $this->setParserType($filetype);
