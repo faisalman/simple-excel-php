@@ -39,9 +39,7 @@ use  SimpleExcel\Exception\SimpleExcelException;
 
 if (!class_exists('Composer\\Autoload\\ClassLoader', false)){
     // autoload all interfaces & classes
-    spl_autoload_register(function($class_name){
-        if($class_name != 'SimpleExcel') require_once(dirname(__FILE__).DIRECTORY_SEPARATOR.str_replace('\\', DIRECTORY_SEPARATOR, substr($class_name, strlen('SimpleExcel\\'))).'.php');
-    });
+    spl_autoload_register(array(__NAMESPACE__.'\\SimpleExcel', 'autoLoader'));
 }
 
 /**
@@ -122,5 +120,14 @@ class SimpleExcel
     public function convertTo($filetype){
         $this->constructWriter($filetype);
         $this->writer->setData($this->parser->getField());
+    }
+
+    /**
+     * Autoloader
+     *
+     * @param   string   $class_name The class we want to load
+     */
+    public static function autoLoader($class_name){
+        if($class_name != 'SimpleExcel') require_once(dirname(__FILE__).DIRECTORY_SEPARATOR.str_replace('\\', DIRECTORY_SEPARATOR, substr($class_name, strlen('SimpleExcel\\'))).'.php');
     }
 }
