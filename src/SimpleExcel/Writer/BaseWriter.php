@@ -42,12 +42,12 @@ abstract class BaseWriter implements IWriter
     }
 
     /**
-     * Adding row data to table
-     *
-     * @param   array   $values An array contains ordered value for every cell
-     * @param   bool    Check if row goes at the beginning or end of array
-     * @return  void
-     */
+ * Adding row data to table
+ *
+ * @param   array   $values An array contains ordered value for every cell
+ * @param   bool    Check if row goes at the beginning or end of array
+ * @return  void
+ */
     public function addRow($values, $end = TRUE)
     {
         if (!is_array($values)) {
@@ -55,6 +55,7 @@ abstract class BaseWriter implements IWriter
         }
         if ($end) {
             array_push($this->tabl_data, $values);
+            return;
         }
         array_unshift($this->tabl_data, $values);
     }
