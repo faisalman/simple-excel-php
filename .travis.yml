@@ -5,12 +5,9 @@ php:
   - 5.3
 
 before_script:
-  - pear channel-discover pear.phpunit.de
-  - pear install --alldeps phpunit/PHP_Invoker
-  - pear install --alldeps phpunit/DbUnit
-  - pear install --alldeps phpunit/PHPUnit_Selenium
-  - pear install --alldeps phpunit/PHPUnit_Story
-  - phpenv rehash
+  - "mkdir -p ~/.composer"
+  - composer self-update
+  - composer install
 
 script: phpunit --configuration test/phpunit.xml
 
