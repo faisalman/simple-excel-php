@@ -1,10 +1,10 @@
 <?php
 /**
  * Simple Excel
- * 
+ *
  * A PHP library with simplistic approach
  * Easily parse/convert/write between Microsoft Excel XML/CSV/TSV/HTML/JSON/etc formats
- *  
+ *
  * Copyright (c) 2011-2013 Faisalman <fyzlman@gmail.com>
  *
  * Permission is hereby granted, free of charge, to any person obtaining a copy
@@ -16,7 +16,7 @@
  *
  * The above copyright notice and this permission notice shall be included in
  * all copies or substantial portions of the Software.
- * 
+ *
  * THE SOFTWARE IS PROVIDED "AS IS", WITHOUT WARRANTY OF ANY KIND, EXPRESS OR
  * IMPLIED, INCLUDING BUT NOT LIMITED TO THE WARRANTIES OF MERCHANTABILITY,
  * FITNESS FOR A PARTICULAR PURPOSE AND NONINFRINGEMENT. IN NO EVENT SHALL THE
@@ -24,7 +24,7 @@
  * LIABILITY, WHETHER IN AN ACTION OF CONTRACT, TORT OR OTHERWISE, ARISING FROM,
  * OUT OF OR IN CONNECTION WITH THE SOFTWARE OR THE USE OR OTHER DEALINGS IN
  * THE SOFTWARE.
- * 
+ *
  * @author      Faisalman
  * @copyright   2011-2013 (c) Faisalman
  * @license     http://www.opensource.org/licenses/mit-license
@@ -48,7 +48,7 @@ if (!class_exists('Composer\\Autoload\\ClassLoader', false)){
 
 /**
  * SimpleExcel main class
- * 
+ *
  * @author Faisalman
  * @package SimpleExcel
  */
@@ -58,7 +58,7 @@ class SimpleExcel
     * @var IParser
     */
     protected $parser;
-    
+
     /**
     * @var string
     */
@@ -68,22 +68,22 @@ class SimpleExcel
     * @var array
     */
     protected $validParserTypes;
-    
+
     /**
     * @var array
     */
     protected $validWriterTypes;
-    
+
     /**
     * @var IWriter
     */
     protected $writer;
-    
+
     /**
     * @var string
     */
     protected $writerType;
-    
+
     /**
     * @var Workbook
     */
@@ -91,14 +91,14 @@ class SimpleExcel
 
     /**
     * SimpleExcel constructor method
-    * 
+    *
     * @param    string  $filetype   Set the filetype of the file
     */
     public function __construct ($filetype = NULL) {
         $this->workbook = new Workbook();
         $this->validParserTypes = array('XML', 'CSV', 'TSV', 'HTML', 'JSON', 'XLSX');
         $this->validWriterTypes = array('XML', 'CSV', 'TSV', 'HTML', 'JSON');
-        if (isset($filetype)) {
+        if (isset($filetype) && is_scalar($filetype)) {
             $this->setParserType($filetype);
             $this->setWriterType($filetype);
         }
@@ -106,7 +106,7 @@ class SimpleExcel
 
     /**
     * Export data as file
-    * 
+    *
     * @param    string  $target     Where to write the file
     * @param    string  $filetype   Type of the file to be written
     * @param    string  $options    Options
@@ -117,10 +117,10 @@ class SimpleExcel
         $this->setWriterType($fileType);
         $this->writer->exportFile($target, $options);
     }
-    
+
     /**
     * Get specified worksheet
-    * 
+    *
     * @param    int     $index      Worksheet index
     * @return   Worksheet
     * @throws   Exception           If worksheet with specified index is not found
@@ -128,7 +128,7 @@ class SimpleExcel
     public function getWorksheet ($index = 1) {
         return $this->workbook->getWorksheet($index);
     }
-    
+
     /**
     * Get all worksheets
     *
@@ -137,10 +137,10 @@ class SimpleExcel
     public function getWorksheets () {
         return $this->workbook->getWorksheets();
     }
-    
+
     /**
     * Insert a worksheet
-    * 
+    *
     * @param    Worksheet   $worksheet  Worksheet to be inserted
     */
     public function insertWorksheet (Worksheet $worksheet = NULL) {
@@ -149,7 +149,7 @@ class SimpleExcel
 
     /**
     * Load file to parser
-    * 
+    *
     * @param    string  $filepath   Path to file
     * @param    string  $filetype   Set the filetype of the file which will be parsed
     * @param    string  $options    Options
@@ -162,10 +162,10 @@ class SimpleExcel
         $this->setParserType($fileType);
         $this->parser->loadFile($filePath, $options);
     }
-    
+
     /**
     * Load string to parser
-    * 
+    *
     * @param    string  $filepath   Path to file
     * @param    string  $filetype   Set the filetype of the file which will be parsed
     * @throws   Exception           If filetype is not supported
@@ -174,10 +174,10 @@ class SimpleExcel
         $this->setParserType($fileType);
         $this->parser->loadString($string);
     }
-    
+
     /**
     * Remove a worksheet
-    * 
+    *
     * @param    int   $index  Worksheet index to be removed
     */
     public function removeWorksheet ($index) {
@@ -186,7 +186,7 @@ class SimpleExcel
 
     /**
     * Construct a SimpleExcel Parser
-    * 
+    *
     * @param    string  $filetype   Set the filetype of the file which will be parsed (XML/CSV/TSV/HTML/JSON)
     * @throws   Exception           If filetype is not supported
     */
@@ -204,7 +204,7 @@ class SimpleExcel
 
     /**
     * Construct a SimpleExcel Writer
-    * 
+    *
     * @param    string  $filetype   Set the filetype of the file which will be written
     * @throws   Exception           If filetype is not supported
     */
@@ -219,10 +219,10 @@ class SimpleExcel
             $this->writerType = $filetype;
         }
     }
-    
+
     /**
     * Get data as string
-    * 
+    *
     * @param    string  $filetype   Document format for the string to be returned
     * @param    string  $options    Options
     * @return   string
