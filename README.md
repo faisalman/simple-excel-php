@@ -36,5 +36,4 @@ $ phpunit --configuration test/phpunit.xml
 
 SimpleExcel is open-sourced software licensed under the [MIT License](LICENSE.md).
 
-Copyright © 2011-2012 Faisalman <fyzlman@gmail.com>
-Copyright © 2015 Serghei Iakovlev <me@klay.me>
+Copyright © 2011-2012 Faisalman <fyzlman@gmail.com><br>Copyright © 2015 Serghei Iakovlev <me@klay.me>
