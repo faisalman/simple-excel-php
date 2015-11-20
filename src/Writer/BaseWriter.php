@@ -1,18 +1,33 @@
 <?php
 
+/*
+ +------------------------------------------------------------------------+
+ | The SimpleExcel Component                                              |
+ +------------------------------------------------------------------------+
+ | Copyright © 2011-2013 Faisalman <fyzlman@gmail.com>                    |
+ | Copyright © 2015 (c) Serghei Iakovlev <me@klay.me>                     |
+ +------------------------------------------------------------------------+
+ | This source file is subject to the MIT License that is bundled         |
+ | with this package in the file LICENSE.md.                              |
+ |                                                                        |
+ | If you did not receive a copy of the license and are unable to         |
+ | obtain it through the world-wide-web, please send an email             |
+ | to me@klay.me so I can send you a copy immediately.                    |
+ +------------------------------------------------------------------------+
+*/
+
 namespace SimpleExcel\Writer;
 
 /**
  * SimpleExcel base class for writing spreadsheet
- *  
- * @author  Faisalman
- * @package SimpleExcel
+ *
+ * @package SimpleExcel\Writer
  */
 abstract class BaseWriter implements IWriter
 {
     /**
      * Holds tabular data
-     * 
+     *
      * @access  protected
      * @var     array
      */
@@ -20,7 +35,7 @@ abstract class BaseWriter implements IWriter
 
     /**
      * Defines content-type for HTTP header
-     * 
+     *
      * @access  protected
      * @var     string
      */
@@ -28,7 +43,7 @@ abstract class BaseWriter implements IWriter
 
     /**
      * Defines file extension to be used when saving file
-     * 
+     *
      * @access  protected
      * @var     string
      */
@@ -43,7 +58,7 @@ abstract class BaseWriter implements IWriter
 
     /**
      * Adding row data to table
-     * 
+     *
      * @param   array   $values An array contains ordered value for every cell
      * @return  void
      */
@@ -53,10 +68,10 @@ abstract class BaseWriter implements IWriter
         }
         array_push($this->tabl_data, $values);
     }
-    
+
     /**
      * Get document content as string
-     * 
+     *
      * @return  string  Content of document
      */
     public function saveString(){
@@ -72,7 +87,7 @@ abstract class BaseWriter implements IWriter
 
     /**
      * Export the document
-     * 
+     *
      * @param   string  $filename   Name for the saved file (extension will be set automatically)
      * @param   string  $target     Save location
      * @return  void
@@ -103,7 +118,7 @@ abstract class BaseWriter implements IWriter
 
     /**
      * Set tabular data
-     * 
+     *
      * @param   array   $values An array contains ordered value of arrays for all fields
      * @return  void
      */
