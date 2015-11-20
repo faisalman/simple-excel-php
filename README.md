@@ -2,7 +2,9 @@
 
 [![Build Status](https://travis-ci.org/sergeyklay/simple-excel-php.png?branch=master)](https://travis-ci.org/sergeyklay/simple-excel-php)
 
-Easily parse, convert and write between Microsoft Excel formats
+Easily parse, convert and write between Microsoft Excel formats.
+
+This is a fork from https://github.com/faisalman/simple-excel-php.
 
 ## Features
 

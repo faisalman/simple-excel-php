@@ -1,7 +1,7 @@
 {
     "name": "sergeyklay/simple-excel-php",
     "type": "library",
-    "description": "Easily parse / convert / write between Microsoft Excel XML / CSV / TSV / HTML / JSON / etc formats",
+    "description": "Easily parse, convert and write between Microsoft Excel formats.",
     "keywords": [
         "excel",
         "spreadsheet",
