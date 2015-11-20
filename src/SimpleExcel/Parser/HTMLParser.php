@@ -2,34 +2,33 @@
 
 namespace SimpleExcel\Parser;
 
-use SimpleExcel\Enums\SimpleExcelException;
 use SimpleExcel\Spreadsheet\Workbook;
 use SimpleExcel\Spreadsheet\Worksheet;
 
 /**
  * SimpleExcel class for parsing HTML table
- *  
+ *
  * @author  Faisalman
- * @package SimpleExcel
- */ 
+ * @package SimpleExcel\Parser
+ */
 class HTMLParser extends BaseParser implements IParser
 {
     /**
-    * Defines valid file extension
-    * 
-    * @access   protected
-    * @var      string
-    */
+     * Defines valid file extension
+     *
+     * @access   protected
+     * @var      string
+     */
     protected $file_extension = 'html';
-    
+
     /**
-    * Process the loaded file/string
-    * 
-    * @param    DOMDocument $html   DOMDocument object of HTML
-    */
+     * Process the loaded file/string
+     *
+     * @param   \DOMDocument $html   DOMDocument object of HTML
+     */
     protected function parseDOM($html){
         $this->workbook = new Workbook();
-        $tables = $html->getElementsByTagName('table');    
+        $tables = $html->getElementsByTagName('table');
         foreach ($tables as $table) {
             $sheet = new Worksheet();
             $table_child = $table->childNodes;
@@ -48,7 +47,7 @@ class HTMLParser extends BaseParser implements IParser
                                 }
                                 $sheet->insertRecord($row);
                             }
-                        }                        
+                        }
                     } else if ($twrap->nodeName === "tr") {
                         $row = array();
                         $twrap_child = $twrap->childNodes;
@@ -64,16 +63,20 @@ class HTMLParser extends BaseParser implements IParser
             $this->workbook->insertWorksheet($sheet);
         }
     }
-        
+
     /**
-    * Load the string to be parsed
-    * 
-    * @param    string  $str        String with HTML format
-	* @param    array   $options    Options
-    */
-    public function loadString($str, $options = NULL){
-        $html = new \DOMDocument();        
-        $html->loadHTML($str);
+     * Load the string to be parsed
+     *
+     * @param    string  $str        String with HTML format
+     * @param    array   $options    Options
+     */
+    public function loadString($str, $options){
+        $html = new \DOMDocument('1.0', 'UTF-8');
+        $sp = mb_convert_encoding($str, 'HTML-ENTITIES', "UTF-8");
+
+        $html->loadHTML($sp);
+        $html->encoding = 'UTF-8';
+
         $this->parseDOM($html);
     }
 }

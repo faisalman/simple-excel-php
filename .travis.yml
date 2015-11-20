@@ -1,16 +1,17 @@
 language: php
 
 php:
-  - 5.4
   - 5.3
+  - 5.4
+  - 5.5
+  - 5.6
+
+sudo: false
 
 before_script:
-  - pear channel-discover pear.phpunit.de
-  - pear install --alldeps phpunit/PHP_Invoker
-  - pear install --alldeps phpunit/DbUnit
-  - pear install --alldeps phpunit/PHPUnit_Selenium
-  - pear install --alldeps phpunit/PHPUnit_Story
-  - phpenv rehash
+  - "mkdir -p ~/.composer"
+  - composer self-update
+  - composer install
 
 script: phpunit --configuration test/phpunit.xml
 

@@ -5,40 +5,52 @@ namespace SimpleExcel\Parser;
 use SimpleExcel\Enums\Datatype;
 use SimpleExcel\Enums\SimpleExcelException;
 use SimpleExcel\Spreadsheet\Cell;
-use SimpleExcel\Spreadsheet\Workbook;
 use SimpleExcel\Spreadsheet\Worksheet;
 
 /**
  * SimpleExcel class for parsing Microsoft Excel 2003 XML Spreadsheet
- *  
+ *
  * @author  Faisalman
  * @package SimpleExcel
- */ 
+ */
 class XMLParser extends BaseParser
-{    
+{
     /**
     * Defines valid file extension
-    * 
+    *
     * @access   protected
     * @var      string
     */
     protected $file_extension = 'xml';
-    
+
     /**
      * Load the string to be parsed
      *
      * @param    string  $str       String with XML format
 	 * @param    array   $options   Options
-     * @throws   Exception               If document namespace invalid
+     * @throws   \Exception         If document namespace invalid
      * @return bool
      */
     public function loadString ($str, $options = NULL) {
+        libxml_use_internal_errors(true);
         $xml = simplexml_load_string($str);
-        $this->workbook = new Workbook();
+        $errors = libxml_get_errors();
+
+        if (is_array($errors) && !empty($errors)) {
+            /** @var \LibXMLError $error */
+            $error = $errors[0];
+            throw new \Exception(
+                sprintf('The file is corrupt. %s', $error->message)
+            );
+        }
+        libxml_use_internal_errors(false);
+
         $xmlns = $xml->getDocNamespaces();
-        if ($xmlns['ss'] != 'urn:schemas-microsoft-com:office:spreadsheet') {
+
+        if (!isset($xmlns['ss']) || $xmlns['ss'] != 'urn:schemas-microsoft-com:office:spreadsheet') {
             throw new \Exception('Document namespace isn\'t a valid Excel XML 2003 Spreadsheet', SimpleExcelException::INVALID_DOCUMENT_NAMESPACE);
         }
+
         foreach($xml->Worksheet as $worksheet) {
             $sheet = new Worksheet();
             $col_max = 0;
@@ -60,7 +72,7 @@ class XMLParser extends BaseParser
                         for ($i = 1; $i < $gap; $i++) {
                             array_push($record, new Cell(''));
                         }
-                    }                    
+                    }
                     $data_attrs = $cell->Data->xpath('@ss:*');
                     $cell_datatype = $data_attrs['Type'];
                     switch ($cell_datatype) {
