@@ -53,7 +53,7 @@ if (!class_exists('Composer\\Autoload\\ClassLoader', false)){
 class SimpleExcel
 {
     /**
-    * @var IParser
+    * @var \SimpleExcel\Parser\IParser
     */
     protected $parser;
 
@@ -73,7 +73,7 @@ class SimpleExcel
     protected $validWriterTypes;
 
     /**
-    * @var IWriter
+    * @var \SimpleExcel\Writer\IWriter
     */
     protected $writer;
 
@@ -106,10 +106,10 @@ class SimpleExcel
     * Export data as file
     *
     * @param    string  $target     Where to write the file
-    * @param    string  $filetype   Type of the file to be written
+    * @param    string  $fileType   Type of the file to be written
     * @param    string  $options    Options
-    * @throws   Exception           If filetype is not supported
-    * @throws   Exception           If error writing file
+    * @throws   \Exception          If filetype is not supported
+    * @throws   \Exception          If error writing file
     */
     public function exportFile ($target, $fileType, $options = NULL) {
         $this->setWriterType($fileType);
@@ -121,7 +121,7 @@ class SimpleExcel
     *
     * @param    int     $index      Worksheet index
     * @return   Worksheet
-    * @throws   Exception           If worksheet with specified index is not found
+    * @throws   \Exception          If worksheet with specified index is not found
     */
     public function getWorksheet ($index = 1) {
         return $this->workbook->getWorksheet($index);
@@ -148,13 +148,13 @@ class SimpleExcel
     /**
     * Load file to parser
     *
-    * @param    string  $filepath   Path to file
-    * @param    string  $filetype   Set the filetype of the file which will be parsed
+    * @param    string  $filePath   Path to file
+    * @param    string  $fileType   Set the filetype of the file which will be parsed
     * @param    string  $options    Options
-    * @throws   Exception           If filetype is not supported
-    * @throws   Exception           If file being loaded doesn't exist
-    * @throws   Exception           If file extension doesn't match
-    * @throws   Exception           If error reading the file
+    * @throws   \Exception          If filetype is not supported
+    * @throws   \Exception          If file being loaded doesn't exist
+    * @throws   \Exception          If file extension doesn't match
+    * @throws   \Exception          If error reading the file
     */
     public function loadFile ($filePath, $fileType, $options = NULL) {
         $this->setParserType($fileType);
@@ -164,13 +164,13 @@ class SimpleExcel
     /**
     * Load string to parser
     *
-    * @param    string  $filepath   Path to file
-    * @param    string  $filetype   Set the filetype of the file which will be parsed
-    * @throws   Exception           If filetype is not supported
+    * @param    string  $string     Path to file
+    * @param    string  $fileType   Set the filetype of the file which will be parsed
+    * @throws   \Exception          If filetype is not supported
     */
     public function loadString ($string, $fileType) {
         $this->setParserType($fileType);
-        $this->parser->loadString($string);
+        $this->parser->loadString($string, []);
     }
 
     /**
@@ -186,13 +186,15 @@ class SimpleExcel
     * Construct a SimpleExcel Parser
     *
     * @param    string  $filetype   Set the filetype of the file which will be parsed (XML/CSV/TSV/HTML/JSON)
-    * @throws   Exception           If filetype is not supported
+    * @throws   \Exception          If filetype is not supported
     */
     protected function setParserType($filetype){
         $filetype = strtoupper($filetype);
         if ($filetype != $this->parserType) {
             if(!in_array($filetype, $this->validParserTypes)){
-                throw new \Exception('Filetype '.$filetype.' is not supported', SimpleExcelException::FILETYPE_NOT_SUPPORTED);
+                throw new \Exception(
+                    'Filetype '.$filetype.' is not supported', SimpleExcelException::FILETYPE_NOT_SUPPORTED
+                );
             }
             $parser_class = 'SimpleExcel\\Parser\\'.$filetype.'Parser';
             $this->parser = new $parser_class($this->workbook);
@@ -204,7 +206,7 @@ class SimpleExcel
     * Construct a SimpleExcel Writer
     *
     * @param    string  $filetype   Set the filetype of the file which will be written
-    * @throws   Exception           If filetype is not supported
+    * @throws   \Exception          If filetype is not supported
     */
     protected function setWriterType ($filetype) {
         $filetype = strtoupper($filetype);
@@ -224,7 +226,7 @@ class SimpleExcel
     * @param    string  $filetype   Document format for the string to be returned
     * @param    string  $options    Options
     * @return   string
-    * @throws   Exception           If filetype is not supported
+    * @throws   \Exception          If filetype is not supported
     */
     public function toString ($filetype, $options = NULL) {
         $this->setWriterType($filetype);
