@@ -1,15 +1,21 @@
 {
-    "name": "faisalman/simple-excel-php",
+    "name": "sergeyklay/simple-excel-php",
     "type": "library",
     "description": "Easily parse / convert / write between Microsoft Excel XML / CSV / TSV / HTML / JSON / etc formats",
-    "keywords": ["excel", "spreadsheet", "document", "xml", "csv", "tsv", "html", "json", "parser", "converter", "writer"],
-    "homepage": "http://faisalman.github.com/simple-excel-php",
-    "repositories": [
-        {
-            "type": "vcs",
-            "url": "https://github.com/faisalman/simple-excel-php.git"
-        }
+    "keywords": [
+        "excel",
+        "spreadsheet",
+        "document",
+        "xml",
+        "csv",
+        "tsv",
+        "html",
+        "json",
+        "parser",
+        "converter",
+        "writer"
     ],
+    "homepage": "https://github.com/sergeyklay/simple-excel-php/releases",
     "license": "MIT",
     "authors": [
         {
@@ -17,15 +23,33 @@
             "email": "fyzlman@gmail.com",
             "homepage": "http://faisalman.com",
             "role": "Developer"
+        },
+        {
+            "name": "Serghei Iakovlev",
+            "email": "me@klay.me",
+            "homepage": "http://klay.me",
+            "role": "Developer"
         }
     ],
+    "support": {
+        "issues": "https://github.com/sergeyklay/simple-excel-php/issues",
+        "source": "https://github.com/sergeyklay/simple-excel-php"
+    },
     "require": {
-        "php": ">=5.3.0"
+        "php": ">=5.3.29"
     },
     "require-dev": {
-        "phpunit/phpunit": "3.7.*"
+        "phpunit/phpunit": "^4.8",
+        "squizlabs/php_codesniffer": "2.*"
     },
     "autoload": {
-        "psr-0": {"SimpleExcel\\": "src/"}
+        "psr-4": {
+            "SimpleExcel\\": "src/"
+        }
+    },
+    "extra": {
+        "branch-alias": {
+            "dev-master": "0.4.x-dev"
+        }
     }
 }
