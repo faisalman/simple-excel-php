@@ -4,12 +4,10 @@ namespace SimpleExcel\Exception;
 
 /**
  * Defines SimpleExcel exception enum
- * 
+ *
  * @author  Faisalman
- * @package SimpleExcel
+ * @package SimpleExcel\Exception
  */
-
-/** define exception enum */
 abstract class SimpleExcelException
 {
     const UNKNOWN                       = 0;
@@ -22,6 +20,5 @@ abstract class SimpleExcelException
     const COLUMN_NOT_FOUND              = 7;
     const CELL_NOT_FOUND                = 8;
     const FILETYPE_NOT_SUPPORTED        = 9;
-    const MALFORMED_JSON           = 10;
+    const MALFORMED_JSON                = 10;
 }
-?>

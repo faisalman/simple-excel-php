@@ -1,10 +1,10 @@
 <?php
 /**
  * Simple Excel
- * 
+ *
  * A PHP library with simplistic approach
  * Easily parse/convert/write between Microsoft Excel XML/CSV/TSV/HTML/JSON/etc formats
- *  
+ *
  * Copyright (c) 2011-2013 Faisalman <fyzlman@gmail.com>
  *
  * Permission is hereby granted, free of charge, to any person obtaining a copy
@@ -16,7 +16,7 @@
  *
  * The above copyright notice and this permission notice shall be included in
  * all copies or substantial portions of the Software.
- * 
+ *
  * THE SOFTWARE IS PROVIDED "AS IS", WITHOUT WARRANTY OF ANY KIND, EXPRESS OR
  * IMPLIED, INCLUDING BUT NOT LIMITED TO THE WARRANTIES OF MERCHANTABILITY,
  * FITNESS FOR A PARTICULAR PURPOSE AND NONINFRINGEMENT. IN NO EVENT SHALL THE
@@ -24,7 +24,7 @@
  * LIABILITY, WHETHER IN AN ACTION OF CONTRACT, TORT OR OTHERWISE, ARISING FROM,
  * OUT OF OR IN CONNECTION WITH THE SOFTWARE OR THE USE OR OTHER DEALINGS IN
  * THE SOFTWARE.
- * 
+ *
  * @author      Faisalman
  * @copyright   2011-2013 (c) Faisalman
  * @license     http://www.opensource.org/licenses/mit-license
@@ -37,41 +37,36 @@ namespace SimpleExcel;
 
 use  SimpleExcel\Exception\SimpleExcelException;
 
-if (!class_exists('Composer\\Autoload\\ClassLoader', false)){
-    // autoload all interfaces & classes
-    spl_autoload_register(array(__NAMESPACE__.'\\SimpleExcel', 'autoLoader'));
-}
-
 /**
  * SimpleExcel main class
- * 
+ *
  * @author Faisalman
  * @package SimpleExcel
  */
 class SimpleExcel
 {
     /**
-    * 
+    *
     * @var CSVParser | TSVParser | XMLParser | HTMLParser | JSONParser
     */
     public $parser;
 
     /**
-    * 
+    *
     * @var CSVWriter | TSVWriter | XMLWriter | HTMLWriter | JSONWriter
     */
     public $writer;
-    
+
     /**
-    * 
+    *
     * @var array
-    */    
+    */
     protected $validParserTypes = array('XML', 'CSV', 'TSV', 'HTML', 'JSON');
     protected $validWriterTypes = array('XML', 'CSV', 'TSV', 'HTML', 'JSON');
 
     /**
     * SimpleExcel constructor method
-    * 
+    *
     * @param    string  $filetype   Set the filetype of the file which will be parsed (XML/CSV/TSV/HTML/JSON)
     * @return   void
     */
@@ -82,7 +77,7 @@ class SimpleExcel
 
     /**
     * Construct a SimpleExcel Parser
-    * 
+    *
     * @param    string  $filetype   Set the filetype of the file which will be parsed (XML/CSV/TSV/HTML/JSON)
     * @throws   Exception           If filetype is neither XML/CSV/TSV/HTML/JSON
     */
@@ -97,7 +92,7 @@ class SimpleExcel
 
     /**
     * Construct a SimpleExcel Writer
-    * 
+    *
     * @param    string  $filetype   Set the filetype of the file which will be written (XML/CSV/TSV/HTML/JSON)
     * @return   bool
     * @throws   Exception           If filetype is neither XML/CSV/TSV/HTML/JSON
@@ -111,10 +106,10 @@ class SimpleExcel
         $writer_class = 'SimpleExcel\\Writer\\'.$filetype.'Writer';
         $this->writer = new $writer_class();
     }
-    
+
     /**
     * Change writer type to convert to another format
-    * 
+    *
     * @param    string  $filetype   Set the filetype of the file which will be written (XML/CSV/TSV/HTML/JSON)
     */
     public function convertTo($filetype){
