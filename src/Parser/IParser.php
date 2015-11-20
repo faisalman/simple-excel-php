@@ -14,7 +14,7 @@ interface IParser
      *
      * @param  int  $rowNum  Row number
      * @param  int  $colNum  Column number
-     * @param  bool $valOnly Returns (value only or complete data) for every cell, default to true [Optional]
+     * @param  bool $valOnly Returns (value only or complete data). Default to true [Optional]
      * @return array
      */
     public function getCell($rowNum, $colNum, $valOnly = true);
@@ -38,12 +38,68 @@ interface IParser
      */
     public function getRow($rowNum, $valOnly = true);
 
-    public function getField($val_only);
-    public function isCellExists($row_num, $col_num);
-    public function isColumnExists($col_num);
-    public function isRowExists($row_num);
+    /**
+     * Get data of all cells as an array.
+     *
+     * @param  bool $valOnly Returns (value only or complete data) for every cell, default to true [Optional]
+     * @return array
+     */
+    public function getField($valOnly = true);
+
+    /**
+     * Check whether cell with specified row & column exists.
+     *
+     * @param int $rowNum Row number
+     * @param int $colNum Column number
+     *
+     * @return bool
+     */
+    public function isCellExists($rowNum, $colNum);
+
+    /**
+     * Check whether a specified column exists.
+     *
+     * @param  int $colNum Column number
+     * @return bool
+     */
+    public function isColumnExists($colNum);
+
+    /**
+     * Check whether a specified row exists.
+     *
+     * @param int $rowNum Row number
+     * @return bool
+     */
+    public function isRowExists($rowNum);
+
+    /**
+     * Check whether table exists.
+     *
+     * @return bool
+     */
     public function isFieldExists();
-    public function isFileReady($file_path);
-    public function loadFile($file_path);
-    public function loadString($str);
+
+    /**
+     * Check whether file exists, valid, and readable.
+     *
+     * @param string $filePath Path to file
+     * @return bool
+     */
+    public function isFileReady($filePath);
+
+    /**
+     * Load the file to be parsed.
+     *
+     * @param string $filePath Path to file.
+     * @return bool
+     */
+    public function loadFile($filePath);
+
+    /**
+     * Load the string to be parsed
+     *
+     * @param string $string String with specified format
+     * @return bool
+     */
+    public function loadString($string);
 }

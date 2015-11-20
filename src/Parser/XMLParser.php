@@ -3,6 +3,7 @@
 namespace SimpleExcel\Parser;
 
 use SimpleExcel\Exception\SimpleExcelException;
+use SimpleXMLElement;
 
 /**
  * SimpleExcel class for parsing Microsoft Excel 2003 XML Spreadsheet
@@ -109,31 +110,35 @@ class XMLParser extends BaseParser implements IParser
     }
 
     /**
-    * Get data of all cells as an array
-    *
-    * @param    bool    $val_only   Returns (value only | complete data) for every cell, default to TRUE
-    * @return   array
-    * @throws   Exception   If the field is not set.
-    */
-    public function getField($val_only = TRUE) {
+     * {@inheritdoc}
+     *
+     * @param  bool $valOnly Returns (value only or complete data). Default to true [Optional]
+     * @return array
+     *
+     * @throws \Exception If the field is not set.
+     */
+    public function getField($valOnly = true)
+    {
         if (!$this->isFieldExists()) {
             throw new \Exception('Field is not set', SimpleExcelException::FIELD_NOT_FOUND);
         }
-        if($val_only){
+
+        if ($valOnly) {
             $field = array();
-            foreach($this->table_arr['table_contents'] as $row){
+            foreach ($this->table_arr['table_contents'] as $row) {
                 $cells = array();
-                if($row['row_contents']){
-                    foreach($row['row_contents'] as $cell){
+                if ($row['row_contents']) {
+                    foreach ($row['row_contents'] as $cell) {
                         array_push($cells, $cell['value']);
                     }
                 }
                 array_push($field, $cells);
             }
+
             return $field;
-        } else {
-            return $this->table_arr;
         }
+
+        return $this->table_arr;
     }
 
     /**
@@ -169,31 +174,35 @@ class XMLParser extends BaseParser implements IParser
     }
 
     /**
-    * Check whether a specified column exists
-    *
-    * @param    int     $col_num    Column number
-    * @return   bool
-    */
-    public function isColumnExists($col_num){
+     * {@inheritdoc}
+     *
+     * @param  int $colNum Column number
+     * @return bool
+     */
+    public function isColumnExists($colNum)
+    {
         $exist = false;
-        foreach($this->table_arr['table_contents'] as $row){
-            if(is_array($row['row_contents'])){
-                if(array_key_exists($col_num-1, $row['row_contents'])){
+
+        foreach ($this->table_arr['table_contents'] as $row) {
+            if (is_array($row['row_contents'])) {
+                if (array_key_exists($colNum - 1, $row['row_contents'])) {
                     $exist = true;
                 }
             }
         }
+
         return $exist;
     }
 
     /**
-    * Check whether a specified row exists
-    *
-    * @param    int     $row_num    Row number
-    * @return   bool
-    */
-    public function isRowExists($row_num){
-        return array_key_exists($row_num-1, $this->table_arr['table_contents']);
+     * {@inheritdoc}
+     *
+     * @param int $rowNum Row number
+     * @return bool
+     */
+    public function isRowExists($rowNum)
+    {
+        return array_key_exists($rowNum - 1, $this->table_arr['table_contents']);
     }
 
     /**
@@ -309,27 +318,29 @@ class XMLParser extends BaseParser implements IParser
     }
 
     /**
-     * Load the XML file to be parsed
+     * {@inheritdoc}
      *
-     * @param    string  $file_path  Path to XML file
+     * @param string $filePath Path to XML file.
      * @return bool
      */
-    public function loadFile($file_path) {
+    public function loadFile($filePath)
+    {
 
-        if (!$this->isFileReady($file_path)) {
+        if (!$this->isFileReady($filePath)) {
             return false;
         }
 
-        return $this->parseDOM(simplexml_load_file($file_path));
+        return $this->parseDOM(simplexml_load_file($filePath));
     }
 
     /**
-     * Load the string to be parsed
+     * {@inheritdoc}
      *
-     * @param    string  $str    String with XML format
+     * @param string $string String with XML format
      * @return bool
      */
-    public function loadString($str){
-        return $this->parseDOM(simplexml_load_string($str));
+    public function loadString($string)
+    {
+        return $this->parseDOM(simplexml_load_string($string));
     }
 }

@@ -93,14 +93,14 @@ abstract class BaseParser implements IParser
     }
 
     /**
-     * Get data of all cells as an array
+     * {@inheritdoc}
      *
-     * @param  bool $val_only
+     * @param  bool $valOnly Returns (value only or complete data). Default to true [Optional]
      * @return array
      *
      * @throws \Exception If the field is not set.
      */
-    public function getField($val_only)
+    public function getField($valOnly = true)
     {
         if (!$this->isFieldExists()) {
             throw new \Exception('Field is not set', SimpleExcelException::FIELD_NOT_FOUND);
@@ -131,30 +131,30 @@ abstract class BaseParser implements IParser
     }
 
     /**
-     * Check whether cell with specified row & column exists.
+     * {@inheritdoc}
      *
-     * @param int $row_num Row number
-     * @param int $col_num Column number
+     * @param int $rowNum Row number
+     * @param int $colNum Column number
      *
      * @return bool
      */
-    public function isCellExists($row_num, $col_num)
+    public function isCellExists($rowNum, $colNum)
     {
-        return $this->isRowExists($row_num) && $this->isColumnExists($col_num);
+        return $this->isRowExists($rowNum) && $this->isColumnExists($colNum);
     }
 
     /**
-     * Check whether a specified column exists
+     * {@inheritdoc}
      *
-     * @param  int $col_num Column number
+     * @param  int $colNum Column number
      * @return bool
      */
-    public function isColumnExists($col_num)
+    public function isColumnExists($colNum)
     {
         $exist = false;
 
         foreach ($this->table_arr as $row) {
-            if (array_key_exists($col_num-1, $row)) {
+            if (array_key_exists($colNum - 1, $row)) {
                 $exist = true;
             }
         }
@@ -163,18 +163,18 @@ abstract class BaseParser implements IParser
     }
 
     /**
-     * Check whether a specified row exists
+     * {@inheritdoc}
      *
-     * @param int $row_num Row number
+     * @param int $rowNum Row number
      * @return bool
      */
-    public function isRowExists($row_num)
+    public function isRowExists($rowNum)
     {
-        return array_key_exists($row_num-1, $this->table_arr);
+        return array_key_exists($rowNum - 1, $this->table_arr);
     }
 
     /**
-     * Check whether table exists
+     * {@inheritdoc}
      *
      * @return bool
      */
@@ -184,23 +184,23 @@ abstract class BaseParser implements IParser
     }
 
     /**
-     * Check whether file exists, valid, and readable.
+     * {@inheritdoc}
      *
-     * @param string $file_path  Path to file
+     * @param string $filePath Path to file
      * @return bool
      *
      * @throws \Exception If file being loaded doesn't exist
      * @throws \Exception If file extension doesn't match
      * @throws \Exception If error reading the file
      */
-    public function isFileReady($file_path)
+    public function isFileReady($filePath)
     {
-        if (!file_exists($file_path)) {
+        if (!file_exists($filePath)) {
             throw new \Exception(
-                sprintf("File %s doesn't exist", $file_path),
+                sprintf("File %s doesn't exist", $filePath),
                 SimpleExcelException::FILE_NOT_FOUND
             );
-        } elseif (strtoupper(pathinfo($file_path, PATHINFO_EXTENSION))!= strtoupper($this->file_extension)){
+        } elseif (strtoupper(pathinfo($filePath, PATHINFO_EXTENSION))!= strtoupper($this->file_extension)){
             throw new \Exception(
                 sprintf(
                     "File extension %s doesn't match with %s",
@@ -209,10 +209,10 @@ abstract class BaseParser implements IParser
                 ),
                 SimpleExcelException::FILE_EXTENSION_MISMATCH
             );
-        } elseif (false === ($handle = fopen($file_path, 'r'))) {
+        } elseif (false === ($handle = fopen($filePath, 'r'))) {
             fclose($handle);
             throw new \Exception(
-                sprintf('Error reading the file from %s', $file_path),
+                sprintf('Error reading the file from %s', $filePath),
                 SimpleExcelException::ERROR_READING_FILE
             );
         }
