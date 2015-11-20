@@ -2,8 +2,6 @@
 
 use SimpleExcel\SimpleExcel;
 
-require_once('src/SimpleExcel/SimpleExcel.php');
-
 class JSONTest extends PHPUnit_Framework_TestCase
 {
     public function testConstruct()
@@ -21,7 +19,7 @@ class JSONTest extends PHPUnit_Framework_TestCase
         $this->assertEquals(array('ID', 'Nama', 'Kode Wilayah'), $excel->parser->getRow(1));
         $this->assertEquals(array('1', 'Kab. Bogor', '1'), $excel->parser->getRow(2));
     }
-    
+
     /**
      * @depends testConstruct
      */
@@ -31,5 +29,3 @@ class JSONTest extends PHPUnit_Framework_TestCase
         $this->assertEquals('[{"0":"ID","1":"Nama","2":"Kode Wilayah"}]', $excel->writer->saveString());
     }
 }
-
-?>

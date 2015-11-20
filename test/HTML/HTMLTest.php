@@ -2,8 +2,6 @@
 
 use SimpleExcel\SimpleExcel;
 
-require_once('src/SimpleExcel/SimpleExcel.php');
-
 class HTMLTest extends PHPUnit_Framework_TestCase
 {
     public function testConstruct()
@@ -21,7 +19,7 @@ class HTMLTest extends PHPUnit_Framework_TestCase
         $this->assertEquals(array('ID', 'Nama', 'Kode Wilayah'), $excel->parser->getRow(1));
         $this->assertEquals(array('1', 'Kab. Bogor', '1'), $excel->parser->getRow(2));
     }
-    
+
     /**
      * @depends testConstruct
      */
@@ -31,5 +29,3 @@ class HTMLTest extends PHPUnit_Framework_TestCase
         $this->assertEquals('<table><tr><td>ID</td><td>Nama</td><td>Kode Wilayah</td></tr></table>', $excel->writer->saveString());
     }
 }
-
-?>

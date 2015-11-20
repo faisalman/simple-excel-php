@@ -2,8 +2,6 @@
 
 use SimpleExcel\SimpleExcel;
 
-require_once('src/SimpleExcel/SimpleExcel.php');
-
 class CSVTest extends PHPUnit_Framework_TestCase
 {
     public function testConstruct()
@@ -26,7 +24,7 @@ class CSVTest extends PHPUnit_Framework_TestCase
         $this->assertEquals(array('5', 'Comma, inside, double-quotes', '3'), $excel->parser->getRow(6));
         $this->assertEquals(array('Kode Wilayah', '1', '1', '1', '2', '3'), $excel->parser->getColumn(3));
     }
-    
+
     /**
      * @depends testConstruct
      */
@@ -38,10 +36,8 @@ class CSVTest extends PHPUnit_Framework_TestCase
                 array('1', 'Kab. Bogor', '1')
             )
         );
-        $this->assertEquals("ID,Nama,\"Kode Wilayah\"\n1,\"Kab. Bogor\",1\n", $excel->writer->saveString());        
+        $this->assertEquals("ID,Nama,\"Kode Wilayah\"\n1,\"Kab. Bogor\",1\n", $excel->writer->saveString());
         $excel->writer->addRow(array('2', 'Kab. Cianjur', '1'));
         $this->assertEquals("ID,Nama,\"Kode Wilayah\"\n1,\"Kab. Bogor\",1\n2,\"Kab. Cianjur\",1\n", $excel->writer->saveString());
     }
 }
-
-?>
