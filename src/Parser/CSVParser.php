@@ -56,16 +56,16 @@ class CSVParser extends BaseParser implements IParser
         $this->loadString(file_get_contents($filePath));
     }
 
-	/**
-	 * {@inheritdoc}
-	 *
-	 * @link http://stackoverflow.com/questions/3997336/explode-php-string-by-new-line
-	 *
-	 * @param string $string String with CSV format
-	 * @return bool
-	 */
-	public function loadString($string)
-	{
+    /**
+     * {@inheritdoc}
+     *
+     * @link http://stackoverflow.com/questions/3997336/explode-php-string-by-new-line
+     *
+     * @param string $string String with CSV format
+     * @return bool
+     */
+    public function loadString($string)
+    {
         $this->table_arr = array();
 
         $pattern = "/\r\n|\n|\r/";
@@ -126,11 +126,15 @@ class CSVParser extends BaseParser implements IParser
     }
 
     /**
-    * Set delimiter that should be used to parse CSV document
-    *
-    * @param    string  $delimiter   Delimiter character
-    */
-    public function setDelimiter($delimiter){
+     * Set delimiter that should be used to parse CSV document.
+     *
+     * @param string $delimiter Delimiter character.
+     * @return $this
+     */
+    public function setDelimiter($delimiter)
+    {
         $this->delimiter = $delimiter;
+
+        return $this;
     }
 }

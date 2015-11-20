@@ -26,25 +26,27 @@ namespace SimpleExcel\Parser;
 class TSVParser extends CSVParser
 {
     /**
-    * Defines delimiter character (TAB)
-    *
-    * @access   protected
-    * @var      string
-    */
+     * Defines delimiter character (TAB)
+     *
+     * @var string
+     */
     protected $delimiter = "\t";
 
     /**
-    * Defines valid file extension
-    *
-    * @access   protected
-    * @var      string
-    */
+     * Defines valid file extension
+     *
+     * @var string
+     */
     protected $file_extension = 'tsv';
 
     /**
-    * Override parent class, this method is ignored in TSV
-    */
-    public function setDelimiter($delimiter){
-        // do nothing
+     * Set delimiter that should be used to parse TSV document.
+     *
+     * @param string $delimiter Delimiter character.
+     * @return $this
+     */
+    public function setDelimiter($delimiter)
+    {
+        return $this;
     }
 }

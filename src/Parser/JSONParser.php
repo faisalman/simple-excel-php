@@ -30,8 +30,7 @@ class JSONParser extends BaseParser implements IParser
     /**
     * Defines valid file extension
     *
-    * @access   protected
-    * @var      string
+    * @var string
     */
     protected $file_extension = 'json';
 

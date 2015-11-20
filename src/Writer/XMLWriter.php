@@ -122,7 +122,7 @@ XML;
 
         $docProperties = '';
 
-        foreach($this->doc_prop as $propName => $propVal){
+        foreach ($this->doc_prop as $propName => $propVal) {
             $docProperties .= sprintf("<%s>%s</%s>\n", $propName, $propVal, $propName);
         }
 

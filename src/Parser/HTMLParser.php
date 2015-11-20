@@ -30,50 +30,63 @@ class HTMLParser extends BaseParser implements IParser
     /**
     * Defines valid file extension
     *
-    * @access   protected
-    * @var      string
+    * @var string
     */
     protected $file_extension = 'html';
 
     /**
     * Process the loaded file/string
     *
-    * @param    DOMDocument $html   DOMDocument object of HTML
+    * @param DOMDocument $html DOMDocument object of HTML
     */
-    private function parseDOM($html){
+    private function parseDOM($html)
+    {
         $tables = $html->getElementsByTagName('table');
         $field = array();
+
+        $validNode = function ($node) {
+            if (XML_ELEMENT_NODE === $node && in_array($node, array('th', 'td'), true)) {
+                return true;
+            }
+
+            return false;
+        };
+
         foreach ($tables as $table) {
             $table_child = $table->childNodes;
             foreach ($table_child as $twrap) {
-                if($twrap->nodeType === XML_ELEMENT_NODE) {
+                if ($twrap->nodeType === XML_ELEMENT_NODE) {
                     if ($twrap->nodeName === "thead" || $twrap->nodeName === "tbody") {
                         $twrap_child = $twrap->childNodes;
                         foreach ($twrap_child as $tr) {
-                            if($tr->nodeType === XML_ELEMENT_NODE && $tr->nodeName === "tr") {
+                            if ($tr->nodeType === XML_ELEMENT_NODE && $tr->nodeName === "tr") {
                                 $row = array();
                                 $tr_child = $tr->childNodes;
                                 foreach ($tr_child as $td) {
-                                    if ($td->nodeType === XML_ELEMENT_NODE && ($td->nodeName === "th" || $td->nodeName === "td")) {
+                                    if ($validNode($td->nodeType)) {
                                         array_push($row, $td->nodeValue);
                                     }
                                 }
+
                                 array_push($field, $row);
                             }
                         }
-                    } else if ($twrap->nodeName === "tr") {
+                    } elseif ($twrap->nodeName === "tr") {
                         $row = array();
                         $twrap_child = $twrap->childNodes;
+
                         foreach ($twrap_child as $td) {
-                            if ($td->nodeType === XML_ELEMENT_NODE && ($td->nodeName === "th" || $td->nodeName === "td")) {
+                            if ($validNode($td->nodeType)) {
                                 array_push($row, $td->nodeValue);
                             }
                         }
+
                         array_push($field, $row);
                     }
                 }
             }
         }
+
         $this->table_arr = $field;
     }
 
@@ -91,9 +104,9 @@ class HTMLParser extends BaseParser implements IParser
 
         $html = new DOMDocument('1.0', 'UTF-8');
 
-	    $sp = mb_convert_encoding(file_get_contents($filePath), 'HTML-ENTITIES', 'UTF-8');
+        $sp = mb_convert_encoding(file_get_contents($filePath), 'HTML-ENTITIES', 'UTF-8');
         $html->loadHTML($sp);
-	    $html->encoding = 'UTF-8';
+        $html->encoding = 'UTF-8';
         $this->parseDOM($html);
     }
 
@@ -109,7 +122,7 @@ class HTMLParser extends BaseParser implements IParser
 
         $sp = mb_convert_encoding($string, 'HTML-ENTITIES', 'UTF-8');
         $html->loadHTML($sp);
-	    $html->encoding = 'UTF-8';
+        $html->encoding = 'UTF-8';
         $this->parseDOM($html);
     }
 }

@@ -31,28 +31,29 @@ class XMLParser extends BaseParser implements IParser
     /**
     * Defines valid file extension
     *
-    * @access   protected
-    * @var      string
+    * @var string
     */
     protected $file_extension = 'xml';
 
     /**
     * Extract attributes from SimpleXMLElement object
     *
-    * @access   private
-    * @param    object  $attrs_obj
-    * @return   array
+    * @param object $attributesObject
+    * @return array
     */
-    private function getAttributes($attrs_obj) {
-        $attrs_arr = array();
-        foreach ($attrs_obj as $attrs) {
-            $attrs = (array) $attrs;
-            foreach ($attrs as $attr) {
-                $attr_keys = array_keys($attr);
-                $attrs_arr[$attr_keys[0]] = $attr[$attr_keys[0]];
+    private function getAttributes($attributesObject)
+    {
+        $attributesArray = array();
+
+        foreach ($attributesObject as $attributes) {
+            $attributes = (array) $attributes;
+            foreach ($attributes as $attribute) {
+                $attributeKeys = array_keys($attribute);
+                $attributesArray[$attributeKeys[0]] = $attribute[$attributeKeys[0]];
             }
         }
-        return $attrs_arr;
+
+        return $attributesArray;
     }
 
     /**
@@ -221,24 +222,24 @@ class XMLParser extends BaseParser implements IParser
     }
 
     /**
-     * Process the loaded file/string
+     * Process the loaded file/string.
      *
-     * @param    SimpleXMLElement $xml   SimpleXMLElement object of XML
-     * @throws   Exception               If document namespace invalid
+     * @param SimpleXMLElement $xml SimpleXMLElement object of XML
      * @return bool
-    */
-    private function parseDOM($xml){
-
-        // get XML namespace
+     * @throws \Exception If document namespace invalid
+     */
+    private function parseDOM($xml)
+    {
         $xmlns = $xml->getDocNamespaces();
 
-        // check file extension and XML namespace
         if ($xmlns['ss'] != 'urn:schemas-microsoft-com:office:spreadsheet') {
-            throw new \Exception('Document namespace isn\'t a valid Excel XML 2003 Spreadsheet', SimpleExcelException::INVALID_DOCUMENT_NAMESPACE);
+            throw new \Exception(
+                "Document namespace isn't a valid Excel XML 2003 Spreadsheet",
+                SimpleExcelException::INVALID_DOCUMENT_NAMESPACE
+            );
         }
 
-        // extract document properties
-        $doc_props = (array)$xml->DocumentProperties;
+        $doc_props = (array) $xml->DocumentProperties;
         $this->table_arr['doc_props'] = $doc_props;
 
         $rows = $xml->Worksheet->Table->Row;
@@ -248,21 +249,18 @@ class XMLParser extends BaseParser implements IParser
             'table_contents' => array()
         );
 
-        // loop through all rows
         foreach ($rows as $row) {
-
-            // check whether ss:Index attribute exist in this row
             $row_index = $row->xpath('@ss:Index');
 
-            // if exist, push empty value until the specified index
             if (count($row_index) > 0) {
                 $gap = $row_index[0]-count($this->table_arr['table_contents']);
-                for($i = 1; $i < $gap; $i++){
+                for ($i = 1; $i < $gap; $i++) {
                     array_push($this->table_arr['table_contents'], array(
                         'row_num' => $row_num,
                         'row_contents' => '',
                         //'row_attrs' => $row_attrs_arr
                     ));
+
                     $row_num += 1;
                 }
             }
@@ -275,7 +273,6 @@ class XMLParser extends BaseParser implements IParser
 
             // loop through all row's cells
             foreach ($cells as $cell) {
-
                 // check whether ss:Index attribute exist
                 $cell_index = $cell->xpath('@ss:Index');
 
@@ -283,7 +280,7 @@ class XMLParser extends BaseParser implements IParser
                 if (count($cell_index) > 0) {
                     $gap = $cell_index[0]-count($row_arr);
                     for ($i = 1; $i < $gap; $i++) {
-                        array_push ($row_arr, array(
+                        array_push($row_arr, array(
                             'row_num' => $row_num,
                             'col_num' => $col_num,
                             'datatype' => '',
@@ -291,6 +288,7 @@ class XMLParser extends BaseParser implements IParser
                             //'cell_attrs' => '',
                             //'data_attrs' => ''
                         ));
+
                         $col_num += 1;
                     }
                 }
@@ -317,6 +315,7 @@ class XMLParser extends BaseParser implements IParser
                     //'cell_attrs' => $cell_attrs_arr,
                     //'data_attrs' => $data_attrs_arr
                 ));
+
                 $col_num += 1;
             }
 
@@ -326,6 +325,7 @@ class XMLParser extends BaseParser implements IParser
                 'row_contents' => $row_arr,
                 //'row_attrs' => $row_attrs_arr
             ));
+
             $row_num += 1;
         }
 

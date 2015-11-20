@@ -42,11 +42,14 @@ abstract class BaseParser implements IParser
     protected $file_extension = '';
 
     /**
-     * @param    string  $file_url   Path to file (optional)
+     * BaseParser constructor.
+     *
+     * @param string $filePath Path to file [Optional]
      */
-    public function __construct($file_url = null) {
-        if (isset($file_url)) {
-            $this->loadFile($file_url);
+    public function __construct($filePath = null)
+    {
+        if (!empty($fileUrl)) {
+            $this->loadFile($filePath);
         }
     }
 
@@ -215,7 +218,7 @@ abstract class BaseParser implements IParser
                 sprintf("File %s doesn't exist", $filePath),
                 SimpleExcelException::FILE_NOT_FOUND
             );
-        } elseif (strtoupper(pathinfo($filePath, PATHINFO_EXTENSION))!= strtoupper($this->file_extension)){
+        } elseif (strtoupper(pathinfo($filePath, PATHINFO_EXTENSION))!= strtoupper($this->file_extension)) {
             throw new \Exception(
                 sprintf(
                     "File extension %s doesn't match with %s",
