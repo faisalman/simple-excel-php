@@ -54,13 +54,25 @@ class SimpleExcel
      * The valid Parser types
      * @var array
      */
-    protected $validParserTypes = array('XML', 'CSV', 'TSV', 'HTML', 'JSON');
+    protected $validParserTypes = array(
+        'XML'  => true,
+        'CSV'  => true,
+        'TSV'  => true,
+        'HTML' => true,
+        'JSON' => true,
+    );
 
     /**
      * The valid Writer types
      * @var array
      */
-    protected $validWriterTypes = array('XML', 'CSV', 'TSV', 'HTML', 'JSON');
+    protected $validWriterTypes = array(
+        'XML'  => true,
+        'CSV'  => true,
+        'TSV'  => true,
+        'HTML' => true,
+        'JSON' => true,
+    );
 
     /**
      * SimpleExcel constructor.
@@ -83,16 +95,16 @@ class SimpleExcel
      */
     public function constructParser($filetype)
     {
-        $filetype = strtoupper($filetype);
+        $filetype = strtoupper(trim($filetype));
 
-        if (!in_array($filetype, $this->validParserTypes)) {
+        if (!is_string($filetype) || !isset($this->validParserTypes[$filetype])) {
             throw new \Exception(
-                sprintf('Filetype %s is not supported', $filetype),
+                sprintf('Filetype %s is not supported', is_string($filetype) ? $filetype : gettype($filetype)),
                 SimpleExcelException::FILETYPE_NOT_SUPPORTED
             );
         }
 
-        $parserClass = 'SimpleExcel\\Parser\\'.$filetype.'Parser';
+        $parserClass = sprintf('SimpleExcel\Parser\%sParser', $filetype);
         $this->parser = new $parserClass();
 
         return $this;
@@ -110,14 +122,14 @@ class SimpleExcel
     {
         $filetype = strtoupper($filetype);
 
-        if (!in_array($filetype, $this->validWriterTypes)) {
+        if (!is_string($filetype) || !isset($this->validWriterTypes[$filetype])) {
             throw new \Exception(
-                sprintf('Filetype %s is not supported', $filetype),
+                sprintf('Filetype %s is not supported', is_string($filetype) ? $filetype : gettype($filetype)),
                 SimpleExcelException::FILETYPE_NOT_SUPPORTED
             );
         }
 
-        $writerClass = 'SimpleExcel\\Writer\\'.$filetype.'Writer';
+        $writerClass = sprintf('SimpleExcel\Writer\%sWriter', $filetype);
         $this->writer = new $writerClass();
 
         return $this;
