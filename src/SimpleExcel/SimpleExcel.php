@@ -170,7 +170,7 @@ class SimpleExcel
     */
     public function loadString ($string, $fileType) {
         $this->setParserType($fileType);
-        $this->parser->loadString($string, []);
+        $this->parser->loadString($string, null);
     }
 
     /**
