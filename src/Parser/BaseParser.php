@@ -20,6 +20,9 @@ namespace SimpleExcel\Parser;
 
 use SimpleExcel\Exception\SimpleExcelException;
 
+use InvalidArgumentException;
+use Exception;
+
 /**
  * Base BaseParser class
  *
@@ -66,7 +69,7 @@ abstract class BaseParser implements IParser
     public function getCell($rowNum, $colNum, $valOnly = true)
     {
         if (!$this->isCellExists($rowNum, $colNum)) {
-            throw new \Exception(
+            throw new Exception(
                 sprintf(
                     "Cell %s,%s doesn't exist",
                     $rowNum,
@@ -94,7 +97,7 @@ abstract class BaseParser implements IParser
         $colArr = array();
 
         if (!$this->isColumnExists($colNum)) {
-            throw new \Exception(
+            throw new Exception(
                 sprintf(
                     "Column %s doesn't exist",
                     $colNum
@@ -121,7 +124,7 @@ abstract class BaseParser implements IParser
     public function getField($valOnly = true)
     {
         if (!$this->isFieldExists()) {
-            throw new \Exception('Field is not set', SimpleExcelException::FIELD_NOT_FOUND);
+            throw new Exception('Field is not set', SimpleExcelException::FIELD_NOT_FOUND);
         }
 
         return $this->table_arr;
@@ -139,7 +142,7 @@ abstract class BaseParser implements IParser
     public function getRow($rowNum, $valOnly = true)
     {
         if (!$this->isRowExists($rowNum)) {
-            throw new \Exception(
+            throw new Exception(
                 sprintf("Row %s doesn't exist", $rowNum),
                 SimpleExcelException::ROW_NOT_FOUND
             );
@@ -210,16 +213,21 @@ abstract class BaseParser implements IParser
      * @throws \Exception If file being loaded doesn't exist
      * @throws \Exception If file extension doesn't match
      * @throws \Exception If error reading the file
+     * @throws \InvalidArgumentException If $filePath parameter is non string or empty
      */
     public function isFileReady($filePath)
     {
+        if (!is_string($filePath) || empty($filePath)) {
+            throw new InvalidArgumentException('A file path parameter must be non empty string.');
+        }
+
         if (!file_exists($filePath)) {
-            throw new \Exception(
+            throw new Exception(
                 sprintf("File %s doesn't exist", $filePath),
                 SimpleExcelException::FILE_NOT_FOUND
             );
         } elseif (strtoupper(pathinfo($filePath, PATHINFO_EXTENSION))!= strtoupper($this->file_extension)) {
-            throw new \Exception(
+            throw new Exception(
                 sprintf(
                     "File extension %s doesn't match with %s",
                     $this->file_extension,
@@ -229,7 +237,7 @@ abstract class BaseParser implements IParser
             );
         } elseif (false === ($handle = fopen($filePath, 'r'))) {
             fclose($handle);
-            throw new \Exception(
+            throw new Exception(
                 sprintf('Error reading the file from %s', $filePath),
                 SimpleExcelException::ERROR_READING_FILE
             );
