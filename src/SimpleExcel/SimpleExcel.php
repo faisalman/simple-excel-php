@@ -41,9 +41,7 @@ use SimpleExcel\Spreadsheet\Worksheet;
 
 if (!class_exists('Composer\\Autoload\\ClassLoader', false)){
     // autoload all interfaces & classes
-    spl_autoload_register(function($class_name){
-        if($class_name != 'SimpleExcel') require_once(dirname(__FILE__).DIRECTORY_SEPARATOR.str_replace('\\', DIRECTORY_SEPARATOR, substr($class_name, strlen('SimpleExcel\\'))).'.php');
-    });
+    spl_autoload_register(array(__NAMESPACE__.'\\SimpleExcel', 'autoLoader'));
 }
 
 /**
@@ -231,5 +229,14 @@ class SimpleExcel
     public function toString ($filetype, $options = NULL) {
         $this->setWriterType($filetype);
         return $this->writer->toString($options);
+    }
+
+    /**
+     * Autoloader
+     *
+     * @param   string   $class_name The class we want to load
+     */
+    public static function autoLoader($class_name){
+        if($class_name != 'SimpleExcel') require_once(dirname(__FILE__).DIRECTORY_SEPARATOR.str_replace('\\', DIRECTORY_SEPARATOR, substr($class_name, strlen('SimpleExcel\\'))).'.php');
     }
 }
