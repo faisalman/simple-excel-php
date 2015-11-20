@@ -85,7 +85,7 @@ class XMLParser extends BaseParser implements IParser
             }
         }
 
-        return [];
+        return array();
     }
 
     /**
