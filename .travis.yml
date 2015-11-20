@@ -22,6 +22,7 @@ install:
   - travis_retry composer install --prefer-source --no-interaction
 
 script:
+  - vendor/bin/phpcs --standard=PSR2 --colors --extensions=php --encoding=utf-8 src/
   - phpunit --configuration test/phpunit.xml.dist --coverage-text
 
 notifications:
