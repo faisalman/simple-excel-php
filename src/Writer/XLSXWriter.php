@@ -28,64 +28,73 @@ class XLSXWriter extends BaseWriter implements IWriter
     /**
      * Defines content-type for HTTP header
      *
-     * @access  protected
-     * @var     string
+     * @var string
      */
     protected $content_type = 'application/vnd.openxmlformats-officedocument.spreadsheetml.sheet';
 
     /**
      * Defines file extension to be used when saving file
      *
-     * @access  protected
-     * @var     string
+     * @var string
      */
     protected $file_extension = 'xlsx';
 
     /**
      * Array containing document properties
      *
-     * @access  private
-     * @var     array
+     * @var array
      */
     private $doc_prop;
 
     /**
-     * @return  void
-     */
-    public function __construct() { }
-
-    /**
-     * Adding row data to XLSX
+     * Adding row data to XLSX.
      *
-     * @param   array   $values An array contains ordered value for every cell
-     * @return  void
-     */
-    public function addRow($values) { }
-
-    /**
-     * Get document content as string
+     * @param array $values An array contains ordered value for every cell.
+     * @return $this
      *
-     * @return  string  Content of document
+     * @throws \Exception
      */
-    public function saveString() { }
+    public function addRow($values)
+    {
+        throw new \Exception('Not implemented yet');
+    }
 
     /**
-    * Set XLSX data
-    *
-    * @param    array   $values An array contains ordered value of arrays for all fields
-    * @return   void
-    */
-    public function setData($values) { }
+     * {@inheritdoc}
+     *
+     * @return string
+     *
+     * @throws \Exception
+     */
+    public function saveString()
+    {
+        throw new \Exception('Not implemented yet');
+    }
 
     /**
-    * Set a document property of the XLSX
+     * Set XLSX data
+     *
+     * @param array $values An array contains ordered value of arrays for all fields
+     * @return $this
+     *
+     * @throws \Exception
+     */
+    public function setData($values)
+    {
+        throw new \Exception('Not implemented yet');
+    }
+
+    /**
+    * Set a document property of the XLSX.
     *
-    * @param    string  $prop   Document property to be set
-    * @param    string  $val    Value of the document property
-    * @return   void
+    * @param string $prop Document property to be set
+    * @param string $val  Value of the document property
+    * @return $this
     */
-    public function setDocProp($prop, $val) {
+    public function setDocProp($prop, $val)
+    {
         $this->doc_prop[$prop] = $val;
+
+        return $this;
     }
 }
-?>

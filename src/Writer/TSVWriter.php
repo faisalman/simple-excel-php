@@ -50,10 +50,13 @@ class TSVWriter extends CSVWriter implements IWriter
     protected $file_extension = 'tsv';
 
     /**
-    * Override parent class, this method is ignored in TSV
-    */
-    public function setDelimiter($delimiter){
-        // do nothing
+     * {@inheritdoc}
+     *
+     * @param string $delimiter Commonly used character can be a comma, semicolon, tab, or space.
+     * @return $this
+     */
+    public function setDelimiter($delimiter)
+    {
+        return $this;
     }
 }
-?>

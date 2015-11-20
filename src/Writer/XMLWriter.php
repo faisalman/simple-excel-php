@@ -28,134 +28,139 @@ class XMLWriter extends BaseWriter implements IWriter
     /**
      * Defines content-type for HTTP header
      *
-     * @access  protected
-     * @var     string
+     * @var  string
      */
     protected $content_type = 'application/xml';
 
     /**
      * Defines file extension to be used when saving file
      *
-     * @access  protected
-     * @var     string
+     * @var string
      */
     protected $file_extension = 'xml';
 
     /**
      * Array containing document properties
      *
-     * @access  private
-     * @var     array
+     * @var array
      */
     private $doc_prop;
 
+
     /**
-     * @return  void
+     * XMLWriter constructor.
      */
-    public function __construct(){
+    public function __construct()
+    {
+        parent::__construct();
+
         $this->doc_prop = array(
-            'Author' => 'SimpleExcel',
-            'Company' => 'SimpleExcel',
-            'Created' => gmdate("Y-m-d\TH:i:s\Z"),
-            'Keywords' => 'SimpleExcel',
+            'Author'     => 'SimpleExcel',
+            'Company'    => 'SimpleExcel',
+            'Created'    => gmdate('Y-m-d\TH:i:s\Z'),
+            'Keywords'   => 'SimpleExcel',
             'LastAuthor' => 'SimpleExcel',
-            'Version' => '12.00'
+            'Version'    => '12.00'
         );
     }
 
     /**
-     * Adding row data to XML
+     * Adding row data to XML.
      *
-     * @param   array   $values An array contains ordered value for every cell
-     * @return  void
+     * @param array $values An array contains ordered value for every cell.
+     * @return $this
      */
-    public function addRow($values){
+    public function addRow($values)
+    {
         $row = &$this->tabl_data;
-        $row .= '
-    <Row ss:AutoFitHeight="0">';
+        $row .= '<Row ss:AutoFitHeight="0">';
 
-        foreach($values as $val){
-
-            $value = '';
-            $datatype = 'String';
-
-            // check if given variable contains array
-            if(is_array($val)){
+        foreach ($values as $val) {
+            if (is_array($val)) {
                 $value = $val[0];
-                $datatype = $val[1];
+                $dataType = $val[1];
             } else {
                 $value = $val;
-                $datatype = is_string($val) ? 'String' : (is_numeric($val) ? 'Number' : 'String');
+                $dataType = is_string($val) ? 'String' : (is_numeric($val) ? 'Number' : 'String');
             }
 
-            // escape value from HTML tags
             $value = filter_var($value, FILTER_SANITIZE_SPECIAL_CHARS);
 
-            $row .= '
-    <Cell><Data ss:Type="'.$datatype.'">'.$value.'</Data></Cell>';
+            $row .= sprintf('<Cell><Data ss:Type="%s">%s</Data></Cell>', $dataType, $value);
         }
 
-        $row .= '
-    </Row>';
+        $row .= '</Row>';
+
+        return $this;
     }
 
     /**
-     * Get document content as string
+     * {@inheritdoc}
      *
-     * @return  string  Content of document
+     * @return string
      */
-    public function saveString(){
-        $content = '<?xml version="1.0"?>
+    public function saveString()
+    {
+        $content = <<<XML
+<?xml version="1.0"?>
 <?mso-application progid="Excel.Sheet"?>
 <Workbook xmlns="urn:schemas-microsoft-com:office:spreadsheet"
- xmlns:o="urn:schemas-microsoft-com:office:office"
- xmlns:x="urn:schemas-microsoft-com:office:excel"
- xmlns:ss="urn:schemas-microsoft-com:office:spreadsheet"
- xmlns:html="http://www.w3.org/TR/REC-html40">
- <DocumentProperties xmlns="urn:schemas-microsoft-com:office:office">';
+  xmlns:o="urn:schemas-microsoft-com:office:office"
+  xmlns:x="urn:schemas-microsoft-com:office:excel"
+  xmlns:ss="urn:schemas-microsoft-com:office:spreadsheet"
+  xmlns:html="http://www.w3.org/TR/REC-html40">
+    <DocumentProperties xmlns="urn:schemas-microsoft-com:office:office">
+        %s
+    </DocumentProperties>
+    <Worksheet ss:Name="Sheet1">
+        <Table>
+            %s
+        </Table>
+    </Worksheet>
+</Workbook>
+XML;
 
-        foreach($this->doc_prop as $propname => $propval){
-            $content .= '
-  <'.$propname.'>'.$propval.'</'.$propname.'>';
+        $docProperties = '';
+
+        foreach($this->doc_prop as $propName => $propVal){
+            $docProperties .= sprintf("<%s>%s</%s>\n", $propName, $propVal, $propName);
         }
 
-        $content .= '
- </DocumentProperties>
- <Worksheet ss:Name="Sheet1">
-  <Table>'.$this->tabl_data.'
-  </Table>
- </Worksheet>
-</Workbook>';
-        return $content;
+        return sprintf($content, $docProperties, $this->tabl_data);
     }
 
     /**
-    * Set XML data
-    *
-    * @param    array   $values An array contains ordered value of arrays for all fields
-    * @return   void
-    */
-    public function setData($values){
-        if(!is_array($values)){
+     * Set XML data.
+     *
+     * @param array $values An array contains ordered value of arrays for all fields
+     * @return $this
+     */
+    public function setData($values)
+    {
+        if (!is_array($values)) {
             $values = array($values);
         }
-        $this->tabl_data = ""; // reset the xml data.
 
-        // append values as rows
+        $this->tabl_data = "";
+
         foreach ($values as $value) {
             $this->addRow($value);
         }
+
+        return $this;
     }
 
     /**
-    * Set a document property of the XML
+    * Set a document property of the XML.
     *
-    * @param    string  $prop   Document property to be set
-    * @param    string  $val    Value of the document property
-    * @return   void
+    * @param string $prop Document property to be set
+    * @param string $val  Value of the document property
+    * @return $this
     */
-    public function setDocProp($prop, $val){
+    public function setDocProp($prop, $val)
+    {
         $this->doc_prop[$prop] = $val;
+
+        return $this;
     }
 }
-?>

@@ -25,10 +25,35 @@ namespace SimpleExcel\Writer;
  */
 interface IWriter
 {
+    /**
+     * Adding row data to table.
+     *
+     * @param array $values An array contains ordered value for every cell.
+     * @return IWriter
+     */
     public function addRow($values);
+
+    /**
+     * Get document content as string.
+     *
+     * @return string
+     */
     public function saveString();
-    public function saveFile($filename, $target);
+
+    /**
+     * Export the document.
+     *
+     * @param string $fileName Name for the saved file
+     * @param string $target   Save location (or write output to browser) [Optional]
+     * @return IWriter
+     */
+    public function saveFile($fileName, $target);
+
+    /**
+     * Set tabular data.
+     *
+     * @param array $values An array contains ordered value of arrays for all fields
+     * @return IWriter
+     */
     public function setData($values);
 }
-
-?>
