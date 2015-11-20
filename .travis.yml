@@ -22,7 +22,7 @@ install:
   - travis_retry composer install --prefer-source --no-interaction
 
 script:
-  - phpunit --configuration test/phpunit.xml --coverage-text
+  - phpunit --configuration test/phpunit.xml.dist --coverage-text
 
 notifications:
   email:

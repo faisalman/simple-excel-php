@@ -1,0 +1,24 @@
+<?xml version="1.0" encoding="UTF-8"?>
+
+<phpunit
+        bootstrap="./Bootstrap.php"
+        colors="true"
+        convertErrorsToExceptions="true"
+        convertNoticesToExceptions="true"
+        convertWarningsToExceptions="true"
+        strict-coverage="true"
+        report-useless-tests="true"
+        enforce-time-limit="true">
+
+    <testsuites>
+        <testsuite name="SimpleExcel CSV Test Suite">
+            <directory>./CSV</directory>
+        </testsuite>
+        <testsuite name="SimpleExcel JSON Test Suite">
+            <directory>./JSON</directory>
+        </testsuite>
+        <testsuite name="SimpleExcel HTML Test Suite">
+            <directory>./HTML</directory>
+        </testsuite>
+    </testsuites>
+</phpunit>
