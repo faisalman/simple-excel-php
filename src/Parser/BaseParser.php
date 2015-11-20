@@ -36,61 +36,60 @@ abstract class BaseParser implements IParser
     }
 
     /**
-     * Get value of the specified cell
+     * {@inheritdoc}
      *
-     * @param  int $row_num Row number
-     * @param  int $col_num Column number
-     * @param  int $val_only
+     * @param  int  $rowNum  Row number
+     * @param  int  $colNum  Column number
+     * @param  bool $valOnly Returns (value only or complete data) for every cell, default to true [Optional]
      * @return array
      *
      * @throws \Exception If the cell identified doesn't exist.
      */
-    public function getCell($row_num, $col_num, $val_only)
+    public function getCell($rowNum, $colNum, $valOnly = true)
     {
-        if (!$this->isCellExists($row_num, $col_num)) {
+        if (!$this->isCellExists($rowNum, $colNum)) {
             throw new \Exception(
                 sprintf(
                     "Cell %s,%s doesn't exist",
-                    $row_num,
-                    $col_num
+                    $rowNum,
+                    $colNum
                 ),
                 SimpleExcelException::CELL_NOT_FOUND
             );
         }
 
-        return $this->table_arr[$row_num-1][$col_num-1];
+        return $this->table_arr[$rowNum - 1][$colNum - 1];
     }
 
     /**
-     * Get data of the specified column as an array
+     * {@inheritdoc}
      *
-     * @param int  $col_num Column number
-     * @param bool $val_only
+     * @param int  $colNum  Column number
+     * @param bool $valOnly Returns (value only or complete data) for every cell, default to true [Optional]
      *
      * @return array
      *
      * @throws \Exception If the column requested doesn't exist.
      */
-    public function getColumn($col_num, $val_only)
+    public function getColumn($colNum, $valOnly = true)
     {
-        $col_arr = array();
+        $colArr = array();
 
-        if (!$this->isColumnExists($col_num)) {
+        if (!$this->isColumnExists($colNum)) {
             throw new \Exception(
                 sprintf(
                     "Column %s doesn't exist",
-                    $col_num
+                    $colNum
                 ),
                 SimpleExcelException::COLUMN_NOT_FOUND
             );
         }
 
-        // get the specified column within every row
         foreach ($this->table_arr as $row) {
-            array_push($col_arr, $row[$col_num-1]);
+            array_push($colArr, $row[$colNum - 1]);
         }
 
-        return $col_arr;
+        return $colArr;
     }
 
     /**
@@ -111,27 +110,24 @@ abstract class BaseParser implements IParser
     }
 
     /**
-     * Get data of the specified row as an array.
+     * {@inheritdoc}
      *
-     * @param int $row_num Row number
-     * @param bool $val_only
+     * @param int $rowNum   Row number
+     * @param bool $valOnly Returns (value only or complete data) for every cell, default to true [Optional]
      * @return array
      *
      * @throws \Exception When a row is requested that doesn't exist.
      */
-    public function getRow($row_num, $val_only)
+    public function getRow($rowNum, $valOnly = true)
     {
-        if (!$this->isRowExists($row_num)) {
+        if (!$this->isRowExists($rowNum)) {
             throw new \Exception(
-                sprintf(
-                    "Row %s doesn't exist",
-                    $row_num
-                ),
+                sprintf("Row %s doesn't exist", $rowNum),
                 SimpleExcelException::ROW_NOT_FOUND
             );
         }
 
-        return $this->table_arr[$row_num-1];
+        return $this->table_arr[$rowNum - 1];
     }
 
     /**

@@ -6,15 +6,15 @@ use SimpleExcel\Exception\SimpleExcelException;
 
 /**
  * SimpleExcel class for parsing Microsoft Excel 2003 XML Spreadsheet
- *  
+ *
  * @author  Faisalman
  * @package SimpleExcel
- */ 
+ */
 class XMLParser extends BaseParser implements IParser
-{    
+{
     /**
     * Defines valid file extension
-    * 
+    *
     * @access   protected
     * @var      string
     */
@@ -22,7 +22,7 @@ class XMLParser extends BaseParser implements IParser
 
     /**
     * Extract attributes from SimpleXMLElement object
-    * 
+    *
     * @access   private
     * @param    object  $attrs_obj
     * @return   array
@@ -40,74 +40,84 @@ class XMLParser extends BaseParser implements IParser
     }
 
     /**
-    * Get value of the specified cell
-    * 
-    * @param    int $row_num    Row number
-    * @param    int $col_num    Column number
-    * @param    int $val_only   Whether returns only it's value or complete data
-    * @return   array
-    * @throws   Exception       If the cell identified doesn't exist.
-    */
-    public function getCell($row_num, $col_num, $val_only = true) {
-        // check whether the cell exists
-        if (!$this->isCellExists($row_num, $col_num)) {
-            throw new \Exception('Cell '.$row_num.','.$col_num.' doesn\'t exist', SimpleExcelException::CELL_NOT_FOUND);
+     * {@inheritdoc}
+     *
+     * @param  int  $rowNum  Row number
+     * @param  int  $colNum  Column number
+     * @param  bool $valOnly Returns (value only or complete data) for every cell, default to true [Optional]
+     * @return array
+     *
+     * @throws \Exception If the cell identified doesn't exist.
+     */
+    public function getCell($rowNum, $colNum, $valOnly = true)
+    {
+        if (!$this->isCellExists($rowNum, $colNum)) {
+            throw new \Exception(
+                sprintf("Cell %s,%s doesn't exist", $rowNum, $colNum),
+                SimpleExcelException::CELL_NOT_FOUND
+            );
         }
-        if(is_array($this->table_arr['table_contents'][$row_num-1]['row_contents'])){
-            if(array_key_exists($col_num-1, $this->table_arr['table_contents'][$row_num-1]['row_contents'])){
-                $cell = $this->table_arr['table_contents'][$row_num-1]['row_contents'][$col_num-1];
-                if(!$val_only){
+
+        if (is_array($this->table_arr['table_contents'][$rowNum - 1]['row_contents'])) {
+            if (array_key_exists($colNum - 1, $this->table_arr['table_contents'][$rowNum - 1]['row_contents'])) {
+                $cell = $this->table_arr['table_contents'][$rowNum - 1]['row_contents'][$colNum - 1];
+                if (!$valOnly) {
                     return $cell;
                 } else {
                     return $cell['value'];
                 }
             }
         }
-        return "";
+
+        return [];
     }
 
     /**
-    * Get data of the specified column as an array
-    * 
-    * @param    int     $col_num    Column number
-    * @param    bool    $val_only   Returns (value only | complete data) for every cell, default to TRUE
-    * @return   array
-    * @throws   Exception           If the column requested doesn't exist.
-    */
-    public function getColumn($col_num, $val_only = TRUE) {
-        $col_arr = array();
+     * {@inheritdoc}
+     *
+     * @param int  $colNum  Column number
+     * @param bool $valOnly Returns (value only or complete data) for every cell, default to true [Optional]
+     *
+     * @return array
+     *
+     * @throws \Exception If the column requested doesn't exist.
+     */
+    public function getColumn($colNum, $valOnly = true)
+    {
+        $colArr = array();
 
-        if (!$this->isColumnExists($col_num)) {
-            throw new \Exception('Column '.$col_num.' doesn\'t exist', SimpleExcelException::COLUMN_NOT_FOUND);
+        if (!$this->isColumnExists($colNum)) {
+            throw new \Exception(
+                sprintf("Column %s doesn't exist", $colNum),
+                SimpleExcelException::COLUMN_NOT_FOUND
+            );
         }
 
-        // get the specified column within every row
         foreach ($this->table_arr['table_contents'] as $row) {
             if ($row['row_contents']) {
-                if(!$val_only) {
-                    array_push($col_arr, $row['row_contents'][$col_num-1]);
+                if (!$valOnly) {
+                    array_push($colArr, $row['row_contents'][$colNum - 1]);
                 } else {
-                    array_push($col_arr, $row['row_contents'][$col_num-1]['value']);
+                    array_push($colArr, $row['row_contents'][$colNum - 1]['value']);
                 }
-            } else {
-                array_push($col_arr, "");
             }
+
+            array_push($colArr, '');
         }
 
-        // return the array
-        return $col_arr;
+        return $colArr;
     }
 
     /**
     * Get data of all cells as an array
-    * 
+    *
     * @param    bool    $val_only   Returns (value only | complete data) for every cell, default to TRUE
     * @return   array
     * @throws   Exception   If the field is not set.
     */
     public function getField($val_only = TRUE) {
         if (!$this->isFieldExists()) {
-            throw new \Exception('Field is not set', SimpleExcelException::FIELD_NOT_FOUND);           
+            throw new \Exception('Field is not set', SimpleExcelException::FIELD_NOT_FOUND);
         }
         if($val_only){
             $field = array();
@@ -127,36 +137,40 @@ class XMLParser extends BaseParser implements IParser
     }
 
     /**
-    * Get data of the specified row as an array
-    * 
-    * @param    int     $row_num    Row number
-    * @param    bool    $val_only   Returns (value only | complete data) for every cell, default to TRUE
-    * @return   array
-    * @throws   Exception           When a row is requested that doesn't exist.
-    */
-    public function getRow($row_num, $val_only = TRUE) {
-        if (!$this->isRowExists($row_num)) {
-            throw new \Exception('Row '.$row_num.' doesn\'t exist', SimpleExcelException::ROW_NOT_FOUND);
+     * {@inheritdoc}
+     *
+     * @param int $rowNum   Row number
+     * @param bool $valOnly Returns (value only or complete data) for every cell, default to true [Optional]
+     * @return array
+     *
+     * @throws \Exception When a row is requested that doesn't exist.
+     */
+    public function getRow($rowNum, $valOnly = true)
+    {
+        if (!$this->isRowExists($rowNum)) {
+            throw new \Exception(
+                sprintf("Row %s doesn't exist", $rowNum),
+                SimpleExcelException::ROW_NOT_FOUND
+            );
         }
-        $row = $this->table_arr['table_contents'][$row_num-1]['row_contents'];
+
+        $row = $this->table_arr['table_contents'][$rowNum - 1]['row_contents'];
         $row_arr = array();
 
-        // get the specified column within every row 
         foreach ($row as $cell) {
-            if (!$val_only) {
+            if (!$rowNum) {
                 array_push($row_arr, $cell);
             } else {
                 array_push($row_arr, $cell['value']);
             }
         }
 
-        // return the array, if empty then return FALSE
         return $row_arr;
     }
-    
+
     /**
     * Check whether a specified column exists
-    * 
+    *
     * @param    int     $col_num    Column number
     * @return   bool
     */
@@ -171,10 +185,10 @@ class XMLParser extends BaseParser implements IParser
         }
         return $exist;
     }
-    
+
     /**
     * Check whether a specified row exists
-    * 
+    *
     * @param    int     $row_num    Row number
     * @return   bool
     */
@@ -190,7 +204,7 @@ class XMLParser extends BaseParser implements IParser
      * @return bool
     */
     private function parseDOM($xml){
-    
+
         // get XML namespace
         $xmlns = $xml->getDocNamespaces();
 
@@ -236,7 +250,7 @@ class XMLParser extends BaseParser implements IParser
             $col_num = 1;
 
             // loop through all row's cells
-            foreach ($cells as $cell) {	
+            foreach ($cells as $cell) {
 
                 // check whether ss:Index attribute exist
                 $cell_index = $cell->xpath('@ss:Index');
@@ -262,7 +276,7 @@ class XMLParser extends BaseParser implements IParser
                 //$cell_attrs_arr = $this->getAttributes($cell_attrs);
                 $data_attrs = $cell->Data->xpath('@ss:*');
                 $data_attrs_arr = $this->getAttributes($data_attrs);
-                $cell_datatype = $data_attrs_arr['Type']; 
+                $cell_datatype = $data_attrs_arr['Type'];
 
                 // extract data from cell
                 $cell_value = (string) $cell->Data;
@@ -293,7 +307,7 @@ class XMLParser extends BaseParser implements IParser
 
         return true;
     }
-    
+
     /**
      * Load the XML file to be parsed
      *
@@ -301,14 +315,14 @@ class XMLParser extends BaseParser implements IParser
      * @return bool
      */
     public function loadFile($file_path) {
-    
+
         if (!$this->isFileReady($file_path)) {
             return false;
         }
 
         return $this->parseDOM(simplexml_load_file($file_path));
     }
-    
+
     /**
      * Load the string to be parsed
      *
