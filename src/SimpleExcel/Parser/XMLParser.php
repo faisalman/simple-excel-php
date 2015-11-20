@@ -5,7 +5,6 @@ namespace SimpleExcel\Parser;
 use SimpleExcel\Enums\Datatype;
 use SimpleExcel\Enums\SimpleExcelException;
 use SimpleExcel\Spreadsheet\Cell;
-use SimpleExcel\Spreadsheet\Workbook;
 use SimpleExcel\Spreadsheet\Worksheet;
 
 /**
