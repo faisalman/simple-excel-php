@@ -1,5 +1,5 @@
 <?php
- 
+
 namespace SimpleExcel\Parser;
 
 use SimpleExcel\Enums\Datatype;
@@ -10,7 +10,7 @@ use SimpleExcel\Spreadsheet\Worksheet;
 
 /**
  * SimpleExcel class for parsing Microsoft Excel XLSX Spreadsheet
- *  
+ *
  * @author  Faisalman
  * @package SimpleExcel
  */
@@ -18,7 +18,7 @@ class XLSXParser extends BaseParser
 {
     /**
     * Defines valid file extension
-    * 
+    *
     * @access   protected
     * @var      string
     */
@@ -26,7 +26,7 @@ class XLSXParser extends BaseParser
 
     /**
     * Load the file to be parsed
-    * 
+    *
     * @param    string  $file_path  Path to file
     * @param    array   $options    Options
     * @throws   Exception           If file being loaded doesn't exist
@@ -35,11 +35,11 @@ class XLSXParser extends BaseParser
     */
     public function loadFile ($file_path, $options = NULL) {
         if ($this->checkFile($file_path)) {
-            
+
             // read uncompressed xlsx contents
             $zip = zip_open($file_path);
             $xml_worksheets = array();
-            $xml_sharedstrings = array(); 
+            $xml_sharedstrings = array();
             while($zip_entry = zip_read($zip))
             {
                 if(preg_match("/xl\/worksheets\/sheet\d+\.xml/", zip_entry_name($zip_entry)))
@@ -66,7 +66,7 @@ class XLSXParser extends BaseParser
                 }
             }
             zip_close($zip);
-            
+
             // map sheets <-> sharedstrings into simpleexcel workbook
             $this->Workbook = new Workbook();
             foreach ($xml_worksheets as $worksheet) {
