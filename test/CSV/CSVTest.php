@@ -10,14 +10,14 @@ class CSVTest extends PHPUnit_Framework_TestCase
         $excel2 = new SimpleExcel();
         $excel2->constructParser('CSV');
         $this->assertEquals($excel->parser, $excel2->parser);
+
         return $excel;
     }
 
-    /**
-     * @depends testConstruct
-     */
-    public function testParser(SimpleExcel $excel)
+    public function testParser()
     {
+        $excel = new SimpleExcel('CSV');
+
         $excel->parser->loadFile('test/CSV/test.csv');
         $this->assertEquals('ID', $excel->parser->getCell(1, 1));
         $this->assertEquals('Kab. Cianjur', $excel->parser->getCell(3, 2));
@@ -25,11 +25,10 @@ class CSVTest extends PHPUnit_Framework_TestCase
         $this->assertEquals(array('Kode Wilayah', '1', '1', '1', '2', '3'), $excel->parser->getColumn(3));
     }
 
-    /**
-     * @depends testConstruct
-     */
-    public function testWriter(SimpleExcel $excel)
+    public function testWriter()
     {
+        $excel = new SimpleExcel('CSV');
+
         $excel->writer->setData(
             array(
                 array('ID', 'Nama', 'Kode Wilayah'),

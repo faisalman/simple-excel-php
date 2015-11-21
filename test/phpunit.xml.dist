@@ -1,6 +1,10 @@
 <?xml version="1.0" encoding="UTF-8"?>
 
 <phpunit
+        xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance"
+        xsi:noNamespaceSchemaLocation="http://schema.phpunit.de/4.5/phpunit.xsd"
+        backupGlobals="true"
+        backupStaticAttributes="false"
         bootstrap="./Bootstrap.php"
         colors="true"
         convertErrorsToExceptions="true"
@@ -8,7 +12,8 @@
         convertWarningsToExceptions="true"
         strict-coverage="true"
         report-useless-tests="true"
-        enforce-time-limit="true">
+        enforce-time-limit="true"
+        verbose="true">
 
     <testsuites>
         <testsuite name="SimpleExcel CSV Test Suite">
@@ -24,7 +29,7 @@
 
     <filter>
         <whitelist addUncoveredFilesFromWhitelist="true">
-            <directory suffix=".php">./</directory>
+            <directory suffix=".php">../src/</directory>
             <exclude>
                 <directory>./</directory>
             </exclude>
