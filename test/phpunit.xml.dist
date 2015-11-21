@@ -1,0 +1,38 @@
+<?xml version="1.0" encoding="UTF-8"?>
+
+<phpunit
+        xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance"
+        xsi:noNamespaceSchemaLocation="http://schema.phpunit.de/4.5/phpunit.xsd"
+        backupGlobals="true"
+        backupStaticAttributes="false"
+        bootstrap="./Bootstrap.php"
+        colors="true"
+        convertErrorsToExceptions="true"
+        convertNoticesToExceptions="true"
+        convertWarningsToExceptions="true"
+        strict-coverage="true"
+        report-useless-tests="true"
+        enforce-time-limit="true"
+        verbose="true">
+
+    <testsuites>
+        <testsuite name="SimpleExcel CSV Test Suite">
+            <directory>./CSV</directory>
+        </testsuite>
+        <testsuite name="SimpleExcel JSON Test Suite">
+            <directory>./JSON</directory>
+        </testsuite>
+        <testsuite name="SimpleExcel HTML Test Suite">
+            <directory>./HTML</directory>
+        </testsuite>
+    </testsuites>
+
+    <filter>
+        <whitelist addUncoveredFilesFromWhitelist="true">
+            <directory suffix=".php">../src/</directory>
+            <exclude>
+                <directory>./</directory>
+            </exclude>
+        </whitelist>
+    </filter>
+</phpunit>
