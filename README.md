@@ -3,7 +3,7 @@
 [![Build Status](https://img.shields.io/travis/sergeyklay/simple-excel-php/master.svg?style=flat-square)](https://travis-ci.org/sergeyklay/simple-excel-php)
 [![Latest Version](https://img.shields.io/packagist/v/sergeyklay/simple-excel-php.svg?style=flat-square)](https://github.com/phalcon/sergeyklay/simple-excel-php)
 [![Software License](https://img.shields.io/packagist/l/sergeyklay/simple-excel-php.svg?style=flat-square)](LICENSE.md)
-[![Daily Downloads](https://img.shields.io/packagist/dd/sergeyklay/simple-excel-php.svg?style=flat-square)](https://packagist.org/packages/sergeyklay/simple-excel-php)
+[![Total Downloads](https://img.shields.io/packagist/dt/sergeyklay/simple-excel-php.svg?style=flat-square)](https://packagist.org/packages/sergeyklay/simple-excel-php)
 
 Easily parse, convert and write between Microsoft Excel formats.
 
@@ -32,7 +32,7 @@ $excel->writer->saveFile('example');
 Testing
 
 ```sh
-$ phpunit --configuration test/phpunit.xml
+$ phpunit --configuration test/phpunit.xml.dist
 ```
 
 ## License
