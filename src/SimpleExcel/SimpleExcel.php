@@ -35,7 +35,18 @@
 
 namespace SimpleExcel;
 
+use Exception;
 use  SimpleExcel\Exception\SimpleExcelException;
+use SimpleExcel\Parser\CSVParser;
+use SimpleExcel\Parser\HTMLParser;
+use SimpleExcel\Parser\JSONParser;
+use SimpleExcel\Parser\TSVParser;
+use SimpleExcel\Parser\XMLParser;
+use SimpleExcel\Writer\CSVWriter;
+use SimpleExcel\Writer\HTMLWriter;
+use SimpleExcel\Writer\JSONWriter;
+use SimpleExcel\Writer\TSVWriter;
+use SimpleExcel\Writer\XMLWriter;
 
 if (!class_exists('Composer\\Autoload\\ClassLoader', false)){
     // autoload all interfaces & classes
