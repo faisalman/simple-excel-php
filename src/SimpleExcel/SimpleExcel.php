@@ -122,6 +122,30 @@ class SimpleExcel
         $this->writer->setData($this->parser->getField());
     }
 
+	/**
+	*Convert CSV file into a JSON format
+	*
+	*@param		string	$file	Set the file to be converted to JSON	
+	*/
+	public function convertCSVtoJson($file){
+		
+		$this->parser->loadFile($file);
+		$fields_array = $this->parser->getField();
+		
+		$json_output_array = array();
+		$keys_array = $fields_array[0];
+		
+		for($i = 1;$i < count($fields_array);$i++){
+			
+			$temp_array = array_combine($keys_array,$fields_array[$i]);
+			array_push($json_output_array,$temp_array);
+			
+		}
+		
+		return json_encode($json_output_array);
+		
+	}
+	
     /**
      * Autoloader
      *
