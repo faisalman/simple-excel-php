@@ -4,10 +4,10 @@ php:
   - 5.4
   - 5.3
 
-#before_script:
-#  - "mkdir -p ~/.composer"
-#  - composer self-update
-#  - composer install
+before_script:
+  - "mkdir -p ~/.composer"
+  - composer self-update
+  - composer install
 
 script: phpunit --configuration test/phpunit.xml
 
