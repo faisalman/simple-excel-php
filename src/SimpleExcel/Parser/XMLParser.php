@@ -29,6 +29,9 @@ class XMLParser extends BaseParser implements IParser
     */
     private function getAttributes($attrs_obj) {
         $attrs_arr = array();
+        if (!$attrs_obj) {
+            return $attrs_arr;
+        }
         foreach ($attrs_obj as $attrs) {
             $attrs = (array) $attrs;
             foreach ($attrs as $attr) {
@@ -262,7 +265,7 @@ class XMLParser extends BaseParser implements IParser
                 //$cell_attrs_arr = $this->getAttributes($cell_attrs);
                 $data_attrs = $cell->Data->xpath('@ss:*');
                 $data_attrs_arr = $this->getAttributes($data_attrs);
-                $cell_datatype = $data_attrs_arr['Type']; 
+                $cell_datatype = isset($data_attrs_arr['Type']) ? $data_attrs_arr['Type'] : 'String';
 
                 // extract data from cell
                 $cell_value = (string) $cell->Data;
