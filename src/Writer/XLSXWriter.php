@@ -1,12 +1,12 @@
 <?php
 
-namespace SimpleExcel\Writer;
+namespace Faisalman\SimpleExcel\Writer;
 
 /**
  * SimpleExcel class for writing Microsoft Excel XLSX Spreadsheet
  *  
- * @author  Faisalman
- * @package SimpleExcel
+ * @author  Faisal Salman
+ * @package Faisalman\SimpleExcel
  */
 class XLSXWriter extends BaseWriter
 {

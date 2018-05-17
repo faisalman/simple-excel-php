@@ -1,15 +1,15 @@
 <?php
 
-namespace SimpleExcel\Spreadsheet;
+namespace Faisalman\SimpleExcel\Spreadsheet;
 
-use SimpleExcel\Enums\Datatype;
-use SimpleExcel\Enums\SimpleExcelException;
+use Faisalman\SimpleExcel\Enums\Datatype;
+use Faisalman\SimpleExcel\Enums\SimpleExcelException;
 
 /**
  * SimpleExcel struct for cell
  * 
- * @author  Faisalman
- * @package SimpleExcel
+ * @author  Faisal Salman
+ * @package Faisalman\SimpleExcel
  */
 
 /** define cell struct */

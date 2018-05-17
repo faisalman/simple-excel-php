@@ -1,12 +1,12 @@
 <?php
 
-namespace SimpleExcel\Enums;
+namespace Faisalman\SimpleExcel\Enums;
 
 /**
  * Defines SimpleExcel exception enum
  * 
- * @author  Faisalman
- * @package SimpleExcel
+ * @author  Faisal Salman
+ * @package Faisalman\SimpleExcel
  */
 
 /** define exception enum */

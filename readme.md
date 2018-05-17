@@ -11,25 +11,8 @@ Easily parse / convert / write between Microsoft Excel XML / CSV / TSV / HTML / 
 
 ## Usage
 
-### Prior to version 0.4:
-
 ```php
-use SimpleExcel\SimpleExcel
-
-$excel = new SimpleExcel('CSV');
-$excel->parser->loadFile('test.csv');
-
-echo $excel->parser->getCell(1, 1);
-
-$excel->convertTo('JSON');
-$excel->writer->addRow(array('add', 'another', 'row')); // insert more record
-$excel->writer->saveFile('example');
-```
-
-### New API
-
-```php
-use SimpleExcel\SimpleExcel
+use Faisalman\SimpleExcel\SimpleExcel
 
 $excel = new SimpleExcel();
 $excel->loadFile('test.csv', 'CSV');
@@ -37,7 +20,7 @@ $excel->loadFile('test.csv', 'CSV');
 print_r($excel->getWorksheet(1)->getCell(1, 1));
 
 $excel->getWorksheet(1)->insertRecord(array('add', 'another', 'row')); // insert more record
-$excel->exportFile('/home/faisalman/Downloads/saved.json', 'JSON');
+$excel->exportFile('~/Downloads/saved.json', 'JSON');
 ```
 
 ## Development
@@ -47,7 +30,8 @@ $excel->exportFile('/home/faisalman/Downloads/saved.json', 'JSON');
 Testing
 
 ```sh
-$ phpunit --configuration test/phpunit.xml
+$ composer install
+$ ./vendor/bin/phpunit --bootstrap vendor/autoload.php test
 ```
 
 What's still missing:
@@ -56,7 +40,7 @@ What's still missing:
 
 ## License
 
-Copyright (c) 2011-2013 Faisalman <<fyzlman@gmail.com>>
+Copyright (c) 2011-2018 Faisal Salman <<f@faisalman.com>>
 
 Permission is hereby granted, free of charge, to any person obtaining a copy
 of this software and associated documentation files (the "Software"), to deal

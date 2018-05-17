@@ -1,7 +1,7 @@
 <?php
 
-use SimpleExcel\SimpleExcel;
-use SimpleExcel\Spreadsheet\Cell;
+use Faisalman\SimpleExcel\SimpleExcel;
+use Faisalman\SimpleExcel\Spreadsheet\Cell;
 
 //require_once('src/SimpleExcel/SimpleExcel.php');
 

@@ -1,12 +1,12 @@
 <?php
  
-namespace SimpleExcel\Parser;
+namespace Faisalman\SimpleExcel\Parser;
 
 /**
  * SimpleExcel class for parsing Microsoft Excel TSV Spreadsheet
  *  
- * @author  Faisalman
- * @package SimpleExcel
+ * @author  Faisal Salman
+ * @package Faisalman\SimpleExcel
  */
 class TSVParser extends CSVParser
 {

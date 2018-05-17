@@ -1,14 +1,14 @@
 <?php
 
-namespace SimpleExcel\Writer;
+namespace Faisalman\SimpleExcel\Writer;
 
-use SimpleExcel\Spreadsheet\Cell;
+use Faisalman\SimpleExcel\Spreadsheet\Cell;
 
 /**
  * SimpleExcel class for writing table as JSON
  *  
- * @author  Faisalman
- * @package SimpleExcel
+ * @author  Faisal Salman
+ * @package Faisalman\SimpleExcel
  */
 class JSONWriter extends BaseWriter
 {

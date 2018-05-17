@@ -1,12 +1,12 @@
 <?php
 
-namespace SimpleExcel\Writer;
+namespace Faisalman\SimpleExcel\Writer;
 
 /**
  * Defines SimpleExcel writer interface
  * 
- * @author  Faisalman
- * @package SimpleExcel
+ * @author  Faisal Salman
+ * @package Faisalman\SimpleExcel
  */
 
 /** define writer interface */

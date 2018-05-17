@@ -5,7 +5,7 @@
  * A PHP library with simplistic approach
  * Easily parse/convert/write between Microsoft Excel XML/CSV/TSV/HTML/JSON/etc formats
  *  
- * Copyright (c) 2011-2013 Faisalman <fyzlman@gmail.com>
+ * Copyright (c) 2011-2018 Faisal Salman <f@faisalman.com>
  *
  * Permission is hereby granted, free of charge, to any person obtaining a copy
  * of this software and associated documentation files (the "Software"), to deal
@@ -25,32 +25,32 @@
  * OUT OF OR IN CONNECTION WITH THE SOFTWARE OR THE USE OR OTHER DEALINGS IN
  * THE SOFTWARE.
  * 
- * @author      Faisalman
- * @copyright   2011-2013 (c) Faisalman
+ * @author      Faisal Salman
+ * @copyright   2011-2018 (c) Faisal Salman
  * @license     http://www.opensource.org/licenses/mit-license
  * @link        http://github.com/faisalman/simple-excel-php
- * @package     SimpleExcel
- * @version     0.4.0-beta
+ * @package     Faisalman\SimpleExcel
+ * @version     0.5.0-beta
  */
 
-namespace SimpleExcel;
+namespace Faisalman\SimpleExcel;
 
-use SimpleExcel\Enums\SimpleExcelException;
-use SimpleExcel\Spreadsheet\Workbook;
-use SimpleExcel\Spreadsheet\Worksheet;
+use Faisalman\SimpleExcel\Enums\SimpleExcelException;
+use Faisalman\SimpleExcel\Spreadsheet\Workbook;
+use Faisalman\SimpleExcel\Spreadsheet\Worksheet;
 
 if (!class_exists('Composer\\Autoload\\ClassLoader', false)){
     // autoload all interfaces & classes
     spl_autoload_register(function($class_name){
-        if($class_name != 'SimpleExcel') require_once(dirname(__FILE__).DIRECTORY_SEPARATOR.str_replace('\\', DIRECTORY_SEPARATOR, substr($class_name, strlen('SimpleExcel\\'))).'.php');
+        if($class_name != 'SimpleExcel') require_once(dirname(__FILE__).DIRECTORY_SEPARATOR.str_replace('\\', DIRECTORY_SEPARATOR, substr($class_name, strlen('Faisalman\\SimpleExcel\\'))).'.php');
     });
 }
 
 /**
  * SimpleExcel main class
  * 
- * @author Faisalman
- * @package SimpleExcel
+ * @author Faisal Salman
+ * @package Faisalman\SimpleExcel
  */
 class SimpleExcel
 {
@@ -196,7 +196,7 @@ class SimpleExcel
             if(!in_array($filetype, $this->validParserTypes)){
                 throw new \Exception('Filetype '.$filetype.' is not supported', SimpleExcelException::FILETYPE_NOT_SUPPORTED);
             }
-            $parser_class = 'SimpleExcel\\Parser\\'.$filetype.'Parser';
+            $parser_class = 'Faisalman\\SimpleExcel\\Parser\\'.$filetype.'Parser';
             $this->parser = new $parser_class($this->workbook);
             $this->parserType = $filetype;
         }
@@ -214,7 +214,7 @@ class SimpleExcel
             if(!in_array($filetype, $this->validWriterTypes)) {
                 throw new \Exception('Filetype '.$filetype.' is not supported', SimpleExcelException::FILETYPE_NOT_SUPPORTED);
             }
-            $writer_class = 'SimpleExcel\\Writer\\'.$filetype.'Writer';
+            $writer_class = 'Faisalman\\SimpleExcel\\Writer\\'.$filetype.'Writer';
             $this->writer = new $writer_class($this->workbook);
             $this->writerType = $filetype;
         }

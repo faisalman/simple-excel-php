@@ -1,15 +1,15 @@
 <?php
 
-namespace SimpleExcel\Writer;
+namespace Faisalman\SimpleExcel\Writer;
 
-use SimpleExcel\Enums\SimpleExcelException;
-use SimpleExcel\Spreadsheet\Workbook;
+use Faisalman\SimpleExcel\Enums\SimpleExcelException;
+use Faisalman\SimpleExcel\Spreadsheet\Workbook;
 
 /**
  * SimpleExcel base class for writing spreadsheet
  *  
- * @author  Faisalman
- * @package SimpleExcel
+ * @author  Faisal Salman
+ * @package Faisalman\SimpleExcel
  */
 abstract class BaseWriter implements IWriter
 {

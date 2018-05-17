@@ -26,6 +26,6 @@
         "phpunit/phpunit": "^6"
     },
     "autoload": {
-        "psr-0": {"SimpleExcel\\": "src/"}
+        "psr-4": {"Faisalman\\SimpleExcel\\": "src/"}
     }
 }

@@ -1,16 +1,16 @@
 <?php
 
-namespace SimpleExcel\Parser;
+namespace Faisalman\SimpleExcel\Parser;
 
-use SimpleExcel\Enums\SimpleExcelException;
-use SimpleExcel\Spreadsheet\Workbook;
-use SimpleExcel\Spreadsheet\Worksheet;
+use Faisalman\SimpleExcel\Enums\SimpleExcelException;
+use Faisalman\SimpleExcel\Spreadsheet\Workbook;
+use Faisalman\SimpleExcel\Spreadsheet\Worksheet;
 
 /**
  * SimpleExcel class for parsing HTML table
  *  
- * @author  Faisalman
- * @package SimpleExcel
+ * @author  Faisal Salman
+ * @package Faisalman\SimpleExcel
  */ 
 class HTMLParser extends BaseParser implements IParser
 {

@@ -1,18 +1,18 @@
 <?php
 
-namespace SimpleExcel\Parser;
+namespace Faisalman\SimpleExcel\Parser;
 
-use SimpleExcel\Enums\Datatype;
-use SimpleExcel\Enums\SimpleExcelException;
-use SimpleExcel\Spreadsheet\Cell;
-use SimpleExcel\Spreadsheet\Workbook;
-use SimpleExcel\Spreadsheet\Worksheet;
+use Faisalman\SimpleExcel\Enums\Datatype;
+use Faisalman\SimpleExcel\Enums\SimpleExcelException;
+use Faisalman\SimpleExcel\Spreadsheet\Cell;
+use Faisalman\SimpleExcel\Spreadsheet\Workbook;
+use Faisalman\SimpleExcel\Spreadsheet\Worksheet;
 
 /**
  * SimpleExcel class for parsing Microsoft Excel 2003 XML Spreadsheet
  *  
- * @author  Faisalman
- * @package SimpleExcel
+ * @author  Faisal Salman
+ * @package Faisalman\SimpleExcel
  */ 
 class XMLParser extends BaseParser
 {    

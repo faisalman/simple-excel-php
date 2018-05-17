@@ -1,12 +1,12 @@
 <?php
 
-namespace SimpleExcel\Writer;
+namespace Faisalman\SimpleExcel\Writer;
 
 /**
  * SimpleExcel class for writing TSV Spreadsheet
  *  
- * @author  Faisalman
- * @package SimpleExcel
+ * @author  Faisal Salman
+ * @package Faisalman\SimpleExcel
  */
 class TSVWriter extends CSVWriter
 {

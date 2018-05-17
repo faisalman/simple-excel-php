@@ -1,8 +1,8 @@
 <?php
 
-use SimpleExcel\SimpleExcel;
-use SimpleExcel\Spreadsheet\Cell;
-use SimpleExcel\Spreadsheet\Worksheet;
+use Faisalman\SimpleExcel\SimpleExcel;
+use Faisalman\SimpleExcel\Spreadsheet\Cell;
+use Faisalman\SimpleExcel\Spreadsheet\Worksheet;
 
 //require_once('src/SimpleExcel/SimpleExcel.php');
 

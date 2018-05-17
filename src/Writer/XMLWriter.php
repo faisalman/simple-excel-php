@@ -1,14 +1,14 @@
 <?php
 
-namespace SimpleExcel\Writer;
+namespace Faisalman\SimpleExcel\Writer;
 
-use SimpleExcel\Enums\Datatype;
+use Faisalman\SimpleExcel\Enums\Datatype;
 
 /**
  * SimpleExcel class for writing Microsoft Excel 2003 XML Spreadsheet
  *  
- * @author  Faisalman
- * @package SimpleExcel
+ * @author  Faisal Salman
+ * @package Faisalman\SimpleExcel
  */
 class XMLWriter extends BaseWriter
 {

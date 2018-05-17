@@ -1,12 +1,12 @@
 <?php
  
-namespace SimpleExcel\Parser;
+namespace Faisalman\SimpleExcel\Parser;
 
 /**
  * Defines SimpleExcel parser interface
  * 
- * @author  Faisalman
- * @package SimpleExcel
+ * @author  Faisal Salman
+ * @package Faisalman\SimpleExcel
  */
 
 /** define parser interface */

@@ -1,14 +1,14 @@
 <?php
 
-namespace SimpleExcel\Spreadsheet;
+namespace Faisalman\SimpleExcel\Spreadsheet;
 
-use SimpleExcel\Enums\SimpleExcelException;
+use Faisalman\SimpleExcel\Enums\SimpleExcelException;
 
 /**
  * SimpleExcel class for constructing worksheet
  *  
- * @author  Faisalman
- * @package SimpleExcel
+ * @author  Faisal Salman
+ * @package Faisalman\SimpleExcel
  */ 
 class Worksheet
 {
