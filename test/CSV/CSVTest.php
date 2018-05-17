@@ -4,9 +4,9 @@ use SimpleExcel\SimpleExcel;
 use SimpleExcel\Spreadsheet\Cell;
 use SimpleExcel\Spreadsheet\Worksheet;
 
-require_once('src/SimpleExcel/SimpleExcel.php');
+//require_once('src/SimpleExcel/SimpleExcel.php');
 
-class CSVTest extends PHPUnit_Framework_TestCase
+class CSVTest extends PHPUnit\Framework\TestCase
 {
     public function testParser()
     {

@@ -3,9 +3,9 @@
 use SimpleExcel\SimpleExcel;
 use SimpleExcel\Spreadsheet\Cell;
 
-require_once('src/SimpleExcel/SimpleExcel.php');
+//require_once('src/SimpleExcel/SimpleExcel.php');
 
-class JSONTest extends PHPUnit_Framework_TestCase
+class JSONTest extends PHPUnit\Framework\TestCase
 {
     public function testParser()
     {

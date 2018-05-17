@@ -1,34 +1,33 @@
 <?php
 
 use SimpleExcel\SimpleExcel;
+use SimpleExcel\Spreadsheet\Cell;
+use SimpleExcel\Spreadsheet\Worksheet;
 
-require_once('src/SimpleExcel/SimpleExcel.php');
+//require_once('src/SimpleExcel/SimpleExcel.php');
 
-class HTMLTest extends PHPUnit_Framework_TestCase
+class HTMLTest extends PHPUnit\Framework\TestCase
 {
-    public function testConstruct()
+    public function testParser()
     {
-        $excel = new SimpleExcel('HTML');
-        return $excel;
-    }
-
-    /**
-     * @depends testConstruct
-     */
-    public function testParser(SimpleExcel $excel)
-    {
-        $excel->parser->loadFile('test/HTML/test.html');
-        $this->assertEquals(array('ID', 'Nama', 'Kode Wilayah'), $excel->parser->getRow(1));
-        $this->assertEquals(array('1', 'Kab. Bogor', '1'), $excel->parser->getRow(2));
+        $excel = new SimpleExcel();
+        $excel->loadFile('test/HTML/test.html', 'HTML');
+        $this->assertEquals(array(new Cell('ID'), new Cell('Nama'), new Cell('Kode Wilayah')), $excel->getWorksheet(1)->getRecord(1));
+        $this->assertEquals(array(new Cell('1'), new Cell('Kab. Bogor'), new Cell('1')), $excel->getWorksheet(1)->getRecord(2));
     }
     
-    /**
-     * @depends testConstruct
-     */
-    public function testWriter(SimpleExcel $excel)
+    public function testWriter()
     {
-        $excel->writer->addRow(array('ID', 'Nama', 'Kode Wilayah'));
-        $this->assertEquals('<table><tr><td>ID</td><td>Nama</td><td>Kode Wilayah</td></tr></table>', $excel->writer->saveString());
+        $excel = new SimpleExcel('HTML');
+        $excel->insertWorksheet(new Worksheet);
+        $excel->getWorksheet(1)->insertRecord(array('ID', 'Nama', 'Kode Wilayah'));
+        $this->assertEquals('<table>
+ <tr>
+  <td>ID</td>
+  <td>Nama</td>
+  <td>Kode Wilayah</td>
+ </tr>
+</table>', $excel->toString('HTML'));
     }
 }
 
