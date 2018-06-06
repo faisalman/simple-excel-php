@@ -1,8 +1,33 @@
 # Simple Excel
 
-http://faisalman.github.com/simple-excel-php
-
 Easily parse / convert / write between Microsoft Excel XML / CSV / TSV / HTML / JSON / etc formats
+
+### For further deatails see the GitHuib Pages site: http://faisalman.github.com/simple-excel-php ###
+
+## PHP Versions Supported
+
+PHP >= 5.3
+
+## Installation
+If you're using Composer to manage libraries, include this package in your composer.json
+```json
+"require" : {
+    "faisalman/simple-excel-php" : "0.3.*"
+}
+```
+If you want to try version 0.4 (still in develop branch) you can use
+
+```json
+"require" : {
+    "faisalman/simple-excel-php" : "develop as 0.4.0-alpha"
+}
+```
+
+Or just load this library in your PHP project by including SimpleExcel.php
+
+```json
+require_once('../your/project/directory/here/lib/SimpleExcel/SimpleExcel.php');
+```
 
 ## Features
 
