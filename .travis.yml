@@ -4,7 +4,12 @@ php:
   - 5.4
   - 7.0
 
-script: composer test
+before_install:
+  - travis_retry composer self-update
+  - composer install
+
+script: 
+  - composer test
 
 notifications:
   email: false
