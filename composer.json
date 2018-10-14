@@ -27,5 +27,10 @@
     },
     "autoload": {
         "psr-4": {"Faisalman\\SimpleExcel\\": "src/"}
+    },
+    "scripts": {
+        "test": [
+            "./vendor/bin/phpunit test"
+        ]
     }
 }
