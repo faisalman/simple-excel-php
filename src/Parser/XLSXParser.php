@@ -25,6 +25,13 @@ class XLSXParser extends BaseParser
     protected $file_extension = 'xlsx';
 
     /**
+    * @param    Workbook    reference to workbook
+    */
+    public function __construct(&$workbook) {
+        $this->workbook = &$workbook;
+    }
+
+    /**
     * Load the file to be parsed
     * 
     * @param    string  $file_path  Path to file
@@ -68,20 +75,34 @@ class XLSXParser extends BaseParser
             zip_close($zip);
             
             // map sheets <-> sharedstrings into simpleexcel workbook
-            $this->Workbook = new Workbook();
+            $this->workbook = new Workbook();
             foreach ($xml_worksheets as $worksheet) {
                 $sheet = new Worksheet();
                 foreach ($worksheet['row'] as $row) {
                     $record = array();
                     foreach ($row['c'] as $cell) {
-                        if (array_key_exists('v', $cell) && array_key_exists($cell['v'], $xml_sharedstrings) && array_key_exists('t', $xml_sharedstrings[$cell['v']])) {
-                            array_push($record, new Cell($xml_sharedstrings[$cell['v']]['t']));
+                        if (array_key_exists('v', $cell)) {
+                            if (array_key_exists('t', $cell['@attributes']) && $cell['@attributes']['t'] == 's') {
+                                array_push($record, new Cell($xml_sharedstrings[$cell['v']]['t']));
+                            } else {
+                                array_push($record, new Cell($cell['v'], Datatype::NUMBER));
+                            }
                         }
                     }
                     $sheet->insertRecord($record);
                 }
-                $this->Workbook->insertWorksheet($sheet);
+                $this->workbook->insertWorksheet($sheet);
             }
         }
+    }
+
+    /**
+     * Load the string to be parsed
+     *
+     * @param    string  $str       String with XLSX format
+	 * @param    array   $options   Options
+     */
+    public function loadString ($str, $options = NULL) {
+        throw new \Exception('Method still unimplemented', SimpleExcelException::UNIMPLEMENTED_METHOD);
     }
 }
