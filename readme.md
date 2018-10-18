@@ -2,12 +2,16 @@
 
 http://faisalman.github.com/simple-excel-php
 
-Easily parse / convert / write between Microsoft Excel XML / CSV / TSV / HTML / JSON / etc formats
+Easily parse / convert / write between Microsoft Excel XML / CSV / TSV / HTML / JSON / XLSX / etc formats
 
 ## Features
 
-* Available parsers: Microsoft Excel 2003 XML, CSV, TSV, HTML, JSON
+* Available parsers: Microsoft Excel 2003 XML, CSV, TSV, HTML, JSON, XLSX
 * Available writers: Microsoft Excel 2003 XML, CSV, TSV, HTML, JSON
+
+## Requirement
+
+- PHP >= 7.0
 
 ## Usage
 
@@ -31,12 +35,13 @@ Testing
 
 ```sh
 $ composer install
-$ ./vendor/bin/phpunit --bootstrap vendor/autoload.php test
+$ composer test
 ```
 
 What's still missing:
 
-- Support XLSX format
+- Writer support for XLSX format
+- Writer & parser support for XLS / ODS formats
 
 ## License
 
