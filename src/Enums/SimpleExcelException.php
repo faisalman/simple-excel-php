@@ -25,4 +25,5 @@ abstract class SimpleExcelException
     const MALFORMED_JSON                = 10;
     const UNIMPLEMENTED_METHOD          = 11;
     const DEPRECATED_METHOD             = 12;
+    const ZIP_EXTENSION_NOT_FOUND       = 13;
 }

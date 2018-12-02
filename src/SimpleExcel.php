@@ -196,6 +196,9 @@ class SimpleExcel
             if(!in_array($filetype, $this->validParserTypes)){
                 throw new \Exception('Filetype '.$filetype.' is not supported', SimpleExcelException::FILETYPE_NOT_SUPPORTED);
             }
+            if($filetype == 'XLSX' && !class_exists('ZipArchive')){
+                throw new \Exception('Zip extension is not installed', SimpleExcelException::ZIP_EXTENSION_NOT_FOUND);
+            }
             $parser_class = 'Faisalman\\SimpleExcel\\Parser\\'.$filetype.'Parser';
             $this->parser = new $parser_class($this->workbook);
             $this->parserType = $filetype;
