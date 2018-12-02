@@ -22,6 +22,14 @@ Easily parse / convert / write between Microsoft Excel XML / CSV / TSV / HTML / 
 
 * PHP >= 7.0
 
+## Installation
+
+```sh
+$ composer require faisalman/simple-excel-php
+```
+
+## Methods
+
 ## Usage
 
 ```php
