@@ -4,15 +4,19 @@ https://faisalman.github.io/simple-excel-php
 
 Easily parse / convert / write between Microsoft Excel XML / CSV / TSV / HTML / JSON / XLSX / etc formats
 
-## Features
+## Supported Formats
 
-* Available parsers: Microsoft Excel 2003 XML, CSV, TSV, HTML, JSON, XLSX
-* Available writers: Microsoft Excel 2003 XML, CSV, TSV, HTML, JSON
-
-What's still missing:
-
-* Writer support for XLSX format
-* Writer & parser support for XLS / ODS formats
+| Format | Parser | Writer |
+| --- | --- | --- |
+| CSV | ✔️ | ✔️ |
+| HTML | ✔️ | ✔️ |
+| JSON | ✔️ | ✔️ |
+| ODS | ❌ | ❌ |
+| SQL | ❌ | ❌ |
+| TSV | ✔️ | ✔️ |
+| XLS | ❌ | ❌ |
+| XLSX | ✔️ | ❌ |
+| XML (Microsoft Excel 2003)| ✔️ | ✔️ |
 
 ## Requirement
 
