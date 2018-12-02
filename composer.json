@@ -1,15 +1,11 @@
 {
     "name": "faisalman/simple-excel-php",
-    "type": "library",
     "description": "Easily parse / convert / write between Microsoft Excel XML / CSV / TSV / HTML / JSON / etc formats",
+    "version": "0.5.0-dev",
+    "type": "library",
     "keywords": ["excel", "spreadsheet", "document", "xml", "csv", "tsv", "html", "json", "parser", "converter", "writer"],
-    "homepage": "http://faisalman.github.com/simple-excel-php",
-    "repositories": [
-        {
-            "type": "vcs",
-            "url": "https://github.com/faisalman/simple-excel-php.git"
-        }
-    ],
+    "homepage": "https://faisalman.github.io/simple-excel-php",
+    "readme": "readme.md",
     "license": "MIT",
     "authors": [
         {
@@ -28,9 +24,15 @@
     "autoload": {
         "psr-4": {"Faisalman\\SimpleExcel\\": "src/"}
     },
+    "repositories": [
+        {
+            "type": "vcs",
+            "url": "https://github.com/faisalman/simple-excel-php.git"
+        }
+    ],
     "scripts": {
         "test": [
-            "./vendor/bin/phpunit test"
+            "./vendor/bin/phpunit --testdox test"
         ]
     }
 }
