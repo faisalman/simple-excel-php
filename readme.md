@@ -36,7 +36,7 @@ $ composer require faisalman/simple-excel-php
 use Faisalman\SimpleExcel\SimpleExcel
 
 $excel = new SimpleExcel();
-$excel->loadFile('test.csv', 'CSV');
+$excel->loadFile('test.csv');
 
 print_r($excel->getWorksheet(1)->getCell(1, 1));
 

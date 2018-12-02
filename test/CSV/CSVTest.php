@@ -11,7 +11,7 @@ class CSVTest extends PHPUnit\Framework\TestCase
     public function testParser()
     {
         $excel = new SimpleExcel();
-        $excel->loadFile('test/CSV/test.csv', 'CSV');
+        $excel->loadFile('test/CSV/test.csv');
         
         $this->assertEquals('ID', $excel->getWorksheet(1)->getCell(1, 1)->value);
         $this->assertEquals('Kab. Cianjur', $excel->getWorksheet(1)->getCell(3, 2)->value);

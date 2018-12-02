@@ -11,7 +11,7 @@ class HTMLTest extends PHPUnit\Framework\TestCase
     public function testParser()
     {
         $excel = new SimpleExcel();
-        $excel->loadFile('test/HTML/test.html', 'HTML');
+        $excel->loadFile('test/HTML/test.html');
         $this->assertEquals(array(new Cell('ID'), new Cell('Nama'), new Cell('Kode Wilayah')), $excel->getWorksheet(1)->getRecord(1));
         $this->assertEquals(array(new Cell('1'), new Cell('Kab. Bogor'), new Cell('1')), $excel->getWorksheet(1)->getRecord(2));
     }

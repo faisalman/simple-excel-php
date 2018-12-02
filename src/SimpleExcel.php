@@ -158,7 +158,13 @@ class SimpleExcel
     * @throws   Exception           If file extension doesn't match
     * @throws   Exception           If error reading the file
     */
-    public function loadFile ($filePath, $fileType, $options = NULL) {
+    public function loadFile ($filePath, $fileType = NULL, $options = NULL) {
+        if (!isset($fileType)){
+            $fileType = strtoupper(pathinfo($filePath, PATHINFO_EXTENSION));
+            if(!in_array($fileType, $this->validParserTypes)) {
+                throw new \Exception('Filetype '.$fileType.' is not supported', SimpleExcelException::FILETYPE_NOT_SUPPORTED);
+            }
+        }
         $this->setParserType($fileType);
         $this->parser->loadFile($filePath, $options);
     }
