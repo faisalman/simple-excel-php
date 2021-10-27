@@ -54,7 +54,7 @@ class XMLWriter extends BaseWriter implements IWriter
      * @param   array   $values An array contains ordered value for every cell
      * @return  void
      */
-    public function addRow($values){
+    public function addRow($values, $end = true){
         $row = &$this->tabl_data;
         $row .= '
     <Row ss:AutoFitHeight="0">';
